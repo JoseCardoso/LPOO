@@ -6,14 +6,14 @@ public class Labirinto {
 	static private boolean dragon = true;
 	static private boolean heroi = true;
 	static private int N;
-	
-	
+
+
 	public static void main(String[] args)
 	{
 		boolean exit = true;
 		getNumero();
 		createLab();
-		while(heroi&&(dragon || exit))
+		/*while(heroi&&(dragon || exit))
 		{
 			Scanner sc = new Scanner(System.in);
 			printLab();
@@ -32,12 +32,12 @@ public class Labirinto {
 				exit = false;
 			else
 				exit = true;
-		}
+		}*/
 		printLab();
-		if(!heroi)
+		/*if(!heroi)
 			System.out.println("\n\n\n\n\n\n\n\n\nMorrrrrrrrrrrreu!");
 		else
-			System.out.println("\n\n\n\n\n\n\n\n\nVitória!");
+			System.out.println("\n\n\n\n\n\n\n\n\nVitória!");*/
 	}
 
 	public static char getSpace(int x, int y)
@@ -101,7 +101,7 @@ public class Labirinto {
 		int y = r.nextInt(N-1) + 1;
 		int aux = -1;//ajuda para ir buscar um elemento aleatório à lista
 		List<Wall> lista = new ArrayList();
-		do
+		for(int index = 0; index < 50; index++)
 		{
 			if(aux != -1)//evitar a 1ª iteração
 			{
@@ -110,48 +110,80 @@ public class Labirinto {
 				x = a.getCood()[0];
 				y = a.getCood()[1];
 				it.remove();
-				
+
 			}
-			if(maze[y][x] == 'X')
+			if(getValidMaze(x,y))
 			{
-			maze[x][y] = ' ';
-			if(x == 1)
-			{
-				Wall a = new Wall(x+1,y);
-				lista.add(a);
-			}
-			else if(x == N-2)
-			{
-				Wall a = new Wall(x-1,y);
-				lista.add(a);
-			}
-			else
-			{
-				Wall a = new Wall(x-1,y);
-				Wall b = new Wall(x+1,y);
-				lista.add( b);
-				lista.add( a);
-			}
-			if(y == 1)
-			{
-				Wall a = new Wall(x,y+1);
-				lista.add( a);
-			}
-			else if(y == N-2)
-			{
-				Wall a =new Wall(x,y-1);
-				lista.add(a);
-			}
-			else
-			{
-				Wall a = new Wall(x,y+1);
-				Wall b =new Wall(x,y-1);
-				lista.add( a);
-				lista.add(b);
-			}
+				maze[x][y] = ' ';
+				if(x == 1)
+				{
+					if(maze[x+1][y] == 'X')
+					{
+						Wall a = new Wall(x+1,y);
+						lista.add(a);
+					}
+				}
+				else if(x == N-1)
+				{
+					if(maze[x-1][y] == 'X')
+					{
+						Wall a = new Wall(x-1,y);
+						lista.add(a);
+					}
+				}
+				else
+				{
+					if(maze[x+1][y] == 'X')
+					{
+						Wall b = new Wall(x+1,y);
+						lista.add( b);
+					}
+					if(maze[x-1][y] == 'X')
+					{
+						Wall a = new Wall(x-1,y);
+						lista.add(a);
+					}
+				}
+				if(y == 1)
+				{
+					if(maze[x][y+1] == 'X')
+					{
+						Wall a = new Wall(x,y+1);
+						lista.add( a);
+					}
+				}
+				else if(y == N-1)
+				{
+					if(maze[x][y-1] == 'X')
+					{
+						Wall a =new Wall(x,y-1);
+						lista.add(a);
+					}
+				}
+				else
+				{
+					if(maze[x][y+1] == 'X')
+					{
+						Wall a = new Wall(x,y+1);
+						lista.add( a);
+					}
+					if(maze[x][y-1] == 'X')
+					{
+						Wall b =new Wall(x,y-1);
+						lista.add(b);
+					}
+				}
 			}
 			aux = r.nextInt(lista.size());
-		}while(!lista.isEmpty());
+		}
+	}
+
+	public static boolean getValidMaze(int x, int y)
+	{
+		if(((maze[x][y-1] == ' ' )&& (maze[x][y+1] == ' ')) || ((maze[x-1][y] == ' ') &&( maze[x+1][y] == ' ') ))
+			return false;
+		else			
+			return true;
 	}
 
 	public static void getNumero()
