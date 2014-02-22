@@ -1,6 +1,6 @@
 import java.util.Random;
 
-
+//llalalal
 public class Dragon {
 	static private int x = 7, y = 8;
 
