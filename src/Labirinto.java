@@ -2,22 +2,29 @@ import java.util.*;
 
 
 public class Labirinto {
-	static private char[][] maze = new char[10][10];
-	static private boolean dragon = true;
-	static private boolean heroi = true;
-	static private int N;
-
+	private static char[][] maze;
+	private boolean dragon = true;
+	private boolean heroi = true;
+	private int N;
 
 	public static void main(String[] args)
 	{
+		Labirinto lab = new Labirinto();
+		lab.Game();
+	}
+	
+	public void Game()
+	{
+
 		boolean exit = true;
 		getNumero();
+		maze = new char[N][N];
 		createLab();
-		/*while(heroi&&(dragon || exit))
+		while(heroi&&(dragon || exit))
 		{
 			Scanner sc = new Scanner(System.in);
-			printLab();
 			String walk = sc.nextLine();
+			printLab();
 			Heroi.move(walk);
 			Dragon.moveRandom();
 			if(Dragon.eat())
@@ -32,12 +39,12 @@ public class Labirinto {
 				exit = false;
 			else
 				exit = true;
-		}*/
+		}
 		printLab();
-		/*if(!heroi)
+		if(!heroi)
 			System.out.println("\n\n\n\n\n\n\n\n\nMorrrrrrrrrrrreu!");
 		else
-			System.out.println("\n\n\n\n\n\n\n\n\nVitória!");*/
+			System.out.println("\n\n\n\n\n\n\n\n\nVitória!");
 	}
 
 	public static char getSpace(int x, int y)
@@ -52,7 +59,7 @@ public class Labirinto {
 		maze[x][y] = C;
 	}
 
-	public static void printLab()
+	public void printLab()
 	{
 		int coodH[] = Heroi.getCoord();
 		int coodE[] = Espada.getCood();
@@ -85,12 +92,22 @@ public class Labirinto {
 
 	}
 
-	public static void createLab()//Randomized Prim's algorithm
+	
+	public void createLab()
 	{
-
-		for (int j = 0 ; j < 10;j++)
+		
+		
+		
+	}
+	
+	
+/*	
+	public void createLab()//Randomized Prim's algorithm
+	{
+		int f = 0, t =0;
+		for (int j = 0 ; j < N;j++)
 		{
-			for (int i = 0 ; i < 10 ; i++)
+			for (int i = 0 ; i < N ; i++)
 			{
 				maze[j][i] = 'X';
 			}			
@@ -101,19 +118,19 @@ public class Labirinto {
 		int y = r.nextInt(N-1) + 1;
 		int aux = -1;//ajuda para ir buscar um elemento aleatório à lista
 		List<Wall> lista = new ArrayList();
-		for(int index = 0; index < 50; index++)
+		do
 		{
 			if(aux != -1)//evitar a 1ª iteração
 			{
 				ListIterator<Wall> it = lista.listIterator(aux);
-				Wall a = (Wall) it.next();
-				x = a.getCood()[0];
-				y = a.getCood()[1];
+				Wall c = (Wall) it.next();
+				x = c.getCood()[0];
+				y = c.getCood()[1];
 				it.remove();
-
 			}
 			if(getValidMaze(x,y))
 			{
+				t++;
 				maze[x][y] = ' ';
 				if(x == 1)
 				{
@@ -123,7 +140,7 @@ public class Labirinto {
 						lista.add(a);
 					}
 				}
-				else if(x == N-1)
+				else if(x >= N-2)
 				{
 					if(maze[x-1][y] == 'X')
 					{
@@ -152,7 +169,7 @@ public class Labirinto {
 						lista.add( a);
 					}
 				}
-				else if(y == N-1)
+				else if(y >= N-2)
 				{
 					if(maze[x][y-1] == 'X')
 					{
@@ -174,19 +191,28 @@ public class Labirinto {
 					}
 				}
 			}
-			aux = r.nextInt(lista.size());
-		}
+			else
+				f++;
+			if(lista.size() > 0)
+				aux = r.nextInt(lista.size());
+		}while(!lista.isEmpty());
+		System.out.println(f + "\n" + t );
 	}
-
-	public static boolean getValidMaze(int x, int y)
-	{
+*/
+	public boolean getValidMaze(int x, int y)
+	{			
 		if(((maze[x][y-1] == ' ' )&& (maze[x][y+1] == ' ')) || ((maze[x-1][y] == ' ') &&( maze[x+1][y] == ' ') ))
+		{
 			return false;
-		else			
+		}
+		else
+		{
 			return true;
+		}
+		
 	}
 
-	public static void getNumero()
+	public void getNumero()
 	{
 		System.out.println("Insira o tamanho 'N' do puzzle. (NxN)");
 		boolean rep;

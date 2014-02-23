@@ -14,8 +14,8 @@ public class Wall {
 	
 	public void setCood(int xN, int yN)
 	{
-		this.x = xN;
-		this.y = yN;
+		x = xN;
+		y = yN;
 	}
 	
 	public boolean equals(Object o2)
