@@ -3,7 +3,7 @@ public class Wall {
 	private int x,y;
 	private boolean maze;
 	public Wall(int a, int b){x = a;
-	y = b;  }
+	y = b; }
 	public int[] getCood()
 	{
 		int cood[] = new int[2];
