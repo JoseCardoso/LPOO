@@ -1,26 +1,27 @@
 import java.util.Random;
 
-
-public class Dragon {
-	static private int x = 7, y = 8;
-
-	static public void pos() 
+public class Dragon  extends MazeObject {
+	Heroi heroi;
+	
+	Dragon(Heroi hero)
+	{
+		heroi = hero;
+	}
+	public void pos() 
 	{
 		Random r = new Random(); 
-
+		int N = MazeCli.game.getN();
 		do
 		{
-			x = r.nextInt(Labirinto.N-2)+1;
-			y = r.nextInt(Labirinto.N-2)+1;	
-
+			x = r.nextInt(N-2)+1;
+			y = r.nextInt(N-2)+1;	
 		}
-		while(Labirinto.getSpace(x,y) != ' ' || eat());
-
+		while(MazeCli.game.getSpace(x,y) != ' ' || eat());
 	}
 
-	static public boolean eat()
+	public boolean eat()
 	{
-		int[] coordH = Heroi.getCoord();
+		int[] coordH = heroi.getCood();
 		if((Math.abs(coordH[0]-x) <= 1 && Math.abs(coordH[1]-y) == 0) 
 				||  (Math.abs(coordH[0]-x) == 0 && Math.abs(coordH[1]-y) <= 1))
 			return true;
@@ -28,15 +29,7 @@ public class Dragon {
 			return false;
 	}
 
-	static public int[] getCood()
-	{
-		int cood[] = new int[2];
-		cood[0] = x;
-		cood[1] = y;
-		return cood;
-	}
-
-	static public void moveRandom()
+	public void moveRandom()
 	{
 		Random r = new Random();
 		int x = r.nextInt(5);
@@ -57,16 +50,15 @@ public class Dragon {
 		default:
 			break;
 		}
-
 	}
 
-	static public void move(int dx, int dy)
+	public void move(int dx, int dy)
 	{
 		char Valid;
-		Valid =Labirinto.getSpace(x+dx, y+dy);
+		Valid =MazeCli.game.getSpace(x+dx, y+dy);
 		if (Valid == ' ' || Valid == 'S' || Valid == 'E')
 		{
-			Labirinto.setSpace(x, y,' ');
+			MazeCli.game.setSpace(x, y,' ');
 			y += dy;
 			x += dx;
 		}
