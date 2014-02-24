@@ -1,4 +1,5 @@
 LPOO
 ====
+Maze Game project
 
-JAVA code
+Current iteration : 2
