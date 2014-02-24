@@ -1,302 +1,261 @@
 import java.util.*;
 
 public class Labirinto {
+	public static int N;
 	private static char[][] maze;
 	private char[][] visitedCell;
 	private boolean dragon = true;
 	private boolean heroi = true;
-	private static int N;
-	private Stack <int []> st;
+	private Stack<int[]> st;
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		Labirinto lab = new Labirinto();
 		lab.Game();
 	}
 
-	public void Game()
-	{
+
+	public void Game() {
 
 		boolean exit = true;
 		getNumero();
 		maze = new char[N][N];
 		createLab();
-	/*	while(heroi&&(dragon || exit))
+		Espada.pos();
+		Heroi.pos();
+		Dragon.pos();
+		Saida.pos();
+		printLab();
+		while(heroi&&(dragon || exit))
 		{
 			Scanner sc = new Scanner(System.in);
-			String walk = sc.nextLine();
-			printLab();
+			String walk = sc.nextLine(); 
 			Heroi.move(walk);
 			Dragon.moveRandom();
-			if(Dragon.eat())
-			{
-				if(Heroi.getSword())
-					dragon = false;
-				else
-					heroi = false;
-			}	
-			if(Heroi.getCoord()[0] == Saida.getCood()[0] 
-					&& Heroi.getCoord()[1] == Saida.getCood()[1] )
-				exit = false;
-			else
-				exit = true;
-		}*/
-		printLab();
-		/*
-		if(!heroi)
-			System.out.println("\n\n\n\n\n\n\n\n\nMorrrrrrrrrrrreu!");
-		else
-			System.out.println("\n\n\n\n\n\n\n\n\nVitória!");
-	*/}
-
-	public static char getSpace(int x, int y)
-	{
-		if(x > N-1 || x < 0 || y > N-1 || y < 0)
-			return 'I';
-		return maze[x][y];		
-	}
-
-	public static void setSpace(int x, int y, char C)
-	{
-		maze[x][y] = C;
-	}
-
-	public void printLab()
-	{/*
-		int coodH[] = Heroi.getCoord();
-		int coodE[] = Espada.getCood();
-		int coodD[] = Dragon.getCood();
-		int coodS[] = Saida.getCood();
-		maze[coodS[0]][coodS[1]] = 'S';
-		if(dragon)
-			maze[coodD[0]][coodD[1]] = 'D';
-		else
-			maze[coodD[0]][coodD[1]] = ' ';
-		if(Heroi.getSword())
-			maze[coodH[0]][coodH[1]] = 'A';
-		else
-		{
-			maze[coodH[0]][coodH[1]] = 'H';
-			if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
-				maze[coodD[0]][coodD[1]] = 'F';
-			else
-				maze[coodE[0]][coodE[1]] = 'E';
-		}
-*/
-		for(int i = 0; i < N; i++)
-		{
-			for(int j = 0; j < N; j++)
-			{
-				System.out.print(maze[i][j] + " ");
-			}
 			System.out.println();
+			printLab();
+			if(Dragon.eat())
+			{ 
+				if(Heroi.getSword()) 
+					dragon =false;
+				else 
+					heroi = false;
+			} 
+			if(Heroi.getCoord()[0] == Saida.getCood()[0] &&
+					Heroi.getCoord()[1] == Saida.getCood()[1] )
+				exit = false;
+			else 
+				exit = true; 
 		}
+		if(!heroi) System.out.println("\n\n\n\n\n\n\n\n\nMorrrrrrrrrrrreu!");
+		else System.out.println("\n\n\n\n\n\n\n\n\nVitória!");
+	}
+
+	public static char getSpace(int x, int y) {
+		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
+			return 'I';
+		return maze[y][x];
+	}
+
+	public static void setSpace(int x, int y, char C) {
+		maze[y][x] = C;
+	}
+
+	public void printLab() {
+		int coodH[] = Heroi.getCoord(); int coodE[] =
+				Espada.getCood(); int coodD[] = Dragon.getCood();
+				int coodS[] = Saida.getCood();
+				maze[coodS[1]][coodS[0]] = 'S'; 
+				if(dragon)
+					maze[coodD[1]][coodD[0]] = 'D'; 
+				else
+					maze[coodD[1]][coodD[0]] = ' ';
+				if(Heroi.getSword()) 
+					maze[coodH[1]][coodH[0]] ='A'; 
+				else
+				{
+					maze[coodH[1]][coodH[0]] = 'H';
+					if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
+						maze[coodD[1]][coodD[0]] = 'F'; 
+					else 
+						maze[coodE[1]][coodE[0]] = 'E';
+				}
+
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < N; j++) {
+						System.out.print(maze[i][j] + " ");
+					}
+					System.out.println();
+				}
 
 	}
 
-
-	public void createLab()
-	{
+	public void createLab() {
 		st = new Stack();
 		Random r = new Random();
 
-		int size= (N-1)/2;
+		int size = (N - 1) / 2;
 		int x = r.nextInt(size);
 		int y = r.nextInt(size);
 
 		visitedCell = new char[size][size];
 
-		for (int i = 0 ; i < N; i++)
-		{
-			for ( int j = 0 ; j < N ;j++)
-			{
-				if ( i%2 != 0  && j %2 != 0)
-					maze [i][j]= ' ';
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (i % 2 != 0 && j % 2 != 0)
+					maze[i][j] = ' ';
 				else
-					maze [i][j]= 'X';
+					maze[i][j] = 'X';
 			}
 		}
 
-		for (int i=0 ; i<size ; i++)
-		{
-			for ( int j = 0 ; j < size ; j++)
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++)
 
 				visitedCell[i][j] = '.';
 		}
 
-		visitedCell[x][y] = '+';
-		maze[2*x +1][2*y +1] = '+';
-		int[] aux = {x , y};
-		st.push(aux);
+		visitedCell[y][x] = '+';
+		addToStack(x ,y);
 
-		while (!st.isEmpty())
-		{ 
-			if ( hasMove(x , y , size))
-			{
-			
-			int dir = r.nextInt(4);
+		// começar a gerar algoritmo
+		while (!st.isEmpty()) {
+			if (hasMove(x, y, size)) {
 
-			switch ( dir)
-			{
-			case 0: //up
-				if(getValidMaze(0 ,-1 , size))
-				{
-					y--;
-					visitedCell[x][y] = '+';
-					fillMaze(2*x + 1 , 2*y + 1 , 0 , -1);
+				int dir = r.nextInt(4);
+
+				switch (dir) {
+				case 0: // up
+					if (getValidMaze(0, -1, size)) {
+						fillMaze(2 * x + 1, 2 * y + 1, 0, -1);
+						y--;
+						visitedCell[y][x] = '+';
+						addToStack(x, y);
+					}
+					break;
+				case 1: // left
+					if (getValidMaze(-1, 0, size)) {
+
+						fillMaze(2 * x + 1, 2 * y + 1, -1, 0);
+						x--;
+						visitedCell[y][x] = '+';
+						addToStack(x, y);
+					}
+
+					break;
+
+				case 2: // right
+					if (getValidMaze(1, 0, size)) {
+
+						fillMaze(2 * x + 1, 2 * y + 1, 1, 0);
+						x++;
+						visitedCell[y][x] = '+';
+						addToStack(x, y);
+					}
+					break;
+				case 3: // down
+					if (getValidMaze(0, 1, size)) {
+
+						fillMaze(2 * x + 1, 2 * y + 1, 0, 1);
+						y++;
+						visitedCell[y][x] = '+';
+						addToStack(x, y);
+					}
+					break;
 				}
-				break;
-			case 1: // left
-				if(getValidMaze(-1,0 , size))
-				{
-					x--;
-					visitedCell[x][y] = '+';
-					fillMaze(2*x + 1 , 2*y + 1 , -1 , 0);
-				}
 
-				break;
-
-			case 2: // right
-				if(getValidMaze(1 ,0 , size))
-				{
-					x++;
-					visitedCell[x][y] = '+';
-					fillMaze(2*x + 1 , 2*y + 1 , 1 , 0);
-				}
-				break;
-			case 3: // down
-				if(getValidMaze(0 ,1 , size))
-				{
-					y++;
-					visitedCell[x][y] = '+';
-					fillMaze(2*x + 1 , 2*y + 1 , 0 , 1);
-				}
-				break;
-			}
-
-			aux[0]= x;
-			aux[1]= y;
-
-			st.push(aux);
-
-
-			}
-			else
-			{
-				x = st.peek()[0];
-				y = st.peek()[1];
+			} else {
 				st.pop();
+				if (!st.isEmpty()){
+					x = st.peek()[0];
+					y = st.peek()[1];
+				}
 			}
-			
+
 		}
-
-
 
 	}
 
-
-
-	public void fillMaze(int x , int y ,int dx , int dy)
-	{
-		for  ( int i = 0 ; i < 3 ; i ++)
-		{
-			x += dx;
-			y += dy;
-
-			if ((x == 1 && dx < 0)|| ( x == N-2 && dx >0)
-					||(y == 1 && dy < 0)|| ( y == N-2 && dy >0))
-				break;
-			
-				
-			if ( x <0 || y < 0 || x > N-1 || y > N-1)
-				break;
-			if (x==0 || y==0 || x== N-1 || y== N-1)
-				maze[x][y] = 'X';
-			else
-				maze[x][y] = ' ';
-		}
+	public void fillMaze(int x, int y, int dx, int dy) {
+		maze[y + dy][x + dx] = ' ';
 	}
 
-	public boolean hasMove(int x , int y , int size)
-	{
-		if(x == 0)
-		{
-			if (visitedCell [x +1][y] == '.' )
+	public boolean hasMove(int x, int y, int size) {
+		/*
+		// printing maze
+		printLab();
 
-				return true;
-
-		}
-		else if(x == size-1)
-		{
-			if (visitedCell [x -1][y] == '.' )
-
-				return true;
-
-		}
-		else
-		{
-			if (visitedCell [x +1][y] == '.' || visitedCell [x-1][y] == '.')
-
-				return true;
-
+		System.out.println();
+		// printing visited cells
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				System.out.print(visitedCell[i][j] + " ");
+			}
+			System.out.println();
 		}
 
-		if(y == 0)
-		{
-			if (visitedCell [x][y+1] == '.' )
-				return true;
+		// printing stack
+		Stack<int[]> aux = (Stack<int[]>) st.clone();
+		while (!aux.isEmpty()) {
+			System.out.println(aux.peek()[0] + "," + aux.peek()[1]);
+			aux.pop();
 		}
-		else if(y == size -1)
-		{
-			if (visitedCell [x][y-1] == '.')
+		System.out.print("\n-----\n");
+		 */
 
+		if (y - 1 >= 0)
+			if (visitedCell[y - 1][x] == '.')
 				return true;
 
-		}
-		else
-		{
-			if (visitedCell [x ][y+1] == '.' || visitedCell [x][y-1] == '.')
-
+		if (y + 1 < size)
+			if (visitedCell[y + 1][x] == '.')
 				return true;
-		}
+
+		if (x - 1 >= 0)
+			if (visitedCell[y][x - 1] == '.')
+				return true;
+
+		if (x + 1 < size)
+			if (visitedCell[y][x + 1] == '.')
+				return true;
 
 		return false;
-
 	}
 
+	public boolean getValidMaze(int dx, int dy, int size) {
+		int x = st.peek()[0];
+		int y = st.peek()[1];
 
-	public boolean getValidMaze(int dx , int dy , int size)
-	{	
-		int x= st.peek()[0];
-		int y= st.peek()[1];
-
-		if ((x+dx >=0 && y + dy >=0 && x+dx < size && y + dy <size) && visitedCell [x + dx][y+dy] == '.')
+		if ((x + dx >= 0 && y + dy >= 0 && x + dx < size && y + dy < size)
+				&& visitedCell[y + dy][x + dx] == '.')
 
 			return true;
-		else 
+		else
 			return false;
 	}
 
-
-	public void getNumero()
-	{
+	public void getNumero() {
 		System.out.println("Insira o tamanho 'N' do puzzle. (NxN)");
 		boolean rep;
 		int aux;
-		do
-		{
+		do {
 			rep = false;
-			try { 
+			try {
 				Scanner sc = new Scanner(System.in);
 				String detect = sc.nextLine();
 				aux = Integer.parseInt(detect);
-				sc.close();
 				N = aux;
-			} catch(Exception e) { 
+			} catch (Exception e) {
 				System.out.println("Erro, insira o nº de novo.");
 				rep = true;
 			}
-		}while(rep);	
+		} while (rep);
 	}
-}
 
+	public void addToStack(int x, int y) {
+		int[] temp = new int[2];
+		temp[0] = x;
+		temp[1] = y;
+		st.push(temp);
+	}
+
+}

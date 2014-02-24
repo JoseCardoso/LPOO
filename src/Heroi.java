@@ -1,8 +1,24 @@
+import java.util.Random;
+
 
 
 public class Heroi {
 	static private int x = 1, y = 1;
 	static private boolean Sword = false;	
+	
+	static public void pos() 
+	{
+		Random r = new Random(); 
+
+		do
+		{
+			x = r.nextInt(Labirinto.N-1)+1;
+			y = r.nextInt(Labirinto.N-1)+1;	
+
+		}
+		while(Labirinto.getSpace(x,y) != ' ' &&  Labirinto.getSpace(x,y) != 'E');
+
+	}
 	
 	public static void move(String walk)
 	{
@@ -17,7 +33,7 @@ public class Heroi {
 			trueMove(1,0);
 	}
 	
-	static public void trueMove(int dx, int dy)
+	static public void trueMove(int dy, int dx)
 	{
 		char Valid;
 		Valid =Labirinto.getSpace(x+dx, y+dy);

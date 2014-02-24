@@ -4,6 +4,20 @@ import java.util.Random;
 public class Dragon {
 	static private int x = 7, y = 8;
 
+	static public void pos() 
+	{
+		Random r = new Random(); 
+
+		do
+		{
+			x = r.nextInt(Labirinto.N-2)+1;
+			y = r.nextInt(Labirinto.N-2)+1;	
+
+		}
+		while(Labirinto.getSpace(x,y) != ' ' || eat());
+
+	}
+
 	static public boolean eat()
 	{
 		int[] coordH = Heroi.getCoord();
