@@ -13,7 +13,8 @@ public class Heroi extends MazeObject{
 			x = r.nextInt(N-1)+1;
 			y = r.nextInt(N-1)+1;	
 		}
-		while(MazeCli.game.getSpace(x,y) != ' ' && MazeCli.game.getSpace(x,y) != 'E');
+		while(MazeCli.game.getSpace(x,y) != ' ' );
+		MazeCli.game.setSpace(x, y, 'H');
 	}
 	
 	public void move(String walk)

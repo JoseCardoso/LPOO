@@ -1,3 +1,7 @@
+import java.awt.List;
+import java.util.ArrayList;
+
+
 
 public class MazeGame {
 	
@@ -8,6 +12,9 @@ public class MazeGame {
 	private Dragon dragon = new Dragon(hero);
 	private Saida saida = new Saida();
 	private Labirinto lab = new Labirinto(espada,dragon,hero,saida);
+	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
+	private int NumeroD;
+	
 	
 	public void generate() {
 
@@ -17,10 +24,12 @@ public class MazeGame {
 		lab.createLab();
 		espada.pos();
 		hero.pos();
-		dragon.pos();
 		saida.pos();
 		lab.printLab();
-		
+		for(int i = 0; i < NumeroD; i++)
+		{
+			DragonList.listIterator(NumeroD).next().pos();
+		}
 	}
 	
 	public void setN(int n)
@@ -28,7 +37,19 @@ public class MazeGame {
 		N = n;
 	}
 	
-	public boolean start(String walk)
+	public void setNdragon()
+	{
+		NumeroD = N/2-3;
+		if(NumeroD < 1)
+			NumeroD = 1;		
+		for(int i = 0; i < NumeroD; i++)
+		{
+			DragonList.add(new Dragon(hero));
+		}
+		
+	}
+	
+	public boolean start(String walk )
 	{
 		
 		hero.move(walk);
@@ -39,7 +60,7 @@ public class MazeGame {
 		{ 
 			if(hero.getSword()) 
 				LiveDragon =false;
-			else 
+			else if(!dragon.getSleep())
 				LiveHero = false;
 		} 
 		if(hero.getCood()[0] == saida.getCood()[0] &&
@@ -77,6 +98,17 @@ public class MazeGame {
 	 {
 		 lab.setSpace(x, y, C);
 	 }
+
+	 public int[] getEspadaPos()
+	 {
+		 return espada.getCood();
+	 }
+	 
+	 public int[] getHeroPos()
+	 {
+		 return hero.getCood();
+	 }
+	 
 }
 
 

@@ -1,5 +1,5 @@
 import java.util.*;
-
+//MazeBuilder
 public class Labirinto {
 	public int N;
 	private char[][] maze;
@@ -19,7 +19,7 @@ public class Labirinto {
 		hero = h;
 		saida = s;
 	}
-	
+
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
 			return 'I';
@@ -30,14 +30,19 @@ public class Labirinto {
 		maze[y][x] = C;
 	}
 
+		
 	public void printLab() {
 		dragon = MazeCli.game.getDragon();
 		int coodH[] = hero.getCood(); int coodE[] =
 				espada.getCood(); int coodD[] = dragao.getCood();
 				int coodS[] = saida.getCood();
 				maze[coodS[1]][coodS[0]] = 'S'; 
-				if(dragon)
-					maze[coodD[1]][coodD[0]] = 'D'; 
+				if(dragon){
+					if(dragao.getSleep())
+						maze[coodD[1]][coodD[0]] = 'd'; 
+					else
+						maze[coodD[1]][coodD[0]] = 'D'; 
+				}
 				else
 					maze[coodD[1]][coodD[0]] = ' ';
 				if(hero.getSword()) 
@@ -67,7 +72,7 @@ public class Labirinto {
 		int y = r.nextInt(size);
 		visitedCell = new char[size][size];
 		maze = new char[N][N];
-		
+
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (i % 2 != 0 && j % 2 != 0)
@@ -83,7 +88,7 @@ public class Labirinto {
 
 		visitedCell[y][x] = '+';
 		addToStack(x ,y);
-		
+
 		// começar a gerar algoritmo
 		while (!st.isEmpty()) {
 			if (hasMove(x, y, size)) {
@@ -138,7 +143,7 @@ public class Labirinto {
 	}
 
 	public boolean hasMove(int x, int y, int size) {
-		
+
 		if (y - 1 >= 0)
 			if (visitedCell[y - 1][x] == '.')
 				return true;
@@ -160,7 +165,7 @@ public class Labirinto {
 	public boolean getValidMaze(int dx, int dy, int size) {
 		int x = st.peek()[0];
 		int y = st.peek()[1];
-		
+
 		if ((x + dx >= 0 && y + dy >= 0 && x + dx < size && y + dy < size)
 				&& visitedCell[y + dy][x + dx] == '.')
 			return true;
@@ -172,20 +177,20 @@ public class Labirinto {
 	{
 		N = n;
 	}
-	
+
 	public int getN()
 	{
 		return N;
 	}
-	
+
 	public void addToStack(int x, int y) {
 		int[] temp = new int[2];
 		temp[0] = x;
 		temp[1] = y;
 		st.push(temp);
 	}
-	
-	
+
+
 	public Heroi getHeroi()
 	{
 		return hero;

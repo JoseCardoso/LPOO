@@ -9,7 +9,7 @@ public class MazeCli {
 	{
 		String walk;
 
-		cli.getNumero();
+		cli.getNumeroLab();
 		game.generate();
 		do
 		{
@@ -23,7 +23,7 @@ public class MazeCli {
 			System.out.println("\n\n\nVitória!");
 	}
 	
-	public void getNumero() {
+	public void getNumeroLab() {
 		System.out.println("Insira o tamanho 'N' do puzzle (Deve ser ímpar). (NxN)");
 		boolean rep;
 		int N = 0;
@@ -50,5 +50,5 @@ public class MazeCli {
 		} while (rep);
 		game.setN(N);
 	}
-
+	
 }
