@@ -1,4 +1,8 @@
+package mazeGame;
 import java.util.Random;
+import mazeCli.MazeCli;
+
+
 
 public class Heroi extends MazeObject{
 	private boolean Sword = false;	

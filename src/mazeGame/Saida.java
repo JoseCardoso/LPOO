@@ -1,4 +1,7 @@
+package mazeGame;
 import java.util.Random;
+
+import mazeCli.MazeCli;
 
 public class Saida {
 	private int x , y;

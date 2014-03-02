@@ -1,9 +1,11 @@
+package mazeCli;
 import java.util.Scanner;
+import mazeGame.MazeGame;
 
 
 public class MazeCli {
 	static MazeCli cli = new MazeCli();
-	static MazeGame game = new MazeGame();
+	static public MazeGame game = new MazeGame();
 	
 	public static void main(String[] args) 
 	{

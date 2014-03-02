@@ -1,21 +1,25 @@
+package mazeGame;
 import java.util.*;
+
+import mazeCli.MazeCli;
 //MazeBuilder
 public class Labirinto {
 	public int N;
+	private int NumeroD;
 	private char[][] maze;
 	private char[][] visitedCell;
 	private boolean dragon = true;
 	private boolean heroi = true;
 	private Stack<int[]> st;
 	private Espada espada;
-	private Dragon dragao;
 	private Heroi hero;
 	private Saida saida;
+	private ArrayList<Dragon> DragonList;
 
-	Labirinto(Espada e, Dragon d, Heroi h, Saida s)
+	Labirinto(Espada e, ArrayList<Dragon> d, Heroi h, Saida s)
 	{
 		espada = e;
-		dragao = d;
+		DragonList = d;
 		hero = h;
 		saida = s;
 	}
@@ -30,38 +34,52 @@ public class Labirinto {
 		maze[y][x] = C;
 	}
 
-		
+
+	public void drawDragon(int[] coodE)
+	{
+		NumeroD = MazeCli.game.getNdragon();
+		for(int i = 0; i < NumeroD; i++)
+		{
+			int coodD[] = DragonList.listIterator(i).next().getCood();
+			if(DragonList.listIterator(i).next().getSleep())
+				maze[coodD[1]][coodD[0]] = 'd'; 
+			else
+				maze[coodD[1]][coodD[0]] = 'D'; 
+			if(!hero.getSword())
+			{
+				if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
+					maze[coodD[1]][coodD[0]] = 'F'; 
+				else
+					maze[coodE[1]][coodE[0]] = 'E';
+			}
+			else
+				maze[coodE[1]][coodE[0]] = ' ';
+		}
+	}
+
 	public void printLab() {
 		dragon = MazeCli.game.getDragon();
-		int coodH[] = hero.getCood(); int coodE[] =
-				espada.getCood(); int coodD[] = dragao.getCood();
-				int coodS[] = saida.getCood();
-				maze[coodS[1]][coodS[0]] = 'S'; 
-				if(dragon){
-					if(dragao.getSleep())
-						maze[coodD[1]][coodD[0]] = 'd'; 
-					else
-						maze[coodD[1]][coodD[0]] = 'D'; 
-				}
-				else
-					maze[coodD[1]][coodD[0]] = ' ';
-				if(hero.getSword()) 
-					maze[coodH[1]][coodH[0]] ='A'; 
-				else
-				{
-					maze[coodH[1]][coodH[0]] = 'H';
-					if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
-						maze[coodD[1]][coodD[0]] = 'F'; 
-					else 
-						maze[coodE[1]][coodE[0]] = 'E';
-				}
+		int coodH[] = hero.getCood(); 
+		int coodE[] = espada.getCood(); 
+		int coodS[] = saida.getCood();
+		maze[coodS[1]][coodS[0]] = 'S'; 
+		if(dragon){
+			drawDragon(coodE);
+		}
+		if(hero.getSword()) 
+			maze[coodH[1]][coodH[0]] ='A'; 
+		else
+		{
+			maze[coodH[1]][coodH[0]] = 'H';
+			maze[coodE[1]][coodE[0]] = 'E';
+		}
 
-				for (int i = 0; i < N; i++) {
-					for (int j = 0; j < N; j++) {
-						System.out.print(maze[i][j] + " ");
-					}
-					System.out.println();
-				}
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				System.out.print(maze[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 	public void createLab() {
@@ -198,10 +216,6 @@ public class Labirinto {
 	public Espada getEspada()
 	{
 		return espada;
-	}
-	public Dragon getDragon()
-	{
-		return dragao;
 	}
 	public Saida getSaida()
 	{
