@@ -12,6 +12,7 @@ public class MazeGame {
 	private boolean LiveDragon = true, LiveHero = true,exit = false;
 	private Espada espada = new Espada();
 	private Heroi hero = new Heroi();
+	private Aguia aguia = new Aguia(hero, espada);
 	private Saida saida = new Saida();
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida);
@@ -27,9 +28,9 @@ public class MazeGame {
 		espada.pos();
 		hero.pos();
 		saida.pos();
-		for(int i = 0; i < NumeroD; i++)
+		for(int i = 0; i <= NumeroD; i++)//contruie a lista, menos ou igual
 		{
-			Dragon temp = new Dragon(hero);
+			Dragon temp = new Dragon(hero,aguia);
 			temp.pos();
 			DragonList.add(temp);
 		}
@@ -50,18 +51,13 @@ public class MazeGame {
 	{
 		NumeroD = N/2-3;
 		if(NumeroD < 1)
-			NumeroD = 1;		
-		for(int i = 0; i < NumeroD; i++)
-		{
-			DragonList.add(new Dragon(hero));
-		}
-
+			NumeroD = 1;	
 	}
 
 	public boolean start(String walk )
 	{
 		hero.move(walk);
-		for(int i = 0; i < NumeroD; i++)
+		for(int i = 0; i <= NumeroD; i++)
 		{
 			DragonList.listIterator(i).next().moveRandom();
 		}
@@ -82,14 +78,16 @@ public class MazeGame {
 
 	public void bigEat()
 	{
-		for(int i = 0; i < NumeroD;i++)
+		for(int i = 0; i <= NumeroD;i++)
 		{
 			DragonList.listIterator(i).next();
 			if(DragonList.listIterator(i).next().eat())
 			{ 
 				if(hero.getSword()) 
 				{
-					DragonList.listIterator(i).remove();
+					setSpace(DragonList.listIterator(i).next().getCood()[0],
+							DragonList.listIterator(i).next().getCood()[1],' ');
+					DragonList.remove(i);
 					NumeroD--;
 				}
 				else if(!DragonList.listIterator(i).next().getSleep())

@@ -5,11 +5,13 @@ import mazeCli.MazeCli;
 
 public class Dragon  extends MazeObject {
 	Heroi heroi;
+	Aguia aguia;
 	private boolean sleep = false;
 
-	Dragon(Heroi hero)
+	Dragon(Heroi hero, Aguia aguia)
 	{
 		heroi = hero;
+		this.aguia = aguia;
 	}
 	
 	public void pos() 
@@ -27,6 +29,16 @@ public class Dragon  extends MazeObject {
 
 	public boolean eat()
 	{
+		int[] coordA = aguia.getCood();
+		if((Math.abs(coordA[0]-x) <= 1 && Math.abs(coordA[1]-y) == 0) 
+				||  (Math.abs(coordA[0]-x) == 0 && Math.abs(coordA[1]-y) <= 1))
+			return true;
+		else 
+			return false;
+	}
+
+	public boolean eatEagle()
+	{
 		int[] coordH = heroi.getCood();
 		if((Math.abs(coordH[0]-x) <= 1 && Math.abs(coordH[1]-y) == 0) 
 				||  (Math.abs(coordH[0]-x) == 0 && Math.abs(coordH[1]-y) <= 1))
@@ -34,7 +46,7 @@ public class Dragon  extends MazeObject {
 		else 
 			return false;
 	}
-
+	
 	public void moveRandom()
 	{
 		Random r = new Random();
@@ -82,5 +94,6 @@ public class Dragon  extends MazeObject {
 			y += dy;
 			x += dx;
 		}
+		MazeCli.game.setSpace(x, y, 'D');
 	}
 }

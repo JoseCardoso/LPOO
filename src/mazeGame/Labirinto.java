@@ -38,7 +38,7 @@ public class Labirinto {
 	public void drawDragon(int[] coodE)
 	{
 		NumeroD = MazeCli.game.getNdragon();
-		for(int i = 0; i < NumeroD; i++)
+		for(int i = 0; i <= NumeroD; i++)
 		{
 			int coodD[] = DragonList.listIterator(i).next().getCood();
 			if(DragonList.listIterator(i).next().getSleep())
@@ -49,10 +49,8 @@ public class Labirinto {
 			{
 				if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
 					maze[coodD[1]][coodD[0]] = 'F'; 
-				else
-					maze[coodE[1]][coodE[0]] = 'E';
 			}
-			else
+			else//desenhar a espada em branco se o heroi tiver espada
 				maze[coodE[1]][coodE[0]] = ' ';
 		}
 	}
@@ -63,9 +61,6 @@ public class Labirinto {
 		int coodE[] = espada.getCood(); 
 		int coodS[] = saida.getCood();
 		maze[coodS[1]][coodS[0]] = 'S'; 
-		if(dragon){
-			drawDragon(coodE);
-		}
 		if(hero.getSword()) 
 			maze[coodH[1]][coodH[0]] ='A'; 
 		else
@@ -73,7 +68,9 @@ public class Labirinto {
 			maze[coodH[1]][coodH[0]] = 'H';
 			maze[coodE[1]][coodE[0]] = 'E';
 		}
-
+		if(dragon){
+			drawDragon(coodE);
+		}
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				System.out.print(maze[i][j] + " ");
