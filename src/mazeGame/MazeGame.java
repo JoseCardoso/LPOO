@@ -15,18 +15,19 @@ public class MazeGame {
 	private Aguia aguia = new Aguia(hero, espada);
 	private Saida saida = new Saida();
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
-	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida);
+	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida,aguia);
 	private int NumeroD;
 
 	public void generate() {
 
 		boolean exit = true;
-		hero.setAguia(aguia);
 		lab.setN(N);
 		setNdragon();
 		lab.createLab();
 		espada.pos();
 		hero.pos();
+		aguia.pos();
+		hero.setAguia(aguia);
 		saida.pos();
 		for(int i = 0; i <= NumeroD; i++)//contruie a lista, menos ou igual
 		{
@@ -58,8 +59,7 @@ public class MazeGame {
 	{
 
 		hero.move(walk);
-		if(!hero.isComAguia() && (aguia.isFlying() || !aguia.getSword()))
-			aguia.move();
+		aguia.move();
 		for(int i = 0; i <= NumeroD; i++)
 		{
 			DragonList.listIterator(i).next().moveRandom();

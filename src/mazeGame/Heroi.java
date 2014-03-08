@@ -7,6 +7,7 @@ import mazeCli.MazeCli;
 public class Heroi extends MazeObject{
 	private boolean Sword = false;	
 	private boolean comAguia = true;
+	private Aguia aguia;
 	
 	public boolean isComAguia() {
 		return comAguia;
@@ -16,7 +17,6 @@ public class Heroi extends MazeObject{
 		this.comAguia = comAguia;
 	}
 
-	private Aguia aguia;
 	
 	public void setAguia(Aguia aguia)
 	{
@@ -49,7 +49,10 @@ public class Heroi extends MazeObject{
 		else if ( walk.equals("S") || walk.equals("s"))
 			trueMove(1,0);
 		else if((walk.equals("e") ||walk.equals("E")) && comAguia)
+		{
 			comAguia = false;
+			aguia.launch();
+		}
 	}
 	
 	public boolean pickUpEagle()

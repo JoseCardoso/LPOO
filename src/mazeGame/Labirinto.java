@@ -14,14 +14,16 @@ public class Labirinto {
 	private Espada espada;
 	private Heroi hero;
 	private Saida saida;
+	private Aguia aguia;
 	private ArrayList<Dragon> DragonList;
 
-	Labirinto(Espada e, ArrayList<Dragon> d, Heroi h, Saida s)
+	Labirinto(Espada e, ArrayList<Dragon> d, Heroi h, Saida s, Aguia a)
 	{
 		espada = e;
 		DragonList = d;
 		hero = h;
 		saida = s;
+		aguia = a;
 	}
 
 	public char getSpace(int x, int y) {
@@ -65,6 +67,8 @@ public class Labirinto {
 		int coodH[] = hero.getCood(); 
 		int coodE[] = espada.getCood(); 
 		int coodS[] = saida.getCood();
+		int coodA[] = aguia.getCood();
+		maze[coodA[1]][coodA[0]] = 'a';
 		maze[coodS[1]][coodS[0]] = 'S'; 
 		if(dragon){
 			drawDragon(coodE);
