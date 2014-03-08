@@ -46,9 +46,14 @@ public class Aguia extends MazeObject{
 	{
 		int dx = xObjective -x;
 		int dy = yObjective -y;
-		boolean timeToChange;
+		boolean timeToChange = false;
+		System.out.println("x : " + x);
+		System.out.println("y : " + y);
 		System.out.println(xObjective);
 		System.out.println(yObjective);
+		System.out.println(sword);
+		System.out.println(flying);
+		System.out.println(timeToChange);
 		if(withHero)
 		{
 			x = heroi.getCood()[0];
@@ -59,7 +64,8 @@ public class Aguia extends MazeObject{
 			if(dx == 0 && dy == 0)
 			{
 				flying = false;
-				return;
+				timeToChange = true;
+				
 			}
 			else if (Math.abs(dx) > Math.abs(dy))
 			{
@@ -82,8 +88,8 @@ public class Aguia extends MazeObject{
 	{
 		if (!heroi.getSword())
 		{
-			x = heroi.getCood()[0];
-			y = heroi.getCood()[1];
+			xDeparture = heroi.getCood()[0];
+			yDeparture = heroi.getCood()[1];
 			return true;
 		}
 		else
@@ -129,14 +135,16 @@ public class Aguia extends MazeObject{
 
 	public boolean flight(int dx, int dy)
 	{
+		System.out.println("encontrou a espada" + sword);
 		flying= true;
 		boolean atSword = false;;
 		if ( !(x == heroi.getCood()[0] && y == heroi.getCood()[1]))
 		{
 
-			if (x == xObjective && y == yObjective)
+			if (dx==0 && dy==0)
 			{
-				sword = true;
+				System.out.println("chegou");
+				foundSword();
 				flying = false;
 				lastPos = ' ';
 				atSword = true;
@@ -151,6 +159,7 @@ public class Aguia extends MazeObject{
 		x += dx;
 		lastPos = MazeCli.game.getSpace( x ,y);
 		MazeCli.game.setSpace(x, y, 'a');
+		System.out.println("flight = " + atSword);
 		return atSword;
 	}
 
