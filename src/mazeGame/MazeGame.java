@@ -21,7 +21,7 @@ public class MazeGame {
 	public void generate() {
 
 		boolean exit = true;
-		//maze = new char[N][N];
+		hero.setAguia(aguia);
 		lab.setN(N);
 		setNdragon();
 		lab.createLab();
@@ -46,7 +46,7 @@ public class MazeGame {
 	{
 		return NumeroD;
 	}
-	
+
 	public void setNdragon()
 	{
 		NumeroD = N/2-3;
@@ -56,7 +56,10 @@ public class MazeGame {
 
 	public boolean start(String walk )
 	{
+
 		hero.move(walk);
+		if(!hero.isComAguia() && (aguia.isFlying() || !aguia.getSword()))
+			aguia.move();
 		for(int i = 0; i <= NumeroD; i++)
 		{
 			DragonList.listIterator(i).next().moveRandom();
@@ -64,6 +67,7 @@ public class MazeGame {
 		System.out.println();
 		lab.printLab();
 		bigEat();
+		bigEatEagle();
 		if(hero.getCood()[0] == saida.getCood()[0] &&
 				hero.getCood()[1] == saida.getCood()[1] )
 			exit = true;
@@ -98,6 +102,15 @@ public class MazeGame {
 			LiveDragon = false;
 	}
 
+	public void bigEatEagle()
+	{
+		for(int i = 0; i <= NumeroD;i++)
+		{
+			DragonList.listIterator(i).next();
+			DragonList.listIterator(i).next().eatEagle();
+		}
+	}
+	
 	public boolean getHero()
 	{
 		return LiveHero;
