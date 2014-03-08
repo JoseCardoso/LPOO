@@ -2,7 +2,7 @@ package mazeCli;
 import java.util.Scanner;
 import mazeGame.MazeGame;
 
-
+//interface
 public class MazeCli {
 	static MazeCli cli = new MazeCli();
 	static public MazeGame game = new MazeGame();
