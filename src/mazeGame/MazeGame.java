@@ -83,6 +83,7 @@ public class MazeGame {
 			DragonList.listIterator(i).next();
 			if(DragonList.listIterator(i).next().eat())
 			{ 
+				System.out.println("cenas");
 				if(hero.getSword()) 
 				{
 					setSpace(DragonList.listIterator(i).next().getCood()[0],
