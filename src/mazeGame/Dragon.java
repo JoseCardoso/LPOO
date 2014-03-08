@@ -40,10 +40,13 @@ public class Dragon  extends MazeObject {
 	public boolean eatEagle()
 	{
 		int[] coordA = aguia.getCood();
-		if((Math.abs(coordA[0]-x) <= 1 && Math.abs(coordA[1]-y) == 0) 
+		if(!aguia.isFlying() && aguia.isAlive() && (Math.abs(coordA[0]-x) <= 1 && Math.abs(coordA[1]-y) == 0) 
 				||  (Math.abs(coordA[0]-x) == 0 && Math.abs(coordA[1]-y) <= 1))
+		{
+			aguia.kill();
 			return true;
-		else 
+		}
+			else 
 			return false;
 	}
 	
