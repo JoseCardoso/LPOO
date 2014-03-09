@@ -48,7 +48,7 @@ public class Labirinto {
 				maze[coodD[1]][coodD[0]] = 'd'; 
 			else
 				maze[coodD[1]][coodD[0]] = 'D'; 
-			if(!hero.getSword())
+			if(!hero.getSword() && !aguia.getSword())
 			{
 				if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
 				{ dragonHasSword = true;
@@ -57,7 +57,7 @@ public class Labirinto {
 				else if (!dragonHasSword)
 					maze[coodE[1]][coodE[0]] = 'E';
 			}
-			else if(coodD[0] != coodE[0] || coodD[1] != coodE[1])//desenhar a espada em branco se o heroi tiver espada
+			else if(coodD[0] != coodE[0] || coodD[1] != coodE[1])//desenhar a espada em branco se o heroi ou a aguia tiver espada
 				maze[coodE[1]][coodE[0]] = ' ';
 		}
 	}

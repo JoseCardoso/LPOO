@@ -8,14 +8,14 @@ public class Aguia extends MazeObject{
 	private Espada espada;
 	private char lastPos;
 	private int x ,y, xDeparture, yDeparture, xObjective, yObjective;
-	private boolean sword = false, alive = true, flying = false, withHero = true;
+	private boolean sword = false, alive = true, flying = false, arrived = false;
 
-	public boolean isWithHero() {
-		return withHero;
+	public boolean getArrived() {
+		return arrived;
 	}
 
-	public void setWithHero(boolean withHero) {
-		this.withHero = withHero;
+	public void setArrived(boolean arrived) {
+		this.arrived = arrived;
 	}
 
 	Aguia(Heroi hero, Espada espada)
@@ -37,7 +37,7 @@ public class Aguia extends MazeObject{
 
 	public void launch()
 	{
-		withHero = false;
+		arrived = false;
 		xDeparture = heroi.getCood()[0];
 		yDeparture = heroi.getCood()[1];
 	}
@@ -47,41 +47,38 @@ public class Aguia extends MazeObject{
 		int dx = xObjective -x;
 		int dy = yObjective -y;
 		boolean timeToChange = false;
-		System.out.println("x : " + x);
-		System.out.println("y : " + y);
-		System.out.println(xObjective);
-		System.out.println(yObjective);
-		System.out.println(sword);
-		System.out.println(flying);
-		System.out.println(timeToChange);
-		if(withHero)
+		if(heroi.isComAguia())
 		{
 			x = heroi.getCood()[0];
 			y = heroi.getCood()[1];
 		}
 		else
 		{
-			if(dx == 0 && dy == 0)
+			if(x == espada.getCood()[0] &&  y== espada.getCood()[1] && dx == 0 && dy == 0)
 			{
 				flying = false;
 				timeToChange = true;
-				
+				foundSword();
+			
 			}
+			
 			else if (Math.abs(dx) > Math.abs(dy))
 			{
-				timeToChange = flight(dx/Math.abs(dx),0);
+				flight(dx/Math.abs(dx),0);
 			}
-			else
+			else if(dy !=0)
 			{
-				timeToChange = flight(0,dy/Math.abs(dy));
+				flight(0,dy/Math.abs(dy));
 			}
+
 			if(timeToChange)
 			{
 				xObjective = xDeparture;
 				yObjective = yDeparture;
-				flying = true;
 			}
 		}
+		
+		System.out.println("heroi tem a espada ?" + heroi.getSword());
 	}
 
 	public boolean setDeparture()
@@ -127,40 +124,22 @@ public class Aguia extends MazeObject{
 	{
 		return flying;
 	}
-
-	public boolean withHero()
-	{
-		return withHero;
-	}
-
-	public boolean flight(int dx, int dy)
-	{
-		System.out.println("encontrou a espada" + sword);
-		flying= true;
-		boolean atSword = false;;
-		if ( !(x == heroi.getCood()[0] && y == heroi.getCood()[1]))
+	
+	
+	public void flight(int dx, int dy)
+	{	
+		if (lastPos == 'E')
 		{
-
-			if (dx==0 && dy==0)
-			{
-				System.out.println("chegou");
-				foundSword();
-				flying = false;
-				lastPos = ' ';
-				atSword = true;
-			}
-
-
-			MazeCli.game.setSpace(x , y , lastPos);
-
+			lastPos = ' ';
 		}
+
+		MazeCli.game.setSpace(x , y , lastPos);
 
 		y += dy;
 		x += dx;
 		lastPos = MazeCli.game.getSpace( x ,y);
 		MazeCli.game.setSpace(x, y, 'a');
-		System.out.println("flight = " + atSword);
-		return atSword;
-	}
 
+
+	}
 }

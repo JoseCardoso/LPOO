@@ -57,10 +57,15 @@ public class Heroi extends MazeObject{
 	
 	public boolean pickUpEagle()
 	{
-		if(x == aguia.getCood()[0] && y == aguia.getCood()[1] && aguia.isAlive() && !aguia.isFlying())
-		{	
+		System.out.println(aguia.isAlive());
+		System.out.println(aguia.isFlying());
+		
+		
+		if((Math.abs(aguia.getCood()[0]-x) <= 1 && Math.abs(aguia.getCood()[1]-y) <= 1) 
+				&& aguia.isAlive() && !aguia.isFlying())
+		{ 
+			System.out.println("esta a pegar a aguia");
 			comAguia = true;
-			aguia.setWithHero(true);
 			if(aguia.getSword())
 				Sword = true;
 			return true;

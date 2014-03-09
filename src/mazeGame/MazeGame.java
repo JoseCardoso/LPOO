@@ -68,6 +68,7 @@ public class MazeGame {
 		lab.printLab();
 		bigEat();
 		bigEatEagle();
+		hero.pickUpEagle();
 		if(hero.getCood()[0] == saida.getCood()[0] &&
 				hero.getCood()[1] == saida.getCood()[1] )
 			exit = true;
