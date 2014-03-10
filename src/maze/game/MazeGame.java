@@ -32,7 +32,6 @@ public class MazeGame {
 
 	public void generate() {
 
-		boolean exit = true;
 		lab.setN(N);
 		setNdragon();
 		lab.createLab();
@@ -41,6 +40,7 @@ public class MazeGame {
 		aguia.pos();
 		hero.setAguia(aguia);
 		saida.pos();
+		lab.setAguia(aguia);
 		for(int i = 0; i <= NumeroD; i++)//contruie a lista, menos ou igual
 		{
 			Dragon temp = new Dragon(hero,aguia);

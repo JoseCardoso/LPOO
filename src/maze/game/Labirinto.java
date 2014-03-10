@@ -15,6 +15,13 @@ public class Labirinto {
 	private Heroi hero;
 	private Saida saida;
 	private Aguia aguia;
+	public Aguia getAguia() {
+		return aguia;
+	}
+
+	public void setAguia(Aguia aguia) {
+		this.aguia = aguia;
+	}
 	private ArrayList<Dragon> DragonList;
 
 	Labirinto(Espada e, ArrayList<Dragon> d, Heroi h, Saida s, Aguia a)

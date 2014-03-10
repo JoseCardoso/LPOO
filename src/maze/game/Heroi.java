@@ -9,6 +9,10 @@ public class Heroi extends MazeObject{
 	private boolean comAguia = true;
 	private Aguia aguia;
 	
+	public Aguia getAguia() {
+		return aguia;
+	}
+
 	public boolean isComAguia() {
 		return comAguia;
 	}
@@ -61,17 +65,14 @@ public class Heroi extends MazeObject{
 	
 	public boolean pickUpEagle()
 	{
-		System.out.println(aguia.isAlive());
-		System.out.println(aguia.isFlying());
-		
 		
 		if((Math.abs(aguia.getCood()[0]-x) <= 1 && Math.abs(aguia.getCood()[1]-y) <= 1) 
 				&& aguia.isAlive() && !aguia.isFlying())
 		{ 
-			System.out.println("esta a pegar a aguia");
 			comAguia = true;
 			if(aguia.getSword())
 				Sword = true;
+			aguia.erase();
 			return true;
 		}
 		else 
@@ -84,8 +85,6 @@ public class Heroi extends MazeObject{
 	{
 		char Valid;
 		Valid =MazeCli.game.getSpace(x+dx, y+dy);
-		System.out.println("x:"+x+" y:"+y);
-		System.out.println(Valid);
 		if (Valid == ' '  || Valid == 'S')
 		{
 			MazeCli.game.setSpace(x, y,' ');

@@ -7,7 +7,7 @@ public class Aguia extends MazeObject{
 	private Heroi heroi;
 	private Espada espada;
 	private char lastPos;
-	private int x ,y, xDeparture, yDeparture, xObjective, yObjective;
+	private int xDeparture, yDeparture, xObjective, yObjective;
 	private boolean sword = false, alive = true, flying = false, arrived = false;
 
 	public boolean getArrived() {
@@ -38,15 +38,18 @@ public class Aguia extends MazeObject{
 	public void launch()
 	{
 		arrived = false;
+		flying = true;
 		xDeparture = heroi.getCood()[0];
 		yDeparture = heroi.getCood()[1];
 	}
 
 	public void move()
 	{
-		int dx = xObjective -x;
-		int dy = yObjective -y;
+		int dx = xObjective - x;
+		int dy = yObjective - y;
 		boolean timeToChange = false;
+		if(x == xDeparture && xDeparture == xObjective && y == yDeparture && y == yObjective)
+			arrived = true;
 		if(heroi.isComAguia())
 		{
 			x = heroi.getCood()[0];
@@ -77,8 +80,6 @@ public class Aguia extends MazeObject{
 				yObjective = yDeparture;
 			}
 		}
-		
-		System.out.println("heroi tem a espada ?" + heroi.getSword());
 	}
 
 	public boolean setDeparture()
@@ -141,5 +142,9 @@ public class Aguia extends MazeObject{
 		MazeCli.game.setSpace(x, y, 'a');
 
 
+	}
+
+	public void erase() {
+		MazeCli.game.setSpace(x, y, lastPos);		
 	}
 }
