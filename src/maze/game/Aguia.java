@@ -1,6 +1,6 @@
-package mazeGame;
+package maze.game;
 
-import mazeCli.MazeCli;
+import maze.cli.MazeCli;
 
 public class Aguia extends MazeObject{
 

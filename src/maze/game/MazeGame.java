@@ -1,4 +1,4 @@
-package mazeGame;
+package maze.game;
 
 
 import java.awt.List;
@@ -16,6 +16,18 @@ public class MazeGame {
 	private Saida saida = new Saida();
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida,aguia);
+	public Labirinto getLab() {
+		return lab;
+	}
+
+	public void setLab(Labirinto lab) {
+		this.lab = lab;
+	}
+
+	public void setHero(Heroi hero) {
+		this.hero = hero;
+	}
+
 	private int NumeroD;
 
 	public void generate() {
@@ -112,11 +124,17 @@ public class MazeGame {
 		}
 	}
 	
-	public boolean getHero()
+	public boolean getLiveHero()
 	{
 		return LiveHero;
 	}
 
+	public Heroi getHero()
+	{
+		return hero;
+	}
+
+	
 	public boolean getDragon()
 	{
 		return LiveDragon;

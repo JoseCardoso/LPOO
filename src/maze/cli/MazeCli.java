@@ -1,6 +1,7 @@
-package mazeCli;
+package maze.cli;
 import java.util.Scanner;
-import mazeGame.MazeGame;
+
+import maze.game.MazeGame;
 
 
 public class MazeCli {
@@ -19,7 +20,7 @@ public class MazeCli {
 			walk = sc.nextLine(); 
 		}while(game.start(walk));
 
-		if(!game.getHero())
+		if(!game.getLiveHero())
 			System.out.println("\n\n\nMorrrrrrrrrrrreu!");
 		else
 			System.out.println("\n\n\nVitória!");

@@ -1,7 +1,7 @@
-package mazeGame;
+package maze.game;
 import java.util.*;
 
-import mazeCli.MazeCli;
+import maze.cli.MazeCli;
 //MazeBuilder
 public class Labirinto {
 	public int N;
@@ -26,6 +26,11 @@ public class Labirinto {
 		aguia = a;
 	}
 
+	public Labirinto()
+	{
+		
+	}
+	
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
 			return 'I';
@@ -89,6 +94,12 @@ public class Labirinto {
 		}
 	}
 
+	public void createLab(char[][] maze) //laboratório pre-definido
+	{
+		this.maze = maze;		
+	}
+	
+	
 	public void createLab() {
 		st = new Stack();
 		Random r = new Random();

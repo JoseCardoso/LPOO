@@ -1,6 +1,6 @@
-package mazeGame;
+package maze.game;
 import java.util.Random;
-import mazeCli.MazeCli;
+import maze.cli.MazeCli;
 
 public class Espada extends MazeObject {
 

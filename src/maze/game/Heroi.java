@@ -1,6 +1,6 @@
-package mazeGame;
+package maze.game;
 import java.util.Random;
-import mazeCli.MazeCli;
+import maze.cli.MazeCli;
 
 
 
@@ -16,14 +16,19 @@ public class Heroi extends MazeObject{
 	public void setComAguia(boolean comAguia) {
 		this.comAguia = comAguia;
 	}
-
 	
 	public void setAguia(Aguia aguia)
 	{
 		this.aguia = aguia;
 	}
 	
-	public void pos() 
+	public void pos(int x, int y)//posição definida
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void pos() //posição aleatória
 	{
 		Random r = new Random(); 
 		int N = MazeCli.game.getN();
@@ -39,7 +44,6 @@ public class Heroi extends MazeObject{
 	
 	public void move(String walk)
 	{
-		char Valid;
 		if ( walk.equals("a") || walk.equals("A"))
 			trueMove(0,-1);
 		else if ( walk.equals("D") || walk.equals("d"))
@@ -80,6 +84,8 @@ public class Heroi extends MazeObject{
 	{
 		char Valid;
 		Valid =MazeCli.game.getSpace(x+dx, y+dy);
+		System.out.println("x:"+x+" y:"+y);
+		System.out.println(Valid);
 		if (Valid == ' '  || Valid == 'S')
 		{
 			MazeCli.game.setSpace(x, y,' ');
