@@ -16,6 +16,33 @@ public class MazeGame {
 	private Saida saida = new Saida();
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida,aguia);
+	
+
+	public boolean isLiveDragon() {
+		return LiveDragon;
+	}
+
+	public void setLiveDragon(boolean liveDragon) {
+		LiveDragon = liveDragon;
+	}
+
+	public ArrayList<Dragon> getDragonList() {
+		return DragonList;
+	}
+
+	public void setDragonList(ArrayList<Dragon> dragonList) {
+		DragonList = dragonList;
+	}
+
+
+	public Espada getEspada() {
+		return espada;
+	}
+
+	public void setEspada(Espada espada) {
+		this.espada = espada;
+	}
+	
 	public Labirinto getLab() {
 		return lab;
 	}

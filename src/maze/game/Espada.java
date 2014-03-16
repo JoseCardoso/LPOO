@@ -23,4 +23,6 @@ public class Espada extends MazeObject {
 		this.y = y;
 	}
 	
+	
+	
 }

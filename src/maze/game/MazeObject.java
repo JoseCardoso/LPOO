@@ -13,4 +13,10 @@ public abstract class MazeObject {
 		cood[1] = y;
 		return cood;
 	}
+	
+	public void setCood(int x, int y)
+	{
+		this.x = x;
+		this.y = y;		
+	}
 }

@@ -105,4 +105,9 @@ public class Heroi extends MazeObject{
 	{
 		return Sword;		
 	}
+	
+	public void setSword(boolean Sword)
+	{
+		this.Sword = Sword;		
+	}
 }

@@ -8,6 +8,14 @@ public class MazeCli {
 	static MazeCli cli = new MazeCli();
 	static public MazeGame game = new MazeGame();
 	
+	public static MazeGame getGame() {
+		return game;
+	}
+
+	public static void setGame(MazeGame game) {
+		MazeCli.game = game;
+	}
+
 	public static void main(String[] args) 
 	{
 		String walk= "";
