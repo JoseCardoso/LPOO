@@ -3,12 +3,12 @@ package maze.game;
 
 import java.awt.List;
 import java.util.ArrayList;
-
+import maze.cli.MazeCli;
 
 
 public class MazeGame {
 
-	private int N;
+	private int N , diff;
 	private boolean LiveDragon = true, LiveHero = true,exit = false;
 	private Espada espada = new Espada();
 	private Heroi hero = new Heroi();
@@ -20,6 +20,15 @@ public class MazeGame {
 		return lab;
 	}
 
+	public int getDiff() {
+		return diff;
+	}
+
+	public void setDiff(int diff) {
+		this.diff = diff;
+	}
+
+
 	public void setLab(Labirinto lab) {
 		this.lab = lab;
 	}
@@ -30,18 +39,21 @@ public class MazeGame {
 
 	private int NumeroD;
 
-	public void generate() {
+	public void generate(boolean choice) {
 
+		//choice -false = standard
 		lab.setN(N);
-		setNdragon();
-		lab.createLab();
+		if (choice)
+			lab.createLab();
+		else
+			lab.setMaze(lab.getStandardMaze());
 		espada.pos();
 		hero.pos();
 		aguia.pos();
 		hero.setAguia(aguia);
 		saida.pos();
 		lab.setAguia(aguia);
-		for(int i = 0; i <= NumeroD; i++)//contruie a lista, menos ou igual
+		for(int i = 0; i < NumeroD; i++)//contruie a lista, menos ou igual
 		{
 			Dragon temp = new Dragon(hero,aguia);
 			temp.pos();
@@ -60,24 +72,25 @@ public class MazeGame {
 		return NumeroD;
 	}
 
-	public void setNdragon()
+	public void setNdragon(int num)
 	{
-		NumeroD = N/2-3;
-		if(NumeroD < 1)
-			NumeroD = 1;	
+		NumeroD = num;
 	}
 
 	public boolean start(String walk )
 	{
+		char[][] maze;
 
 		hero.move(walk);
 		aguia.move();
-		for(int i = 0; i <= NumeroD; i++)
-		{
-			DragonList.listIterator(i).next().moveRandom();
-		}
+		if (diff != 1)
+			for(int i = 0; i < NumeroD; i++)
+			{
+				DragonList.listIterator(i).next().moveRandom();
+			}
 		System.out.println();
-		lab.printLab();
+		maze=lab.printLab();
+		MazeCli.printLab(maze, N);
 		bigEat();
 		bigEatEagle();
 		hero.pickUpEagle();
@@ -95,7 +108,7 @@ public class MazeGame {
 
 	public void bigEat()
 	{
-		for(int i = 0; i <= NumeroD;i++)
+		for(int i = 0; i < NumeroD;i++)
 		{
 			DragonList.listIterator(i).next();
 			if(DragonList.listIterator(i).next().eat())
@@ -117,13 +130,13 @@ public class MazeGame {
 
 	public void bigEatEagle()
 	{
-		for(int i = 0; i <= NumeroD;i++)
+		for(int i = 0; i < NumeroD;i++)
 		{
 			DragonList.listIterator(i).next();
 			DragonList.listIterator(i).next().eatEagle();
 		}
 	}
-	
+
 	public boolean getLiveHero()
 	{
 		return LiveHero;
@@ -134,7 +147,7 @@ public class MazeGame {
 		return hero;
 	}
 
-	
+
 	public boolean getDragon()
 	{
 		return LiveDragon;

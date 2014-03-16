@@ -66,7 +66,8 @@ public class Heroi extends MazeObject{
 	public boolean pickUpEagle()
 	{
 		
-		if((Math.abs(aguia.getCood()[0]-x) <= 1 && Math.abs(aguia.getCood()[1]-y) <= 1) 
+		if(((Math.abs(aguia.getCood()[0]-x) <= 1 && Math.abs(aguia.getCood()[1]-y) == 0)
+				|| (Math.abs(aguia.getCood()[0]-x) == 0 && Math.abs(aguia.getCood()[1]-y) <= 1))
 				&& aguia.isAlive() && !aguia.isFlying())
 		{ 
 			comAguia = true;

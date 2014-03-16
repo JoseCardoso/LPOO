@@ -13,7 +13,7 @@ public class Dragon  extends MazeObject {
 		heroi = hero;
 		this.aguia = aguia;
 	}
-	
+
 	public void pos() 
 	{
 		Random r = new Random(); 
@@ -46,14 +46,15 @@ public class Dragon  extends MazeObject {
 			aguia.kill();
 			return true;
 		}
-			else 
+		else 
 			return false;
 	}
-	
+
 	public void moveRandom()
 	{
 		Random r = new Random();
 		int x = r.nextInt(6);
+
 		switch(x)
 		{
 		case 1:
@@ -73,7 +74,8 @@ public class Dragon  extends MazeObject {
 				move(-1,0);
 			break;
 		case 5:
-			sleep = !sleep;
+			if(MazeCli.game.getDiff() == 3)
+				sleep = !sleep;
 			break;
 		default:
 			break;

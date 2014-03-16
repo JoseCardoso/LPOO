@@ -36,8 +36,31 @@ public class Labirinto {
 	public Labirinto()
 	{
 		
+		
 	}
 	
+	public void setMaze(char[][] m)
+	{
+		this.maze = m;
+	}
+	
+	public char[][] getStandardMaze(){
+	
+		char[][] temp = {
+				{'X','X','X','X','X','X','X','X','X','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
+				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
+				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ','X',' ','X'}, 
+				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
+				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
+				{'X',' ','X','X',' ',' ',' ',' ',' ','X'}, 
+				{'X','X','X','X','X','X','X','X','X','X'} 
+				};
+		return temp;
+
+	}
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
 			return 'I';
@@ -53,7 +76,7 @@ public class Labirinto {
 	{
 		NumeroD = MazeCli.game.getNdragon();
 		boolean dragonHasSword = false; //verifica se um dragao está na mesma posição que a espada
-		for(int i = 0; i <= NumeroD; i++)
+		for(int i = 0; i < NumeroD; i++)
 		{
 			int coodD[] = DragonList.listIterator(i).next().getCood();
 			if(DragonList.listIterator(i).next().getSleep())
@@ -74,7 +97,7 @@ public class Labirinto {
 		}
 	}
 
-	public void printLab() {
+	public char[][] printLab() {
 		dragon = MazeCli.game.getDragon();
 		int coodH[] = hero.getCood(); 
 		int coodE[] = espada.getCood(); 
@@ -93,12 +116,8 @@ public class Labirinto {
 			maze[coodH[1]][coodH[0]] = 'H';
 		}
 		
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				System.out.print(maze[i][j] + " ");
-			}
-			System.out.println();
-		}
+		return maze;
+		
 	}
 
 	public void createLab(char[][] maze) //laboratório pre-definido

@@ -10,15 +10,21 @@ public class MazeCli {
 	
 	public static void main(String[] args) 
 	{
-		String walk;
+		String walk= "";
+		boolean choice = cli.choseMaze();
 
+		if (choice)
 		cli.getNumeroLab();
-		game.generate();
-		do
+		else
+			game.setN(10);
+		
+		cli.getNumeroDragoes();
+		game.generate(choice);
+		while(game.start(walk))
 		{
 			Scanner sc = new Scanner(System.in);
 			walk = sc.nextLine(); 
-		}while(game.start(walk));
+		}
 
 		if(!game.getLiveHero())
 			System.out.println("\n\n\nMorrrrrrrrrrrreu!");
@@ -53,5 +59,115 @@ public class MazeCli {
 		} while (rep);
 		game.setN(N);
 	}
+	
+	public static void printLab(char[][] maze, int N)
+	{
+		
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				System.out.print(maze[i][j] + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+
+	public boolean choseMaze()
+	{
+		System.out.println("Insira 1 para o Standard Maze ou 2 para gerar um aleatorio");
+		boolean rep;
+		int N = 0;
+		
+		do {
+			rep = false;
+			try {
+				Scanner sc = new Scanner(System.in);
+				String detect = sc.nextLine();
+				N = Integer.parseInt(detect);
+				if ( N != 1 && N != 2)
+				{
+					rep=true;
+					System.out.println("Número inválido");
+				}
+				else{
+					rep = false;
+					if (N==1)
+						return false;//standard
+					else 
+						return true;//aleatorio
+				}
+			} catch (Exception e) {
+				System.out.println("Erro, insira o número de novo.");
+				rep = true;
+			}
+			
+			
+		} while (rep);
+		return true;
+	}
+	
+	public void getNumeroDragoes() {
+		System.out.println("Insira o numero de dragoes: \n");
+		boolean rep;
+		int N = 0;
+		
+		do {
+			rep = false;
+			try {
+				Scanner sc = new Scanner(System.in);
+				String detect = sc.nextLine();
+				N = Integer.parseInt(detect);
+				if ( N <=0 || N > game.getN()/2)
+				{
+					rep=true;
+					System.out.println("Número inválido. insira o número de novo");
+				}
+				else
+					rep = false;
+			} catch (Exception e) {
+				System.out.println("Erro, insira o número de novo.");
+				rep = true;
+			}
+			
+			
+		} while (rep);
+		
+		
+		game.setNdragon(N);
+	}
+
+	public void setDifficulty(){
+		
+		System.out.println("Insira a dificuldade de jogo:\n1-Dragoes parados\n2-Dragoes com movimento aleatorio\n3-Dragoes com movimento aleatorio intercalado com dormir");
+		boolean rep;
+		int N = 0;
+		
+		do {
+			rep = false;
+			try {
+				Scanner sc = new Scanner(System.in);
+				String detect = sc.nextLine();
+				N = Integer.parseInt(detect);
+				if ( N !=1 && N != 2 && N!= 3)
+				{
+					rep=true;
+					System.out.println("Dificuldade inválida. insira o número de novo");
+				}
+				else
+					rep = false;
+			} catch (Exception e) {
+				System.out.println("Erro, insira o número de novo.");
+				rep = true;
+			}
+			
+			
+		} while (rep);
+		
+		
+		game.setDiff(N);
+		
+	}
+	
 	
 }
