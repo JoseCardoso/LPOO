@@ -25,10 +25,23 @@ public class Saida {
 				&& MazeCli.game.getSpace(x, y + 1) != ' ' && MazeCli.game.getSpace(x + 1, y) != ' ');
 	}
 
+	public void pos(int x, int y)//posição definida
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
 	public int[] getCood() {
 		int cood[] = new int[2];
 		cood[0] = x;
 		cood[1] = y;
 		return cood;
+	}
+
+	public void setCood(int x, int y) {
+		
+		this.x = x;
+		this.y = y;
+		
 	}
 }

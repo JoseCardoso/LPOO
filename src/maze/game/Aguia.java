@@ -18,6 +18,8 @@ public class Aguia extends MazeObject{
 		this.arrived = arrived;
 	}
 
+	
+	
 	Aguia(Heroi hero, Espada espada)
 	{
 		heroi = hero;

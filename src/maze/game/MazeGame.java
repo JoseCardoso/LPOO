@@ -17,6 +17,15 @@ public class MazeGame {
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida,aguia);
 	
+	
+
+	public Saida getSaida() {
+		return saida;
+	}
+
+	public void setSaida(Saida saida) {
+		this.saida = saida;
+	}
 
 	public boolean isLiveDragon() {
 		return LiveDragon;
@@ -58,6 +67,14 @@ public class MazeGame {
 
 	public void setLab(Labirinto lab) {
 		this.lab = lab;
+	}
+
+	public Aguia getAguia() {
+		return aguia;
+	}
+
+	public void setAguia(Aguia aguia) {
+		this.aguia = aguia;
 	}
 
 	public void setHero(Heroi hero) {

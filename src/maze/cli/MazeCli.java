@@ -28,6 +28,7 @@ public class MazeCli {
 		
 		cli.getNumeroDragoes();
 		game.generate(choice);
+		cli.setDifficulty();
 		while(game.start(walk))
 		{
 			Scanner sc = new Scanner(System.in);
