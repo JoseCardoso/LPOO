@@ -71,6 +71,7 @@ public class terceira {
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
 		aguia.pos();
+		int x = espada.getCood()[];
 		espada.setCood(1, 5);
 		assertEquals(1,aguia.getCood()[1]);
 		assertEquals(1,aguia.getCood()[0]);

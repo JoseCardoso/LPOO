@@ -34,6 +34,32 @@ public class Primeiro {
 				{'X',' ','X','X',' ',' ',' ',' ',' ','X'}, 
 				{'X','X','X','X','X','X','X','X','X','X'} 
 	*/
+	@Test 
+	public void testCannotWin()
+	{
+		int x, y;
+		maze = cli.getGame();
+		maze.setN(10);
+		maze.setDiff(1);
+		maze.setNdragon(1);
+		maze.generate(false);
+		lab = maze.getLab();
+		hero = maze.getHero();
+		saida = maze.getSaida();
+		x = hero.getCood()[0];
+		y = hero.getCood()[1];
+		lab.setSpace(x, y, ' ');
+		hero.setCood(1, 1);
+		x = saida.getCood()[0];
+		y = saida.getCood()[1];
+		lab.setSpace(x, y, 'X');
+		saida.setCood(0, 1);
+		hero.setCood(1, 1);
+		lab.printLab();
+		
+		assertEquals(true,maze.start("a"));
+		assertEquals(false,hero.getSword());
+	}
 	
 	@Test
 	public void testMoveFree()
@@ -159,34 +185,6 @@ public class Primeiro {
 		hero.pos(1, 1);
 		assertEquals(false,maze.start("a"));		
 		assertEquals(false,maze.isLiveDragon());
-	}
-	
-	
-	@Test 
-	public void testCannotWin()
-	{
-		int x, y;
-		maze = cli.getGame();
-		maze.setN(10);
-		maze.setDiff(1);
-		maze.setNdragon(1);
-		maze.generate(false);
-		lab = maze.getLab();
-		hero = maze.getHero();
-		saida = maze.getSaida();
-		x = hero.getCood()[0];
-		y = hero.getCood()[1];
-		lab.setSpace(x, y, ' ');
-		hero.setCood(1, 1);
-		x = saida.getCood()[0];
-		y = saida.getCood()[1];
-		lab.setSpace(x, y, 'X');
-		saida.setCood(0, 1);
-		hero.setCood(1, 1);
-		lab.printLab();
-		
-		assertEquals(true,maze.start("a"));
-		assertEquals(false,hero.getSword());
 	}
 	
 	
