@@ -1,7 +1,6 @@
 package maze.game;
 
 
-import java.awt.List;
 import java.util.ArrayList;
 import maze.cli.MazeCli;
 
@@ -10,14 +9,19 @@ public class MazeGame {
 
 	private int N , diff;
 	private boolean LiveDragon = true, LiveHero = true,exit = false;
-	private Espada espada = new Espada();
-	private Heroi hero = new Heroi();
-	private Aguia aguia = new Aguia(hero, espada);
-	private Saida saida = new Saida();
+	private Espada espada = new Espada(this);
+	private Heroi hero = new Heroi(this);
+	private Aguia aguia = new Aguia(this);
+	private Saida saida = new Saida(this);
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
-	private Labirinto lab = new Labirinto(espada,DragonList,hero,saida,aguia);
+	private Labirinto lab = new Labirinto(this);
+	private MazeCli cli;
 	
 	
+
+	public MazeGame(MazeCli mazeCli) {
+		cli = mazeCli;
+	}
 
 	public Saida getSaida() {
 		return saida;
@@ -99,7 +103,7 @@ public class MazeGame {
 		lab.setAguia(aguia);
 		for(int i = 0; i < NumeroD; i++)//contruie a lista, menos ou igual
 		{
-			Dragon temp = new Dragon(hero,aguia);
+			Dragon temp = new Dragon(this);
 			temp.pos();
 			DragonList.add(temp);
 		}
@@ -134,7 +138,7 @@ public class MazeGame {
 			}
 		System.out.println();
 		maze=lab.printLab();
-		MazeCli.printLab(maze, N);
+		cli.printLab(maze, N);
 		bigEat();
 		bigEatEagle();
 		hero.pickUpEagle();

@@ -1,8 +1,6 @@
 package maze.game;
 import java.util.Random;
 
-import maze.cli.MazeCli;
-
 public class Dragon  extends MazeObject {
 	Heroi heroi;
 	Aguia aguia;
@@ -15,23 +13,24 @@ public class Dragon  extends MazeObject {
 	}
 	
 
-	Dragon(Heroi hero, Aguia aguia)
+	Dragon(MazeGame mazeGame)
 	{
-		heroi = hero;
-		this.aguia = aguia;
+		super(mazeGame);
+		heroi = game.getHero();
+		aguia = game.getAguia();
 	}
 
 	public void pos() 
 	{
 		Random r = new Random(); 
-		int N = MazeCli.game.getN();
+		int N = game.getN();
 		do
 		{
 			x = r.nextInt(N-2)+1;
 			y = r.nextInt(N-2)+1;	
 		}
-		while(MazeCli.game.getSpace(x,y) != ' ' || eat() );
-		MazeCli.game.setSpace(x, y, 'D');
+		while(game.getSpace(x,y) != ' ' || eat() );
+		game.setSpace(x, y, 'D');
 	}
 
 	public boolean eat()
@@ -80,7 +79,7 @@ public class Dragon  extends MazeObject {
 				move(-1,0);
 			break;
 		case 5:
-			if(MazeCli.game.getDiff() == 3)
+			if(game.getDiff() == 3)
 				sleep = !sleep;
 			break;
 		default:
@@ -96,15 +95,15 @@ public class Dragon  extends MazeObject {
 	public void move(int dx, int dy)
 	{
 		char Valid;
-		Valid =MazeCli.game.getSpace(x+dx, y+dy);
+		Valid =game.getSpace(x+dx, y+dy);
 		if (Valid == 'X')
 			moveRandom();
 		else if (Valid == ' ' || Valid == 'S' || Valid == 'E')
 		{
-			MazeCli.game.setSpace(x, y,' ');
+			game.setSpace(x, y,' ');
 			y += dy;
 			x += dx;
 		}
-		MazeCli.game.setSpace(x, y, 'D');
+		game.setSpace(x, y, 'D');
 	}
 }

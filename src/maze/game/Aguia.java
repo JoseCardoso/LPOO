@@ -1,6 +1,5 @@
 package maze.game;
 
-import maze.cli.MazeCli;
 
 public class Aguia extends MazeObject{
 
@@ -20,12 +19,10 @@ public class Aguia extends MazeObject{
 
 
 
-	Aguia(Heroi hero, Espada espada)
-	{
-		heroi = hero;
-		this.espada = espada;
-		x = heroi.getCood()[0];
-		y = heroi.getCood()[1];
+	public Aguia(MazeGame mazeGame) {
+		super(mazeGame);
+		heroi = game.getHero();
+		espada = game.getEspada();
 	}
 
 	public void pos()
@@ -119,7 +116,7 @@ public class Aguia extends MazeObject{
 		if (sword)
 		{
 			espada.setCood(x, y);
-			MazeCli.game.setSpace(x , y, 'E');
+			game.setSpace(x , y, 'E');
 		}
 
 		alive = false;
@@ -142,17 +139,17 @@ public class Aguia extends MazeObject{
 				lastPos = ' ';
 			}
 
-			MazeCli.game.setSpace(x , y , lastPos);
+			game.setSpace(x , y , lastPos);
 
 			y += dy;
 			x += dx;
-			lastPos = MazeCli.game.getSpace( x ,y);
-			MazeCli.game.setSpace(x, y, 'a');
+			lastPos = game.getSpace( x ,y);
+			game.setSpace(x, y, 'a');
 		}
 
 	}
 
 	public void erase() {
-		MazeCli.game.setSpace(x, y, lastPos);		
+		game.setSpace(x, y, lastPos);		
 	}
 }

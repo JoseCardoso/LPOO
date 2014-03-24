@@ -3,8 +3,14 @@ package maze.game;
 
 public abstract class MazeObject {
 	protected int x, y;
+	protected MazeGame game;
 	
 	public abstract void pos(); 
+	
+	public MazeObject(MazeGame mazeGame)
+	{
+		game = mazeGame;
+	}
 	
 	public int[] getCood()
 	{

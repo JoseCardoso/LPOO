@@ -1,7 +1,6 @@
 package maze.game;
 import java.util.*;
 
-import maze.cli.MazeCli;
 //MazeBuilder
 public class Labirinto {
 	public int N;
@@ -15,6 +14,8 @@ public class Labirinto {
 	private Heroi hero;
 	private Saida saida;
 	private Aguia aguia;
+	private MazeGame game;
+	
 	public Aguia getAguia() {
 		return aguia;
 	}
@@ -23,22 +24,16 @@ public class Labirinto {
 		this.aguia = aguia;
 	}
 	private ArrayList<Dragon> DragonList;
-
-	Labirinto(Espada e, ArrayList<Dragon> d, Heroi h, Saida s, Aguia a)
-	{
-		espada = e;
-		DragonList = d;
-		hero = h;
-		saida = s;
-		aguia = a;
-	}
-
-	public Labirinto()
-	{
-		
-		
-	}
 	
+	public Labirinto(MazeGame mazeGame) {
+		game = mazeGame;
+		espada = game.getEspada();
+		DragonList = game.getDragonList();
+		hero = game.getHero();
+		saida = game.getSaida();
+		aguia = game.getAguia();
+	}
+
 	public void setMaze(char[][] m)
 	{
 		this.maze = m;
@@ -74,7 +69,7 @@ public class Labirinto {
 
 	public void drawDragon(int[] coodE)
 	{
-		NumeroD = MazeCli.game.getNdragon();
+		NumeroD = game.getNdragon();
 		boolean dragonHasSword = false; //verifica se um dragao está na mesma posição que a espada
 		for(int i = 0; i < NumeroD; i++)
 		{
@@ -98,7 +93,7 @@ public class Labirinto {
 	}
 
 	public char[][] printLab() {
-		dragon = MazeCli.game.getDragon();
+		dragon = game.getDragon();
 		int coodH[] = hero.getCood(); 
 		int coodE[] = espada.getCood(); 
 		int coodS[] = saida.getCood();

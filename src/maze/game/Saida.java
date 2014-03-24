@@ -1,14 +1,18 @@
 package maze.game;
 import java.util.Random;
 
-import maze.cli.MazeCli;
-
 public class Saida {
 	private int x , y;
+	private MazeGame game;
+	
+	public Saida(MazeGame mazeGame) {
+		game = mazeGame;
+	}
+
 	public void pos()
 	{
 		Random r = new Random();
-		int N = MazeCli.game.getN();
+		int N = game.getN();
 		do {
 			int tmp = r.nextInt(2);
 			switch (tmp) {
@@ -21,8 +25,8 @@ public class Saida {
 				x = r.nextInt(N);
 				break;
 			}
-		} while (MazeCli.game.getSpace(x + 1, y) != ' ' && MazeCli.game.getSpace(x - 1, y) != ' '
-				&& MazeCli.game.getSpace(x, y + 1) != ' ' && MazeCli.game.getSpace(x + 1, y) != ' ');
+		} while (game.getSpace(x + 1, y) != ' ' && game.getSpace(x - 1, y) != ' '
+				&& game.getSpace(x, y + 1) != ' ' && game.getSpace(x + 1, y) != ' ');
 	}
 
 	public void pos(int x, int y)//posição definida

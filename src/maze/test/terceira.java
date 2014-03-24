@@ -22,13 +22,13 @@ import org.junit.Test;
 
 
 public class terceira {
-	
-	Labirinto lab = new Labirinto();
-	Heroi hero = new Heroi();
-	Espada espada = new Espada();
+
 	MazeCli cli = new MazeCli();
-	MazeGame maze = new MazeGame();
-	Saida saida = new Saida();
+	MazeGame maze = new MazeGame(cli);
+	Labirinto lab = new Labirinto(maze);
+	Heroi hero = new Heroi(maze);
+	Espada espada = new Espada(maze);
+	Saida saida = new Saida(maze);
 	Aguia aguia;
 	private ArrayList<Dragon> dragons =new ArrayList<Dragon>();
 	

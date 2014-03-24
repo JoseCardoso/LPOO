@@ -1,6 +1,5 @@
 package maze.game;
 import java.util.Random;
-import maze.cli.MazeCli;
 
 
 
@@ -8,6 +7,11 @@ public class Heroi extends MazeObject{
 	private boolean Sword = false;	
 	private boolean comAguia = true;
 	private Aguia aguia;
+
+	public Heroi(MazeGame mazeGame) {
+		super(mazeGame);
+		aguia = game.getAguia();
+	}
 
 	public Aguia getAguia() {
 		return aguia;
@@ -35,15 +39,15 @@ public class Heroi extends MazeObject{
 	public void pos() //posição aleatória
 	{
 		Random r = new Random(); 
-		int N = MazeCli.game.getN();
+		int N = game.getN();
 
 		do
 		{
 			x = r.nextInt(N-1)+1;
 			y = r.nextInt(N-1)+1;	
 		}
-		while(MazeCli.game.getSpace(x,y) != ' ' );
-		MazeCli.game.setSpace(x, y, 'H');
+		while(game.getSpace(x,y) != ' ' );
+		game.setSpace(x, y, 'H');
 	}
 
 	public void move(String walk)
@@ -87,17 +91,17 @@ public class Heroi extends MazeObject{
 	public void trueMove(int dy, int dx)
 	{
 		char Valid;
-		Valid =MazeCli.game.getSpace(x+dx, y+dy);
+		Valid =game.getSpace(x+dx, y+dy);
 		if (Valid == ' '  || Valid == 'S')
 		{
-			MazeCli.game.setSpace(x, y,' ');
+			game.setSpace(x, y,' ');
 			y += dy;
 			x += dx;
 		}
 		if( Valid == 'E')
 		{
 			Sword = true;
-			MazeCli.game.setSpace(x, y,' ');
+			game.setSpace(x, y,' ');
 			y += dy;
 			x += dx;
 		}

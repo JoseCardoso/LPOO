@@ -1,8 +1,13 @@
 package maze.game;
 import java.util.Random;
-import maze.cli.MazeCli;
 
 public class Espada extends MazeObject {
+
+	
+	
+	public Espada(MazeGame mazeGame) {
+		super(mazeGame);
+	}
 
 	public void pos() 
 	{
@@ -10,10 +15,10 @@ public class Espada extends MazeObject {
 
 		do
 		{
-			x = r.nextInt(MazeCli.game.getN()-1)+1;
-			y = r.nextInt(MazeCli.game.getN()-1)+1;	
+			x = r.nextInt(game.getN()-1)+1;
+			y = r.nextInt(game.getN()-1)+1;	
 		}
-		while(MazeCli.game.getSpace(x,y) != ' ');
+		while(game.getSpace(x,y) != ' ');
 		//MazeCli.game.setSpace(x, y, 'E');
 	}
 

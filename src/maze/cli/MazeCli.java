@@ -5,14 +5,8 @@ import maze.game.MazeGame;
 
 
 public class MazeCli {
-	static MazeCli cli = new MazeCli();
-	public static MazeGame game = new MazeGame();
+	private MazeGame game = new MazeGame(this);
 
-	public MazeCli ()
-	{
-		game = new MazeGame();
-		cli = this;
-	}
 
 	public MazeGame getGame() {
 		return game;
@@ -28,16 +22,16 @@ public class MazeCli {
 	public  void run() 
 	{
 		String walk= "";
-		boolean choice = cli.choseMaze();
+		boolean choice = choseMaze();
 
 		if (choice)
-			cli.getNumeroLab();
+			getNumeroLab();
 		else
 			game.setN(10);
 
-		cli.getNumeroDragoes();
+		getNumeroDragoes();
 		game.generate(choice);
-		cli.setDifficulty();
+		setDifficulty();
 		while(game.start(walk))
 		{
 			Scanner sc = new Scanner(System.in);
