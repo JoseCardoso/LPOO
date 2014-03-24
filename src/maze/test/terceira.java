@@ -67,12 +67,12 @@ public class terceira {
 		maze.generate(false);
 		hero = maze.getHero();
 		lab = maze.getLab();
-		espada = maze.getEspada();
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
+		int x = maze.getEspada().getCood()[0];
+		int y = maze.getEspada().getCood()[1];
+		maze.getEspada().setCood(1, 5);
 		aguia.pos();
-		int x = espada.getCood()[];
-		espada.setCood(1, 5);
 		assertEquals(1,aguia.getCood()[1]);
 		assertEquals(1,aguia.getCood()[0]);
 		lab.printLab();
@@ -80,8 +80,7 @@ public class terceira {
 		lab.printLab();
 		aguia.move();
 		lab.printLab();
-		assertEquals(2,aguia.getCood()[0]);
-		lab.printLab();
+		assertEquals(2,aguia.getCood()[1]);
 	}
 	
 	@Test
@@ -93,20 +92,23 @@ public class terceira {
 		maze.generate(false);
 		hero = maze.getHero();
 		lab = maze.getLab();
-		espada = maze.getEspada();
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
+		int x = maze.getEspada().getCood()[0];
+		int y = maze.getEspada().getCood()[1];
+		maze.setSpace(x, y, ' ');
+		maze.getEspada().setCood(1, 4);
 		aguia.pos();
-		espada.setCood(1, 3);
 		lab.printLab();
 		hero.move("e");
 		lab.printLab();
 		aguia.move();
+		lab.printLab();
 		aguia.move();
 		lab.printLab();
-		aguia.foundSword();
-		assertEquals(true,aguia.getSword());
+		aguia.move();
 		lab.printLab();
+		assertEquals(true,aguia.foundSword());
 	}
 	
 	@Test
@@ -118,24 +120,30 @@ public class terceira {
 		maze.generate(false);
 		hero = maze.getHero();
 		lab = maze.getLab();
-		espada = maze.getEspada();
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
+		int x = maze.getEspada().getCood()[0];
+		int y = maze.getEspada().getCood()[1];
+		maze.setSpace(x, y, ' ');
+		maze.getEspada().setCood(1, 4);
 		aguia.pos();
-		espada.setCood(1, 3);
 		lab.printLab();
 		hero.move("e");
 		lab.printLab();
 		aguia.move();
+		lab.printLab();
 		aguia.move();
 		lab.printLab();
-		aguia.foundSword();
-		aguia.move();
 		aguia.move();
 		lab.printLab();
-		hero.pickUpEagle();
-		assertEquals(true,hero.getSword());
-		assertEquals(true,hero.isComAguia());
+		aguia.move();
+		lab.printLab();
+		aguia.move();
+		lab.printLab();
+		aguia.move();
+		lab.printLab();
+		assertEquals(true, hero.pickUpEagle());
+		
 
 	}
 	

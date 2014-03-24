@@ -8,6 +8,13 @@ public class Dragon  extends MazeObject {
 	Aguia aguia;
 	private boolean sleep = false;
 
+	private IRandomWrapper random = new RandomWrapper(); // default implementation
+
+	public void setRandomWrapper(IRandomWrapper random) {
+		this.random = random;
+	}
+	
+
 	Dragon(Heroi hero, Aguia aguia)
 	{
 		heroi = hero;
@@ -52,8 +59,7 @@ public class Dragon  extends MazeObject {
 
 	public void moveRandom()
 	{
-		Random r = new Random();
-		int x = r.nextInt(6);
+		int x = random.getInt();
 
 		switch(x)
 		{

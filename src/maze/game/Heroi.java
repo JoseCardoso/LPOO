@@ -8,7 +8,7 @@ public class Heroi extends MazeObject{
 	private boolean Sword = false;	
 	private boolean comAguia = true;
 	private Aguia aguia;
-	
+
 	public Aguia getAguia() {
 		return aguia;
 	}
@@ -20,23 +20,23 @@ public class Heroi extends MazeObject{
 	public void setComAguia(boolean comAguia) {
 		this.comAguia = comAguia;
 	}
-	
+
 	public void setAguia(Aguia aguia)
 	{
 		this.aguia = aguia;
 	}
-	
+
 	public void pos(int x, int y)//posição definida
 	{
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public void pos() //posição aleatória
 	{
 		Random r = new Random(); 
 		int N = MazeCli.game.getN();
-		
+
 		do
 		{
 			x = r.nextInt(N-1)+1;
@@ -45,7 +45,7 @@ public class Heroi extends MazeObject{
 		while(MazeCli.game.getSpace(x,y) != ' ' );
 		MazeCli.game.setSpace(x, y, 'H');
 	}
-	
+
 	public void move(String walk)
 	{
 		if ( walk.equals("a") || walk.equals("A"))
@@ -58,14 +58,16 @@ public class Heroi extends MazeObject{
 			trueMove(1,0);
 		else if((walk.equals("e") ||walk.equals("E")) && comAguia)
 		{
-			comAguia = false;
+			if (comAguia && !Sword)
+			{comAguia = false;
 			aguia.launch();
+			}
 		}
 	}
-	
+
 	public boolean pickUpEagle()
 	{
-		
+
 		if(((Math.abs(aguia.getCood()[0]-x) <= 1 && Math.abs(aguia.getCood()[1]-y) == 0)
 				|| (Math.abs(aguia.getCood()[0]-x) == 0 && Math.abs(aguia.getCood()[1]-y) <= 1))
 				&& aguia.isAlive() && !aguia.isFlying())
@@ -78,10 +80,10 @@ public class Heroi extends MazeObject{
 		}
 		else 
 			return false;
-		
+
 	}
-	
-	
+
+
 	public void trueMove(int dy, int dx)
 	{
 		char Valid;
@@ -100,12 +102,12 @@ public class Heroi extends MazeObject{
 			x += dx;
 		}
 	}
-	
+
 	public boolean getSword()
 	{
 		return Sword;		
 	}
-	
+
 	public void setSword(boolean Sword)
 	{
 		this.Sword = Sword;		

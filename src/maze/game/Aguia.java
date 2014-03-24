@@ -18,8 +18,8 @@ public class Aguia extends MazeObject{
 		this.arrived = arrived;
 	}
 
-	
-	
+
+
 	Aguia(Heroi hero, Espada espada)
 	{
 		heroi = hero;
@@ -64,9 +64,9 @@ public class Aguia extends MazeObject{
 				flying = false;
 				timeToChange = true;
 				foundSword();
-			
+
 			}
-			
+
 			else if (Math.abs(dx) > Math.abs(dy))
 			{
 				flight(dx/Math.abs(dx),0);
@@ -96,10 +96,11 @@ public class Aguia extends MazeObject{
 			return false;
 	}
 
-	public void foundSword()
+	public boolean foundSword()
 	{
 		if(espada.getCood()[0] == x && espada.getCood()[1]  == y)
 			sword = true;
+		return sword;
 	}
 
 
@@ -118,8 +119,11 @@ public class Aguia extends MazeObject{
 		if (sword)
 		{
 			espada.setCood(x, y);
+			MazeCli.game.setSpace(x , y, 'E');
 		}
+
 		alive = false;
+
 
 	}
 
@@ -127,22 +131,24 @@ public class Aguia extends MazeObject{
 	{
 		return flying;
 	}
-	
-	
+
+
 	public void flight(int dx, int dy)
 	{	
-		if (lastPos == 'E')
+		if (alive)
 		{
-			lastPos = ' ';
+			if (lastPos == 'E')
+			{
+				lastPos = ' ';
+			}
+
+			MazeCli.game.setSpace(x , y , lastPos);
+
+			y += dy;
+			x += dx;
+			lastPos = MazeCli.game.getSpace( x ,y);
+			MazeCli.game.setSpace(x, y, 'a');
 		}
-
-		MazeCli.game.setSpace(x , y , lastPos);
-
-		y += dy;
-		x += dx;
-		lastPos = MazeCli.game.getSpace( x ,y);
-		MazeCli.game.setSpace(x, y, 'a');
-
 
 	}
 
