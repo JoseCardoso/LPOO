@@ -72,7 +72,7 @@ public class MazeCli {
 		game.setN(N);
 	}
 
-	public static void printLab(char[][] maze, int N)
+	public void printLab(char[][] maze, int N)
 	{
 
 		for (int i = 0; i < N; i++) {
