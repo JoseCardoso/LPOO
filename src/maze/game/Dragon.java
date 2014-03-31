@@ -35,7 +35,7 @@ public class Dragon  extends MazeObject {
 
 	public boolean eat()
 	{
-		int[] coordH = heroi.getCood();
+		int[] coordH = heroi.getCoord();
 		if((Math.abs(coordH[0]-x) <= 1 && Math.abs(coordH[1]-y) == 0) 
 				||  (Math.abs(coordH[0]-x) == 0 && Math.abs(coordH[1]-y) <= 1))
 			return true;
@@ -45,9 +45,9 @@ public class Dragon  extends MazeObject {
 
 	public boolean eatEagle()
 	{
-		int[] coordA = aguia.getCood();
-		if(!aguia.isFlying() && aguia.isAlive() && (Math.abs(coordA[0]-x) <= 1 && Math.abs(coordA[1]-y) == 0) 
-				||  (Math.abs(coordA[0]-x) == 0 && Math.abs(coordA[1]-y) <= 1))
+		int[] coordA = aguia.getCoord();
+		if(!aguia.isFlying() && aguia.isAlive() && ((Math.abs(coordA[0]-x) <= 1 && Math.abs(coordA[1]-y) == 0) 
+				||  (Math.abs(coordA[0]-x) == 0 && Math.abs(coordA[1]-y) <= 1)))
 		{
 			aguia.kill();
 			return true;

@@ -27,19 +27,19 @@ public class Aguia extends MazeObject{
 
 	public void pos()
 	{
-		int[] coodH = heroi.getCood();
+		int[] coodH = heroi.getCoord();
 		x = coodH[0];
 		y = coodH[1];
-		xObjective = espada.getCood()[0];
-		yObjective = espada.getCood()[1];
+		xObjective = espada.getCoord()[0];
+		yObjective = espada.getCoord()[1];
 	}
 
 	public void launch()
 	{
 		arrived = false;
 		flying = true;
-		xDeparture = heroi.getCood()[0];
-		yDeparture = heroi.getCood()[1];
+		xDeparture = heroi.getCoord()[0];
+		yDeparture = heroi.getCoord()[1];
 	}
 
 	public void move()
@@ -51,12 +51,12 @@ public class Aguia extends MazeObject{
 			arrived = true;
 		if(heroi.isComAguia())
 		{
-			x = heroi.getCood()[0];
-			y = heroi.getCood()[1];
+			x = heroi.getCoord()[0];
+			y = heroi.getCoord()[1];
 		}
 		else
 		{
-			if(x == espada.getCood()[0] &&  y== espada.getCood()[1] && dx == 0 && dy == 0)
+			if(x == espada.getCoord()[0] &&  y== espada.getCoord()[1] && dx == 0 && dy == 0)
 			{
 				flying = false;
 				timeToChange = true;
@@ -85,8 +85,8 @@ public class Aguia extends MazeObject{
 	{
 		if (!heroi.getSword())
 		{
-			xDeparture = heroi.getCood()[0];
-			yDeparture = heroi.getCood()[1];
+			xDeparture = heroi.getCoord()[0];
+			yDeparture = heroi.getCoord()[1];
 			return true;
 		}
 		else
@@ -95,7 +95,7 @@ public class Aguia extends MazeObject{
 
 	public boolean foundSword()
 	{
-		if(espada.getCood()[0] == x && espada.getCood()[1]  == y)
+		if(espada.getCoord()[0] == x && espada.getCoord()[1]  == y)
 			sword = true;
 		return sword;
 	}

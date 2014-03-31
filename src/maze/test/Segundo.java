@@ -11,7 +11,7 @@ import org.junit.Test;
 public class Segundo {
 	
 	MazeCli cli = new MazeCli();
-	MazeGame maze = new MazeGame(cli);
+	MazeGame maze = new MazeGame();
 	Labirinto lab = new Labirinto(maze);
 	Heroi hero = new Heroi(maze);
 	Espada espada = new Espada(maze);
@@ -38,18 +38,18 @@ public class Segundo {
 		d.setCood(1, 1);
 		d.setRandomWrapper(teste1);
 		d.moveRandom();
-		lab.printLab();
-		assertEquals(2,d.getCood()[1]);
-		assertEquals(1,d.getCood()[0]);
+		lab.updateLab();
+		assertEquals(2,d.getCoord()[1]);
+		assertEquals(1,d.getCoord()[0]);
 		d.setCood(1, 1);
 
 		MockedRandomWrapper teste2 = new MockedRandomWrapper(2);
 		d.setCood(1, 1);
 		d.setRandomWrapper(teste2);
 		d.moveRandom();
-		lab.printLab();
-		assertEquals(1,d.getCood()[1]);
-		assertEquals(2,d.getCood()[0]);
+		lab.updateLab();
+		assertEquals(1,d.getCoord()[1]);
+		assertEquals(2,d.getCoord()[0]);
 	}
 	
 	
@@ -106,9 +106,9 @@ public class Segundo {
 		d2.setCood(1, 1);
 		d2.setRandomWrapper(teste2);
 		d2.moveRandom();
-		lab.printLab();
-		assertEquals(1,d2.getCood()[1]);
-		assertEquals(2,d2.getCood()[0]);
+		lab.updateLab();
+		assertEquals(1,d2.getCoord()[1]);
+		assertEquals(2,d2.getCoord()[0]);
 	}
 	
 	

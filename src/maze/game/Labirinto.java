@@ -1,4 +1,5 @@
 package maze.game;
+
 import java.util.*;
 
 //MazeBuilder
@@ -8,14 +9,13 @@ public class Labirinto {
 	private char[][] maze;
 	private char[][] visitedCell;
 	private boolean dragon = true;
-	private boolean heroi = true;
 	private Stack<int[]> st;
 	private Espada espada;
 	private Heroi hero;
 	private Saida saida;
 	private Aguia aguia;
 	private MazeGame game;
-	
+
 	public Aguia getAguia() {
 		return aguia;
 	}
@@ -23,8 +23,9 @@ public class Labirinto {
 	public void setAguia(Aguia aguia) {
 		this.aguia = aguia;
 	}
+
 	private ArrayList<Dragon> DragonList;
-	
+
 	public Labirinto(MazeGame mazeGame) {
 		game = mazeGame;
 		espada = game.getEspada();
@@ -34,95 +35,99 @@ public class Labirinto {
 		aguia = game.getAguia();
 	}
 
-	public void setMaze(char[][] m)
-	{
+	public char[][] getMaze() {
+		return maze;
+	}
+
+	public void setMaze(char[][] m) {
 		this.maze = m;
 	}
-	
-	public char[][] getStandardMaze(){
-	
-		char[][] temp = {
-				{'X','X','X','X','X','X','X','X','X','X'}, 
-				{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'}, 
-				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
-				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
-				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
-				{'X',' ',' ',' ',' ',' ',' ','X',' ','X'}, 
-				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
-				{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
-				{'X',' ','X','X',' ',' ',' ',' ',' ','X'}, 
-				{'X','X','X','X','X','X','X','X','X','X'} 
-				};
+
+	public char[][] getStandardMaze() {
+		char[][] temp = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+		
 		return temp;
 
 	}
+
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
 			return 'I';
 		return maze[y][x];
 	}
 
-	public   void setSpace(int x, int y, char C) {
+	public void setSpace(int x, int y, char C) {
+		
 		maze[y][x] = C;
 	}
 
-
-	public void drawDragon(int[] coodE)
-	{
+	public void drawDragon(int[] coodE) {
 		NumeroD = game.getNdragon();
-		boolean dragonHasSword = false; //verifica se um dragao está na mesma posição que a espada
-		for(int i = 0; i < NumeroD; i++)
-		{
-			int coodD[] = DragonList.listIterator(i).next().getCood();
-			if(DragonList.listIterator(i).next().getSleep())
-				maze[coodD[1]][coodD[0]] = 'd'; 
+		boolean dragonHasSword = false; // verifica se um dragao está na mesma
+		// posição que a espada
+		for (int i = 0; i < NumeroD; i++) {
+			int coodD[] = DragonList.listIterator(i).next().getCoord();
+			if (DragonList.listIterator(i).next().getSleep())
+				maze[coodD[1]][coodD[0]] = 'd';
 			else
-				maze[coodD[1]][coodD[0]] = 'D'; 
-			if(!hero.getSword() && !aguia.getSword())
-			{
-				if(coodD[0] == coodE[0] && coodD[1] == coodE[1])
-				{ dragonHasSword = true;
+				maze[coodD[1]][coodD[0]] = 'D';
+			if (!hero.getSword() && !aguia.getSword()) {
+				if (coodD[0] == coodE[0] && coodD[1] == coodE[1]) {
+					dragonHasSword = true;
 					maze[coodD[1]][coodD[0]] = 'F';
-				}
-				else if (!dragonHasSword)
+				} else if (!dragonHasSword)
 					maze[coodE[1]][coodE[0]] = 'E';
-			}
-			else if(coodD[0] != coodE[0] || coodD[1] != coodE[1])//desenhar a espada em branco se o heroi ou a aguia tiver espada
+			} else if (coodD[0] != coodE[0] || coodD[1] != coodE[1])// desenhar
+				// a espada
+				// em branco
+				// se o
+				// heroi ou
+				// a aguia
+				// tiverem
+				// espada
 				maze[coodE[1]][coodE[0]] = ' ';
 		}
 	}
 
-	public char[][] printLab() {
+	public char[][] updateLab() {
 		dragon = game.getDragon();
-		int coodH[] = hero.getCood(); 
-		int coodE[] = espada.getCood(); 
-		int coodS[] = saida.getCood();
-		int coodA[] = aguia.getCood();
-		maze[coodA[1]][coodA[0]] = 'a';
-		maze[coodS[1]][coodS[0]] = 'S'; 
-		if(dragon){
-			drawDragon(coodE);
-		}
+		int coordH[] = hero.getCoord();
+		int coordE[] = espada.getCoord();
+		int coordS[] = saida.getCood();
+		int coordA[] = aguia.getCoord();
 		
-		if(hero.getSword()) 
-			maze[coodH[1]][coodH[0]] ='A'; 
+		if (coordH[0] != coordA[0] || coordH[1] != coordA[1])
+			maze[coordA[1]][coordA[0]] = 'a';
+		
+		maze[coordS[1]][coordS[0]] = 'S';
+		if (dragon) {
+			drawDragon(coordE);
+		}
+		if (hero.getSword())
+			maze[coordH[1]][coordH[0]] = 'A';
 		else
-		{
-			maze[coodH[1]][coodH[0]] = 'H';
-		}
-		
+			maze[hero.getCoord()[1]][hero.getCoord()[0]] = 'H';
+
 		return maze;
-		
+
 	}
 
-	public void createLab(char[][] maze) //laboratório pre-definido
+	public void createLab(char[][] maze) // laboratório pre-definido
 	{
-		this.maze = maze;		
+		this.maze = maze;
 	}
-	
-	
+
 	public void createLab() {
-		st = new Stack();
+		st = new Stack<int[]>();
 		Random r = new Random();
 		int size = (N - 1) / 2;
 		int x = r.nextInt(size);
@@ -144,7 +149,7 @@ public class Labirinto {
 		}
 
 		visitedCell[y][x] = '+';
-		addToStack(x ,y);
+		addToStack(x, y);
 
 		// começar a gerar algoritmo
 		while (!st.isEmpty()) {
@@ -187,7 +192,7 @@ public class Labirinto {
 				}
 			} else {
 				st.pop();
-				if (!st.isEmpty()){
+				if (!st.isEmpty()) {
 					x = st.peek()[0];
 					y = st.peek()[1];
 				}
@@ -230,13 +235,11 @@ public class Labirinto {
 			return false;
 	}
 
-	public void setN(int n)
-	{
+	public void setN(int n) {
 		N = n;
 	}
 
-	public int getN()
-	{
+	public int getN() {
 		return N;
 	}
 
@@ -247,17 +250,15 @@ public class Labirinto {
 		st.push(temp);
 	}
 
-
-	public Heroi getHeroi()
-	{
+	public Heroi getHeroi() {
 		return hero;
 	}
-	public Espada getEspada()
-	{
+
+	public Espada getEspada() {
 		return espada;
 	}
-	public Saida getSaida()
-	{
+
+	public Saida getSaida() {
 		return saida;
 	}
 }

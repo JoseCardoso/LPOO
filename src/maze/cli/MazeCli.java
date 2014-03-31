@@ -5,7 +5,7 @@ import maze.game.MazeGame;
 
 
 public class MazeCli {
-	private MazeGame game = new MazeGame(this);
+	private MazeGame game = new MazeGame();
 
 
 	public MazeGame getGame() {
@@ -30,15 +30,17 @@ public class MazeCli {
 			game.setN(10);
 
 		getNumeroDragoes();
-		game.generate(choice);
 		setDifficulty();
-		while(game.start(walk))
+		game.generate(choice);
+		
+		while(game.update(walk))
 		{
+			printLab();
 			Scanner sc = new Scanner(System.in);
 			walk = sc.nextLine(); 
 		}
 
-		if(!game.getLiveHero())
+		if(!game.heroIsAlive())
 			System.out.println("\n\n\nMorrrrrrrrrrrreu!");
 		else
 			System.out.println("\n\n\nVitória!");
@@ -72,9 +74,10 @@ public class MazeCli {
 		game.setN(N);
 	}
 
-	public void printLab(char[][] maze, int N)
+	public void printLab()
 	{
-
+		char[][] maze = game.getLab().getMaze();
+		int N = game.getN();
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				System.out.print(maze[i][j] + " ");

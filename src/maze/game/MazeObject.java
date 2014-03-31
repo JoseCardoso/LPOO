@@ -12,7 +12,7 @@ public abstract class MazeObject {
 		game = mazeGame;
 	}
 	
-	public int[] getCood()
+	public int[] getCoord()
 	{
 		int cood[] = new int[2];
 		cood[0] = x;

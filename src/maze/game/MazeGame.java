@@ -1,26 +1,36 @@
 package maze.game;
 
-
 import java.util.ArrayList;
 import maze.cli.MazeCli;
 
-
 public class MazeGame {
-
-	private int N , diff;
-	private boolean LiveDragon = true, LiveHero = true,exit = false;
+	private int N, dificuldade, NumeroD;
+	private boolean LiveDragon = true, LiveHero = true, exit = false;
 	private Espada espada = new Espada(this);
 	private Heroi hero = new Heroi(this);
 	private Aguia aguia = new Aguia(this);
 	private Saida saida = new Saida(this);
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(this);
-	private MazeCli cli;
-	
-	
 
-	public MazeGame(MazeCli mazeCli) {
-		cli = mazeCli;
+	
+	
+	public String toString() {
+		String res = "";
+
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				res += lab.getMaze()[i][j] + " ";
+			}
+
+			res += "\n";
+		}
+
+		return res;
+	}
+
+	public MazeGame() {
+
 	}
 
 	public Saida getSaida() {
@@ -47,7 +57,6 @@ public class MazeGame {
 		DragonList = dragonList;
 	}
 
-
 	public Espada getEspada() {
 		return espada;
 	}
@@ -55,19 +64,18 @@ public class MazeGame {
 	public void setEspada(Espada espada) {
 		this.espada = espada;
 	}
-	
+
 	public Labirinto getLab() {
 		return lab;
 	}
 
 	public int getDiff() {
-		return diff;
+		return dificuldade;
 	}
 
 	public void setDiff(int diff) {
-		this.diff = diff;
+		this.dificuldade = diff;
 	}
-
 
 	public void setLab(Labirinto lab) {
 		this.lab = lab;
@@ -85,11 +93,20 @@ public class MazeGame {
 		this.hero = hero;
 	}
 
-	private int NumeroD;
+	public void autoGen(int N, int NDragons, int diff, boolean choice) {
+		if (!choice)
+			this.N = 10;
+		else
+			this.N = N;
+
+		this.NumeroD = NDragons;
+		this.dificuldade = diff;
+		generate(choice);
+
+	}
 
 	public void generate(boolean choice) {
-
-		//choice -false = standard
+		// choice -false = standard
 		lab.setN(N);
 		if (choice)
 			lab.createLab();
@@ -101,131 +118,106 @@ public class MazeGame {
 		hero.setAguia(aguia);
 		saida.pos();
 		lab.setAguia(aguia);
-		for(int i = 0; i < NumeroD; i++)//contruie a lista, menos ou igual
+		for (int i = 0; i < NumeroD; i++)// contruie a lista, menos ou igual
 		{
 			Dragon temp = new Dragon(this);
 			temp.pos();
 			DragonList.add(temp);
 		}
-		lab.printLab();
+		lab.updateLab();
 	}
 
-	public void setN(int n)
-	{
+	public void setN(int n) {
 		N = n;
 	}
 
-	public int getNdragon()
-	{
+	public int getNdragon() {
 		return NumeroD;
 	}
 
-	public void setNdragon(int num)
-	{
+	public void setNdragon(int num) {
 		NumeroD = num;
 	}
 
-	public boolean start(String walk )
-	{
+	public boolean update(String dir) {
 		char[][] maze;
 
-		hero.move(walk);
+		hero.move(dir);
 		aguia.move();
-		if (diff != 1)
-			for(int i = 0; i < NumeroD; i++)
-			{
+		if (dificuldade != 1)
+			for (int i = 0; i < NumeroD; i++)
 				DragonList.listIterator(i).next().moveRandom();
-			}
-		System.out.println();
-		maze=lab.printLab();
-		cli.printLab(maze, N);
+
+		maze = lab.updateLab();
 		bigEat();
 		bigEatEagle();
 		hero.pickUpEagle();
-		if(hero.getCood()[0] == saida.getCood()[0] &&
-				hero.getCood()[1] == saida.getCood()[1] )
+		if (hero.getCoord()[0] == saida.getCood()[0]
+				&& hero.getCoord()[1] == saida.getCood()[1])
 			exit = true;
-		else 
+		else
 			exit = false;
-		if(!LiveHero ||  (!LiveDragon && exit))
+		if (!LiveHero || (!LiveDragon && exit))
 			return false;
 		else
 			return true;
 	}
 
-
-	public void bigEat()
-	{
-		for(int i = 0; i < NumeroD;i++)
-		{
+	public void bigEat() {
+		for (int i = 0; i < NumeroD; i++) {
 			DragonList.listIterator(i).next();
-			if(DragonList.listIterator(i).next().eat())
-			{ 
-				if(hero.getSword()) 
-				{
-					setSpace(DragonList.listIterator(i).next().getCood()[0],
-							DragonList.listIterator(i).next().getCood()[1],' ');
+			if (DragonList.listIterator(i).next().eat()) {
+				if (hero.getSword()) {
+					setSpace(DragonList.listIterator(i).next().getCoord()[0],
+							DragonList.listIterator(i).next().getCoord()[1],
+							' ');
 					DragonList.remove(i);
 					NumeroD--;
-				}
-				else if(!DragonList.listIterator(i).next().getSleep())
+				} else if (!DragonList.listIterator(i).next().getSleep())
 					LiveHero = false;
-			} 
+			}
 		}
-		if(NumeroD == 0)
+		if (NumeroD == 0)
 			LiveDragon = false;
 	}
 
-	public void bigEatEagle()
-	{
-		for(int i = 0; i < NumeroD;i++)
-		{
+	public void bigEatEagle() {
+		for (int i = 0; i < NumeroD; i++) {
 			DragonList.listIterator(i).next();
 			DragonList.listIterator(i).next().eatEagle();
 		}
 	}
 
-	public boolean getLiveHero()
-	{
+	public boolean heroIsAlive() {
 		return LiveHero;
 	}
 
-	public Heroi getHero()
-	{
+	public Heroi getHero() {
 		return hero;
 	}
 
-
-	public boolean getDragon()
-	{
+	public boolean getDragon() {
 		return LiveDragon;
 	}
 
-	public int getN()
-	{
+	public int getN() {
 		return N;
 	}
 
-	public char getSpace(int x, int y)
-	{
+	public char getSpace(int x, int y) {
 		return lab.getSpace(x, y);
 	}
 
-	public void setSpace(int x, int y, char C)
-	{
+	public void setSpace(int x, int y, char C) {
 		lab.setSpace(x, y, C);
 	}
 
-	public int[] getEspadaPos()
-	{
-		return espada.getCood();
+	public int[] getEspadaPos() {
+		return espada.getCoord();
 	}
 
-	public int[] getHeroPos()
-	{
-		return hero.getCood();
+	public int[] getHeroPos() {
+		return hero.getCoord();
 	}
 
 }
-
-

@@ -24,7 +24,7 @@ import org.junit.Test;
 public class terceira {
 
 	MazeCli cli = new MazeCli();
-	MazeGame maze = new MazeGame(cli);
+	MazeGame maze = new MazeGame();
 	Labirinto lab = new Labirinto(maze);
 	Heroi hero = new Heroi(maze);
 	Espada espada = new Espada(maze);
@@ -49,12 +49,12 @@ public class terceira {
 		espada.setCood(1, 5);
 		hero.pos(1, 1);
 		aguia.pos();
-		assertEquals(1,aguia.getCood()[1]);
-		assertEquals(1,aguia.getCood()[0]);
-		lab.printLab();
+		assertEquals(1,aguia.getCoord()[1]);
+		assertEquals(1,aguia.getCoord()[0]);
+		lab.updateLab();
 		hero.move("e");
 		assertEquals(false,hero.isComAguia());	
-		lab.printLab();
+		lab.updateLab();
 	}
 	
 	@Test
@@ -69,18 +69,18 @@ public class terceira {
 		lab = maze.getLab();
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
-		int x = maze.getEspada().getCood()[0];
-		int y = maze.getEspada().getCood()[1];
+		int x = maze.getEspada().getCoord()[0];
+		int y = maze.getEspada().getCoord()[1];
 		maze.getEspada().setCood(1, 5);
 		aguia.pos();
-		assertEquals(1,aguia.getCood()[1]);
-		assertEquals(1,aguia.getCood()[0]);
-		lab.printLab();
+		assertEquals(1,aguia.getCoord()[1]);
+		assertEquals(1,aguia.getCoord()[0]);
+		lab.updateLab();
 		hero.move("e");
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
-		assertEquals(2,aguia.getCood()[1]);
+		lab.updateLab();
+		assertEquals(2,aguia.getCoord()[1]);
 	}
 	
 	@Test
@@ -94,20 +94,20 @@ public class terceira {
 		lab = maze.getLab();
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
-		int x = maze.getEspada().getCood()[0];
-		int y = maze.getEspada().getCood()[1];
+		int x = maze.getEspada().getCoord()[0];
+		int y = maze.getEspada().getCoord()[1];
 		maze.setSpace(x, y, ' ');
 		maze.getEspada().setCood(1, 4);
 		aguia.pos();
-		lab.printLab();
+		lab.updateLab();
 		hero.move("e");
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		assertEquals(true,aguia.foundSword());
 	}
 	
@@ -122,26 +122,26 @@ public class terceira {
 		lab = maze.getLab();
 		aguia = maze.getAguia();
 		hero.pos(1, 1);
-		int x = maze.getEspada().getCood()[0];
-		int y = maze.getEspada().getCood()[1];
+		int x = maze.getEspada().getCoord()[0];
+		int y = maze.getEspada().getCoord()[1];
 		maze.setSpace(x, y, ' ');
 		maze.getEspada().setCood(1, 4);
 		aguia.pos();
-		lab.printLab();
+		lab.updateLab();
 		hero.move("e");
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		aguia.move();
-		lab.printLab();
+		lab.updateLab();
 		assertEquals(true, hero.pickUpEagle());
 		
 

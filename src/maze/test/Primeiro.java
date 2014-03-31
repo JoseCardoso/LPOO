@@ -15,7 +15,7 @@ public class Primeiro {
 
 
 	MazeCli cli = new MazeCli();
-	MazeGame maze = new MazeGame(cli);
+	MazeGame maze = new MazeGame();
 	Labirinto lab = new Labirinto(maze);
 	Heroi hero = new Heroi(maze);
 	Espada espada = new Espada(maze);
@@ -46,8 +46,8 @@ public class Primeiro {
 		lab = maze.getLab();
 		hero = maze.getHero();
 		saida = maze.getSaida();
-		x = hero.getCood()[0];
-		y = hero.getCood()[1];
+		x = hero.getCoord()[0];
+		y = hero.getCoord()[1];
 		lab.setSpace(x, y, ' ');
 		hero.setCood(1, 1);
 		x = saida.getCood()[0];
@@ -55,9 +55,9 @@ public class Primeiro {
 		lab.setSpace(x, y, 'X');
 		saida.setCood(0, 1);
 		hero.setCood(1, 1);
-		lab.printLab();
+		lab.updateLab();
 		
-		assertEquals(true,maze.start("a"));
+		assertEquals(true,maze.update("a"));
 		assertEquals(false,hero.getSword());
 	}
 	
@@ -71,13 +71,13 @@ public class Primeiro {
 		lab = maze.getLab();
 		hero = maze.getHero();
 		hero.pos(1, 1);
-		lab.printLab();
+		lab.updateLab();
 		hero.move("s");
-		assertEquals(2,hero.getCood()[1]);
+		assertEquals(2,hero.getCoord()[1]);
 		hero.pos(1, 1);
-		lab.printLab();
+		lab.updateLab();
 		hero.move("d");
-		assertEquals(2,hero.getCood()[0]);
+		assertEquals(2,hero.getCoord()[0]);
 	}
 	
 	
@@ -92,13 +92,13 @@ public class Primeiro {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		hero.pos(1, 1);
-		lab.printLab();
+		lab.updateLab();
 		hero.move("w");
-		assertEquals(1,hero.getCood()[1]);
+		assertEquals(1,hero.getCoord()[1]);
 		hero.pos(1, 1);
-		lab.printLab();
+		lab.updateLab();
 		hero.move("a");
-		assertEquals(1,hero.getCood()[0]);	
+		assertEquals(1,hero.getCoord()[0]);	
 		
 	}
 	
@@ -116,7 +116,7 @@ public class Primeiro {
 		dragons.listIterator(0).next().setCood(0, 0);//colocar o dragão em 0|0 para não conseguir matar o herói
 		espada.setCood(2, 1);
 		hero.pos(1, 1);
-		lab.printLab();
+		lab.updateLab();
 		hero.move("d");
 		assertEquals(true,hero.getSword());		
 	}
@@ -137,9 +137,9 @@ public class Primeiro {
 	
 		hero.pos(1, 1);
 		hero.move("d");
-		lab.printLab();
+		lab.updateLab();
 		maze.bigEat();
-		assertEquals(false,maze.getLiveHero());		
+		assertEquals(false,maze.heroIsAlive());		
 	}
 	
 	@Test 
@@ -154,9 +154,9 @@ public class Primeiro {
 		dragons = maze.getDragonList();
 		dragons.listIterator(0).next().setCood(3, 1);//colocar o dragão em 0|0 para não conseguir matar o herói
 		hero.pos(2, 1);
-		lab.printLab();
+		lab.updateLab();
 		maze.bigEat();
-		assertEquals(false,maze.getLiveHero());		
+		assertEquals(false,maze.heroIsAlive());		
 	}
 	
 	@Test 
@@ -173,12 +173,12 @@ public class Primeiro {
 		maze.setSpace(x, y, 'X');
 		saida.setCood(0, 1);
 		hero.setSword(true);
-		lab.printLab();
-		x = hero.getCood()[0];
-		y = hero.getCood()[1];
+		lab.updateLab();
+		x = hero.getCoord()[0];
+		y = hero.getCoord()[1];
 		maze.setSpace(x, y, ' ');
 		hero.pos(1, 1);
-		assertEquals(false,maze.start("a"));		
+		assertEquals(false,maze.update("a"));		
 		assertEquals(false,maze.isLiveDragon());
 	}
 	
