@@ -130,8 +130,7 @@ public class Aguia extends MazeObject{
 	}
 
 
-	public void flight(int dx, int dy)
-	{	
+	public void flight(int dx, int dy){
 		if (alive)
 		{
 			if (lastPos == 'E')
@@ -150,6 +149,7 @@ public class Aguia extends MazeObject{
 	}
 
 	public void erase() {
-		game.setSpace(x, y, lastPos);		
+		if(heroi.getSword())
+		game.setSpace(xDeparture, yDeparture, ' ');		
 	}
 }

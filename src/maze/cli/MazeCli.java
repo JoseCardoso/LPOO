@@ -76,7 +76,7 @@ public class MazeCli {
 
 	public void printLab()
 	{
-		char[][] maze = game.getLab().getMaze();
+		char[][] maze = game.getLab().updateLab();
 		int N = game.getN();
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {

@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import maze.game.MazeGame;
@@ -17,6 +19,7 @@ public class GPanel extends JPanel   {
 	private static final long serialVersionUID = 1L;
 	private MazeGame game = new MazeGame();
 	private char[][] maze = new char[game.getN()][game.getN()];
+	//private GFrame window;
 	private Graphics2D g2d;
 	private BufferedImage wallIMG;
 	private BufferedImage pathIMG;
@@ -24,25 +27,30 @@ public class GPanel extends JPanel   {
 	private BufferedImage dragonIMG;
 	private BufferedImage heroIMG;
 	private BufferedImage swordIMG;
-	private int upKey = KeyEvent.VK_W;
-	private int leftKey = KeyEvent.VK_A;
-	private int rightKey = KeyEvent.VK_D;
-	private int downKey = KeyEvent.VK_S;
-	private int sendEagleKey = KeyEvent.VK_E;
-	private String direcao = "";
+	private int upKey = KeyEvent.VK_UP;
+	private int leftKey = KeyEvent.VK_LEFT;
+	private int rightKey = KeyEvent.VK_RIGHT;
+	private int downKey = KeyEvent.VK_DOWN;
+	private int sendEagleKey = KeyEvent.VK_SPACE;
 
 	public GPanel() throws IOException {
+		//this.window = window;
 		addKeyListener(new MyKeyboardAdapter());
 		setFocusable(true);
 		requestFocus();
-
-		game.autoGen(10, 1, 2, false);
 		loadImage();
-
-		game.update("");
-		repaint();
+	
 	}
-
+public void startGame()
+{
+	
+	game.autoGen(13, 1, 2, true);
+	setVisible(true);
+	game.update("");
+	repaint();
+	
+	
+}
 	public void loadImage() throws IOException {
 		wallIMG = ImageIO.read(new File("res/wall.png"));
 		pathIMG = ImageIO.read(new File("res/path.png"));
@@ -55,25 +63,43 @@ public class GPanel extends JPanel   {
 	public class MyKeyboardAdapter extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
+
+
+			String dir = "";
 			int key = e.getKeyCode();
 
 			if (key == upKey)
-				direcao = "W";
+				dir = "W";
 			if (key == leftKey)
-				direcao = "A";
+				dir = "A";
 			if (key == downKey)
-				direcao = "S";
+				dir = "S";
 			if (key == rightKey)
-				direcao = "D";
+				dir = "D";
 			if (key == sendEagleKey)
-				direcao = "E";
+				dir = "E";
 
-			if (!game.update(direcao)) {
+			
+			if  (game.update(dir) == false)
+			{
+				repaint();
 				if (game.heroIsAlive())
-					System.out.println("You Win");
+				{
+					String msg = "You win!";
+					JOptionPane.showMessageDialog(getRootPane(), msg);
+				}
 				else
-					System.out.println("Game Over");
+				{
+
+					String msg = "Game Over!";
+					JOptionPane.showMessageDialog(getRootPane(), msg);
+
+
+				}
+
+				setVisible(false);
 			}
+
 
 			repaint();
 		}
@@ -84,6 +110,7 @@ public class GPanel extends JPanel   {
 		super.paintComponent(g);
 
 		g2d = (Graphics2D) g;
+		maze = game.getLab().updateLab();
 
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze.length; j++) {
@@ -107,14 +134,9 @@ public class GPanel extends JPanel   {
 
 				g2d.drawImage(tile, dx1, dy1, dx2, dy2, 0, 0, tile.getWidth(),
 						tile.getHeight(), null);
-
-				System.out.print(maze[i][j] + " ");
 			}
-
-			System.out.println();
 		}
 
-		System.out.println();
 	}
 
 	public void printLab() {
