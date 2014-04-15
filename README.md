@@ -2,4 +2,5 @@ LPOO
 ====
 Maze Game project
 
-Current iteration : 2
+Current iteration : 4
+
