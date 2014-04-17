@@ -5,10 +5,10 @@ public class Aguia extends MazeObject{
 
 	private Heroi heroi;
 	private Espada espada;
-	private char lastPos;
 	private int xDeparture, yDeparture, xObjective, yObjective;
 	private boolean sword = false, alive = true, flying = false, arrived = false;
 
+	
 	public boolean getArrived() {
 		return arrived;
 	}
@@ -116,7 +116,6 @@ public class Aguia extends MazeObject{
 		if (sword)
 		{
 			espada.setCood(x, y);
-			game.setSpace(x , y, 'E');
 		}
 
 		alive = false;
@@ -133,23 +132,10 @@ public class Aguia extends MazeObject{
 	public void flight(int dx, int dy){
 		if (alive)
 		{
-			if (lastPos == 'E')
-			{
-				lastPos = ' ';
-			}
-
-			game.setSpace(x , y , lastPos);
-
 			y += dy;
 			x += dx;
-			lastPos = game.getSpace( x ,y);
-			game.setSpace(x, y, 'a');
 		}
 
 	}
 
-	public void erase() {
-		if(heroi.getSword())
-		game.setSpace(xDeparture, yDeparture, ' ');		
-	}
 }

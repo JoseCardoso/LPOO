@@ -30,7 +30,6 @@ public class Dragon  extends MazeObject {
 			y = r.nextInt(N-2)+1;	
 		}
 		while(game.getSpace(x,y) != ' ' || eat() );
-		game.setSpace(x, y, 'D');
 	}
 
 	public boolean eat()
@@ -100,10 +99,8 @@ public class Dragon  extends MazeObject {
 			moveRandom();
 		else if (Valid == ' ' || Valid == 'S' || Valid == 'E')
 		{
-			game.setSpace(x, y,' ');
 			y += dy;
 			x += dx;
 		}
-		game.setSpace(x, y, 'D');
 	}
 }

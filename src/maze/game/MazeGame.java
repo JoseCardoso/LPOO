@@ -1,7 +1,6 @@
 package maze.game;
 
 import java.util.ArrayList;
-import maze.cli.MazeCli;
 
 public class MazeGame {
 	private int N, dificuldade, NumeroD;
@@ -13,7 +12,6 @@ public class MazeGame {
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(this);
 
-	
 	
 	public String toString() {
 		String res = "";
@@ -111,7 +109,7 @@ public class MazeGame {
 		if (choice)
 			lab.createLab();
 		else
-			lab.setMaze(lab.getStandardMaze());
+			lab.createLab(lab.getStandardMaze());
 		espada.pos();
 		hero.pos();
 		aguia.pos();
@@ -140,15 +138,12 @@ public class MazeGame {
 	}
 
 	public boolean update(String dir) {
-		char[][] maze;
 
 		hero.move(dir);
 		aguia.move();
 		if (dificuldade != 1)
 			for (int i = 0; i < NumeroD; i++)
 				DragonList.listIterator(i).next().moveRandom();
-
-		maze = lab.updateLab();
 		bigEat();
 		bigEatEagle();
 		hero.pickUpEagle();
@@ -168,9 +163,6 @@ public class MazeGame {
 			DragonList.listIterator(i).next();
 			if (DragonList.listIterator(i).next().eat()) {
 				if (hero.getSword()) {
-					setSpace(DragonList.listIterator(i).next().getCoord()[0],
-							DragonList.listIterator(i).next().getCoord()[1],
-							' ');
 					DragonList.remove(i);
 					NumeroD--;
 				} else if (!DragonList.listIterator(i).next().getSleep())
@@ -207,9 +199,9 @@ public class MazeGame {
 	public char getSpace(int x, int y) {
 		return lab.getSpace(x, y);
 	}
-
-	public void setSpace(int x, int y, char C) {
-		lab.setSpace(x, y, C);
+	
+	public void setSpace(int x, int y,char C) {
+		 lab.setSpace(x, y,C);
 	}
 
 	public int[] getEspadaPos() {

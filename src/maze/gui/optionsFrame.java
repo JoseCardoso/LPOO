@@ -1,6 +1,7 @@
 package maze.gui;
 
 import maze.gui.GFrame;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -16,14 +17,18 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JSlider;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
+
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JTextPane;
 
 
@@ -65,7 +70,7 @@ public class optionsFrame{
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				gF.nD=DragonSpinner.getNumber();
+				gF.nD=(Integer)  DragonSpinner.getValue();
  
 				
 				gF.nDf= DiffSlider.getValue();

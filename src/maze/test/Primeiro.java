@@ -114,7 +114,7 @@ public class Primeiro {
 		lab = maze.getLab();
 		dragons = maze.getDragonList();
 		dragons.listIterator(0).next().setCood(0, 0);//colocar o dragão em 0|0 para não conseguir matar o herói
-		espada.setCood(2, 1);
+		espada.setCood(3, 1);
 		hero.pos(1, 1);
 		lab.updateLab();
 		hero.move("d");

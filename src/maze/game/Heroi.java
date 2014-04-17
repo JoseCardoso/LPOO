@@ -43,7 +43,6 @@ public class Heroi extends MazeObject {
 			x = r.nextInt(N - 1) + 1;
 			y = r.nextInt(N - 1) + 1;
 		} while (game.getSpace(x, y) != ' ');
-		game.setSpace(x, y, 'H');
 	}
 
 	public void move(String walk) {
@@ -69,11 +68,11 @@ public class Heroi extends MazeObject {
 				.abs(aguia.getCoord()[1] - y) == 0) || (Math
 				.abs(aguia.getCoord()[0] - x) == 0 && Math
 				.abs(aguia.getCoord()[1] - y) <= 1))
-				&& aguia.isAlive() && !aguia.isFlying()) {
+				&& aguia.isAlive() && !aguia.isFlying()) 
+		{
 			comAguia = true;
 			if (aguia.getSword())
 				Sword = true;
-				aguia.erase();
 		
 			return true;
 		} else
@@ -84,14 +83,22 @@ public class Heroi extends MazeObject {
 	public void trueMove(int dy, int dx) {
 		char Valid;
 		Valid = game.getSpace(x + dx, y + dy);
-		if (Valid == ' ' || Valid == 'S') {
-			game.setSpace(x, y, ' ');
+		if (Valid == ' ' || 
+				(x+dx == game.getSaida().getCood()[0] &&
+						y+dy == game.getSaida().getCood()[1] )) 
+		{
 			y += dy;
 			x += dx;
 		}
-		if (Valid == 'E') {
+		if (dx == game.getEspada().getCoord()[0] &&
+				dy == game.getEspada().getCoord()[1])//testa caso o heroi esteja em cima da espada e nao a tenha apanhado
+		{
 			Sword = true;
-			game.setSpace(x, y, ' ');
+		}
+		if (x+dx == game.getEspada().getCoord()[0] &&
+				y+dy == game.getEspada().getCoord()[1]) 
+		{
+			Sword = true;
 			y += dy;
 			x += dx;
 		}

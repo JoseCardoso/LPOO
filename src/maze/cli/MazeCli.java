@@ -41,7 +41,7 @@ public class MazeCli {
 		}
 
 		if(!game.heroIsAlive())
-			System.out.println("\n\n\nMorrrrrrrrrrrreu!");
+			System.out.println("\n\n\nDerrota...");
 		else
 			System.out.println("\n\n\nVitória!");
 	}

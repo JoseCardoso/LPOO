@@ -6,6 +6,7 @@ import java.util.*;
 public class Labirinto {
 	public int N;
 	private int NumeroD;
+	private char[][] emptyMaze;
 	private char[][] maze;
 	private char[][] visitedCell;
 	private boolean dragon = true;
@@ -39,9 +40,6 @@ public class Labirinto {
 		return maze;
 	}
 
-	public void setMaze(char[][] m) {
-		this.maze = m;
-	}
 
 	public char[][] getStandardMaze() {
 		char[][] temp = { 
@@ -63,7 +61,7 @@ public class Labirinto {
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
 			return 'I';
-		return maze[y][x];
+		return emptyMaze[y][x];
 	}
 
 	public void setSpace(int x, int y, char C) {
@@ -100,16 +98,20 @@ public class Labirinto {
 	}
 
 	public char[][] updateLab() {
+		
 		dragon = game.getDragon();
 		int coordH[] = hero.getCoord();
 		int coordE[] = espada.getCoord();
 		int coordS[] = saida.getCood();
 		int coordA[] = aguia.getCoord();
+		emptyMaze[coordS[1]][coordS[0]] = 'S';
 		
+		for(int i = 0; i < N;i++)
+			for(int j = 0; j <N ; j++)
+				maze[i][j] = emptyMaze[i][j];
 		if (coordH[0] != coordA[0] || coordH[1] != coordA[1])
 			maze[coordA[1]][coordA[0]] = 'a';
 		
-		maze[coordS[1]][coordS[0]] = 'S';
 		if (dragon) {
 			drawDragon(coordE);
 		}
@@ -124,7 +126,8 @@ public class Labirinto {
 
 	public void createLab(char[][] maze) // laboratório pre-definido
 	{
-		this.maze = maze;
+		this.emptyMaze = maze;
+		this.maze = new char[N][N];
 	}
 
 	public void createLab() {
@@ -134,14 +137,15 @@ public class Labirinto {
 		int x = r.nextInt(size);
 		int y = r.nextInt(size);
 		visitedCell = new char[size][size];
+		emptyMaze = new char[N][N];
 		maze = new char[N][N];
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (i % 2 != 0 && j % 2 != 0)
-					maze[i][j] = ' ';
+					emptyMaze[i][j] = ' ';
 				else
-					maze[i][j] = 'X';
+					emptyMaze[i][j] = 'X';
 			}
 		}
 		for (int i = 0; i < size; i++) {
@@ -202,7 +206,7 @@ public class Labirinto {
 	}
 
 	public void fillMaze(int x, int y, int dx, int dy) {
-		maze[y + dy][x + dx] = ' ';
+		emptyMaze[y + dy][x + dx] = ' ';
 	}
 
 	public boolean hasMove(int x, int y, int size) {
