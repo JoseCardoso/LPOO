@@ -35,16 +35,16 @@ public class Segundo {
 		
 		MockedRandomWrapper teste1 = new MockedRandomWrapper(1);//irá fazer com que o aleatório saia com este valor
 
-		d.setCood(1, 1);
+		d.setCoord(1, 1);
 		d.setRandomWrapper(teste1);
 		d.moveRandom();
 		lab.updateLab();
 		assertEquals(2,d.getCoord()[1]);
 		assertEquals(1,d.getCoord()[0]);
-		d.setCood(1, 1);
+		d.setCoord(1, 1);
 
 		MockedRandomWrapper teste2 = new MockedRandomWrapper(2);
-		d.setCood(1, 1);
+		d.setCoord(1, 1);
 		d.setRandomWrapper(teste2);
 		d.moveRandom();
 		lab.updateLab();
@@ -69,7 +69,7 @@ public class Segundo {
 		
 		MockedRandomWrapper teste1 = new MockedRandomWrapper(5);//irá fazer com que o aleatório saia com este valor
 
-		d.setCood(1, 1);
+		d.setCoord(1, 1);
 		d.setRandomWrapper(teste1);
 		d.moveRandom();//dormir
 		assertEquals(true,d.getSleep());
@@ -95,7 +95,7 @@ public class Segundo {
 		
 		MockedRandomWrapper teste1 = new MockedRandomWrapper(5);//irá fazer com que o aleatório saia com este valor
 
-		d1.setCood(9, 9);
+		d1.setCoord(9, 9);
 		d1.setRandomWrapper(teste1);
 		d1.moveRandom();//dormir
 		assertEquals(true,d1.getSleep());
@@ -103,7 +103,7 @@ public class Segundo {
 		assertEquals(false,d1.getSleep());
 		
 		MockedRandomWrapper teste2 = new MockedRandomWrapper(2);
-		d2.setCood(1, 1);
+		d2.setCoord(1, 1);
 		d2.setRandomWrapper(teste2);
 		d2.moveRandom();
 		lab.updateLab();

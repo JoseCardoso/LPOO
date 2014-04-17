@@ -25,14 +25,16 @@ public class GFrame {
 	JFrame frmFairyTailSclass = new JFrame();
 	private JButton btnNewGame;
 	private JButton btnExit;
-	private JButton options;
 	private JPanel buttonsPanel;
 	GPanel gamePanel;
 	optionsFrame Op;
 	private JPanel buttonsPanel2;
 	private JButton btnOptions;
+	private JButton btnLoad;
 	int nD = 1, nM = 7 , nDf = 1;
-
+	private JPanel buttonsPanel3;
+	private JButton btnSave;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -42,6 +44,9 @@ public class GFrame {
 
 		buttonsPanel = new JPanel();
 		buttonsPanel2 = new JPanel();
+		buttonsPanel3 = new JPanel();
+		
+		btnLoad = new JButton("Load Game");
 		
 		gamePanel = new GPanel(this);
 		btnNewGame = new JButton("New Game");
@@ -49,6 +54,8 @@ public class GFrame {
 		
 		btnOptions = new JButton("Options");
 		Op = new optionsFrame(this);
+		
+		
 
 		addButtons();
 		setUpButtons(); 
@@ -71,9 +78,14 @@ public class GFrame {
 							/ 2 - frmFairyTailSclass.getSize().height / 2);
 
 					// starting new game with new options
+
+					
 					buttonsPanel.setVisible(false);
 					buttonsPanel2.setVisible(false);
+					buttonsPanel3.setVisible(true);
+				
 					frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
+					frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.NORTH);
 					gamePanel.startGame();
 				}
 			}
@@ -100,6 +112,20 @@ public class GFrame {
 		});
 
 
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			
+				
+			}
+		});
+
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
 	}
 
 	/**
@@ -107,19 +133,27 @@ public class GFrame {
 	 */
 
 	private void addButtons() {
+		
+		
+		
+		
+		btnSave = new JButton("Save");
 		buttonsPanel.setLayout(new GridLayout(1, 3));
 		buttonsPanel.add(btnNewGame);
 		buttonsPanel.add(btnExit);
-		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
+		
 		
 
-		buttonsPanel2.setLayout(new GridLayout(0, 1, 0, 0));
+		buttonsPanel2.setLayout(new GridLayout(1, 0, 0, 0));
 		buttonsPanel2.add(btnOptions);
 		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
 		
+		
+		buttonsPanel2.add(btnLoad);
 
-
-
+		buttonsPanel3.add(btnSave);
+		buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
+		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
 	}
 
 	public void start() {

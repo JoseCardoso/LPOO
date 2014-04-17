@@ -3,6 +3,10 @@ package maze.game;
 import java.util.Random;
 
 public class Heroi extends MazeObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean Sword = false;
 	private boolean comAguia = true;
 	private Aguia aguia;
@@ -84,8 +88,8 @@ public class Heroi extends MazeObject {
 		char Valid;
 		Valid = game.getSpace(x + dx, y + dy);
 		if (Valid == ' ' || 
-				(x+dx == game.getSaida().getCood()[0] &&
-						y+dy == game.getSaida().getCood()[1] )) 
+				(x+dx == game.getSaida().getCoord()[0] &&
+						y+dy == game.getSaida().getCoord()[1] )) 
 		{
 			y += dy;
 			x += dx;

@@ -49,12 +49,12 @@ public class Primeiro {
 		x = hero.getCoord()[0];
 		y = hero.getCoord()[1];
 		lab.setSpace(x, y, ' ');
-		hero.setCood(1, 1);
-		x = saida.getCood()[0];
-		y = saida.getCood()[1];
+		hero.setCoord(1, 1);
+		x = saida.getCoord()[0];
+		y = saida.getCoord()[1];
 		lab.setSpace(x, y, 'X');
-		saida.setCood(0, 1);
-		hero.setCood(1, 1);
+		saida.setCoord(0, 1);
+		hero.setCoord(1, 1);
 		lab.updateLab();
 		
 		assertEquals(true,maze.update("a"));
@@ -113,8 +113,8 @@ public class Primeiro {
 		espada = maze.getEspada();
 		lab = maze.getLab();
 		dragons = maze.getDragonList();
-		dragons.listIterator(0).next().setCood(0, 0);//colocar o dragão em 0|0 para não conseguir matar o herói
-		espada.setCood(3, 1);
+		dragons.listIterator(0).next().setCoord(0, 0);//colocar o dragão em 0|0 para não conseguir matar o herói
+		espada.setCoord(3, 1);
 		hero.pos(1, 1);
 		lab.updateLab();
 		hero.move("d");
@@ -133,7 +133,7 @@ public class Primeiro {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		dragons = maze.getDragonList();
-		dragons.listIterator(0).next().setCood(3, 1);//colocar o dragão em 0|0 para não conseguir matar o herói
+		dragons.listIterator(0).next().setCoord(3, 1);//colocar o dragão em 0|0 para não conseguir matar o herói
 	
 		hero.pos(1, 1);
 		hero.move("d");
@@ -152,7 +152,7 @@ public class Primeiro {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		dragons = maze.getDragonList();
-		dragons.listIterator(0).next().setCood(3, 1);//colocar o dragão em 0|0 para não conseguir matar o herói
+		dragons.listIterator(0).next().setCoord(3, 1);//colocar o dragão em 0|0 para não conseguir matar o herói
 		hero.pos(2, 1);
 		lab.updateLab();
 		maze.bigEat();
@@ -169,9 +169,9 @@ public class Primeiro {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		saida = maze.getSaida();
-		int x = saida.getCood()[0], y = saida.getCood()[1];
+		int x = saida.getCoord()[0], y = saida.getCoord()[1];
 		maze.setSpace(x, y, 'X');
-		saida.setCood(0, 1);
+		saida.setCoord(0, 1);
 		hero.setSword(true);
 		lab.updateLab();
 		x = hero.getCoord()[0];

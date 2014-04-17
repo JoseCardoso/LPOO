@@ -52,6 +52,7 @@ public class GPanel extends JPanel   {
 		setVisible(true);
 		game.update("");
 		repaint();
+		requestFocus();
 
 
 	}

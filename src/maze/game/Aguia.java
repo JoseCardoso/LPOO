@@ -3,6 +3,10 @@ package maze.game;
 
 public class Aguia extends MazeObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Heroi heroi;
 	private Espada espada;
 	private int xDeparture, yDeparture, xObjective, yObjective;
@@ -115,7 +119,7 @@ public class Aguia extends MazeObject{
 	{
 		if (sword)
 		{
-			espada.setCood(x, y);
+			espada.setCoord(x, y);
 		}
 
 		alive = false;

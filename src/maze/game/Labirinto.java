@@ -102,7 +102,7 @@ public class Labirinto {
 		dragon = game.getDragon();
 		int coordH[] = hero.getCoord();
 		int coordE[] = espada.getCoord();
-		int coordS[] = saida.getCood();
+		int coordS[] = saida.getCoord();
 		int coordA[] = aguia.getCoord();
 		emptyMaze[coordS[1]][coordS[0]] = 'S';
 		
