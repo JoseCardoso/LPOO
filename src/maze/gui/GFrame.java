@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 
 public class GFrame {
 	private static final long serialVersionUID = 1L;
-	private JFrame frmFairyTailSclass = new JFrame();
+	JFrame frmFairyTailSclass = new JFrame();
 	private JButton btnNewGame;
 	private JButton btnExit;
 	private JButton options;
