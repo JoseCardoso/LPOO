@@ -32,25 +32,36 @@ public class GPanel extends JPanel   {
 	private int rightKey = KeyEvent.VK_RIGHT;
 	private int downKey = KeyEvent.VK_DOWN;
 	private int sendEagleKey = KeyEvent.VK_SPACE;
+	private GFrame gF;
 
-	public GPanel() throws IOException {
-		//this.window = window;
+	public GPanel(GFrame gF) throws IOException {
+		this.gF = gF;
 		addKeyListener(new MyKeyboardAdapter());
 		setFocusable(true);
 		requestFocus();
 		loadImage();
-	
+
 	}
-public void startGame()
-{
-	
-	game.autoGen(13, 1, 2, true);
-	setVisible(true);
-	game.update("");
-	repaint();
-	
-	
-}
+
+	public GPanel() throws IOException {
+		addKeyListener(new MyKeyboardAdapter());
+		setFocusable(true);
+		requestFocus();
+		loadImage();
+
+	}
+
+	public void startGame()
+	{
+
+		
+		game.autoGen(gF.nM, gF.nD, gF.nDf, true);
+		setVisible(true);
+		game.update("");
+		repaint();
+
+
+	}
 	public void loadImage() throws IOException {
 		wallIMG = ImageIO.read(new File("res/wall.png"));
 		pathIMG = ImageIO.read(new File("res/path.png"));
@@ -79,7 +90,7 @@ public void startGame()
 			if (key == sendEagleKey)
 				dir = "E";
 
-			
+
 			if  (game.update(dir) == false)
 			{
 				repaint();

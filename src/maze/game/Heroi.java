@@ -73,7 +73,8 @@ public class Heroi extends MazeObject {
 			comAguia = true;
 			if (aguia.getSword())
 				Sword = true;
-			aguia.erase();
+				aguia.erase();
+		
 			return true;
 		} else
 			return false;

@@ -27,10 +27,11 @@ public class GFrame {
 	private JButton btnExit;
 	private JButton options;
 	private JPanel buttonsPanel;
-	private GPanel gamePanel;
-	private optionsFrame Op;
+	GPanel gamePanel;
+	optionsFrame Op;
 	private JPanel buttonsPanel2;
 	private JButton btnOptions;
+	int nD = 1, nM = 7 , nDf = 1;
 
 	/**
 	 * Create the frame.
@@ -42,12 +43,12 @@ public class GFrame {
 		buttonsPanel = new JPanel();
 		buttonsPanel2 = new JPanel();
 		
-		gamePanel = new GPanel();
+		gamePanel = new GPanel(this);
 		btnNewGame = new JButton("New Game");
 		btnExit = new JButton("Exit");
 		
 		btnOptions = new JButton("Options");
-		Op = new optionsFrame();
+		Op = new optionsFrame(this);
 
 		addButtons();
 		setUpButtons(); 
@@ -71,6 +72,7 @@ public class GFrame {
 
 					// starting new game with new options
 					buttonsPanel.setVisible(false);
+					buttonsPanel2.setVisible(false);
 					frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
 					gamePanel.startGame();
 				}
