@@ -43,13 +43,6 @@ public class GPanel extends JPanel   {
 
 	}
 
-	public GPanel() throws IOException {
-		addKeyListener(new MyKeyboardAdapter());
-		setFocusable(true);
-		requestFocus();
-		loadImage();
-
-	}
 
 	public void startGame()
 	{

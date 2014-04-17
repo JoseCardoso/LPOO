@@ -70,9 +70,8 @@ public class optionsFrame{
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				gF.nD=(Integer)  DragonSpinner.getValue();
- 
-				
+				gF.nD=(Integer)DragonSpinner.getValue();
+				gF.nM= (Integer)MazeSizeSpinner.getValue();
 				gF.nDf= DiffSlider.getValue();
 				Options.setVisible(false); //you can't see me!
 				
