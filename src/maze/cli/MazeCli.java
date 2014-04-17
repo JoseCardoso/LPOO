@@ -21,32 +21,32 @@ public class MazeCli {
 	}
 	public  void run() 
 	{
+		Scanner sc = new Scanner(System.in);
 		String walk= "";
-		boolean choice = choseMaze();
+		boolean choice = choseMaze(sc);
 
 		if (choice)
-			getNumeroLab();
+			getNumeroLab(sc);
 		else
 			game.setN(10);
 
-		getNumeroDragoes();
-		setDifficulty();
+		getNumeroDragoes(sc);
+		setDifficulty(sc);
 		game.generate(choice);
 		
 		while(game.update(walk))
 		{
 			printLab();
-			Scanner sc = new Scanner(System.in);
 			walk = sc.nextLine(); 
 		}
-
+		sc.close();
 		if(!game.heroIsAlive())
 			System.out.println("\n\n\nDerrota...");
 		else
 			System.out.println("\n\n\nVitória!");
 	}
 
-	public void getNumeroLab() {
+	public void getNumeroLab(Scanner sc) {
 		System.out.println("Insira o tamanho 'N' do puzzle (Deve ser ímpar). (NxN)");
 		boolean rep;
 		int N = 0;
@@ -54,7 +54,6 @@ public class MazeCli {
 		do {
 			rep = false;
 			try {
-				Scanner sc = new Scanner(System.in);
 				String detect = sc.nextLine();
 				N = Integer.parseInt(detect);
 				if ( N %2 ==0 )
@@ -88,7 +87,7 @@ public class MazeCli {
 	}
 
 
-	public boolean choseMaze()
+	public boolean choseMaze(Scanner sc)
 	{
 		System.out.println("Insira 1 para o Standard Maze ou 2 para gerar um aleatorio");
 		boolean rep;
@@ -97,7 +96,6 @@ public class MazeCli {
 		do {
 			rep = false;
 			try {
-				Scanner sc = new Scanner(System.in);
 				String detect = sc.nextLine();
 				N = Integer.parseInt(detect);
 				if ( N != 1 && N != 2)
@@ -122,7 +120,7 @@ public class MazeCli {
 		return true;
 	}
 
-	public void getNumeroDragoes() {
+	public void getNumeroDragoes(Scanner sc) {
 		System.out.println("Insira o numero de dragoes: \n");
 		boolean rep;
 		int N = 0;
@@ -130,7 +128,6 @@ public class MazeCli {
 		do {
 			rep = false;
 			try {
-				Scanner sc = new Scanner(System.in);
 				String detect = sc.nextLine();
 				N = Integer.parseInt(detect);
 				if ( N <=0 || N > game.getN()/2)
@@ -152,7 +149,7 @@ public class MazeCli {
 		game.setNdragon(N);
 	}
 
-	public void setDifficulty(){
+	public void setDifficulty(Scanner sc){
 
 		System.out.println("Insira a dificuldade de jogo:\n1-Dragoes parados\n2-Dragoes com movimento aleatorio\n3-Dragoes com movimento aleatorio intercalado com dormir");
 		boolean rep;
@@ -161,7 +158,6 @@ public class MazeCli {
 		do {
 			rep = false;
 			try {
-				Scanner sc = new Scanner(System.in);
 				String detect = sc.nextLine();
 				N = Integer.parseInt(detect);
 				if ( N !=1 && N != 2 && N!= 3)

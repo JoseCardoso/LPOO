@@ -52,6 +52,7 @@ public class GPanel extends JPanel   {
 		setVisible(true);
 		game.update("");
 		repaint();
+		requestFocus();
 
 
 	}
@@ -91,14 +92,28 @@ public class GPanel extends JPanel   {
 				{
 					String msg = "You win!";
 					JOptionPane.showMessageDialog(getRootPane(), msg);
+					gF.frmFairyTailSclass.dispose();
+					try {
+						gF = new GFrame();
+						gF.start();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				else
 				{
 
 					String msg = "Game Over!";
 					JOptionPane.showMessageDialog(getRootPane(), msg);
-
-
+					gF.frmFairyTailSclass.dispose();
+					try {
+						gF = new GFrame();
+						gF.start();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 
 				setVisible(false);

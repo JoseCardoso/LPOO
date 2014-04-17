@@ -1,5 +1,7 @@
 package maze.game;
 
+import java.io.File;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class MazeGame {
@@ -12,7 +14,7 @@ public class MazeGame {
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
 	private Labirinto lab = new Labirinto(this);
 
-	
+
 	public String toString() {
 		String res = "";
 
@@ -199,9 +201,9 @@ public class MazeGame {
 	public char getSpace(int x, int y) {
 		return lab.getSpace(x, y);
 	}
-	
+
 	public void setSpace(int x, int y,char C) {
-		 lab.setSpace(x, y,C);
+		lab.setSpace(x, y,C);
 	}
 
 	public int[] getEspadaPos() {
@@ -212,4 +214,16 @@ public class MazeGame {
 		return hero.getCoord();
 	}
 
+	/*public void Save(File f) {
+		try { 
+		 os = new ObjectOutputStream( 
+		 new FileOutputStream("file.dat")); 
+		 os.writeObject(myObj); 
+		} 
+		catch (Exception e) { /*...*/ /*} 
+		finally { if (os != null) os.close(); }
+	}*/
+
 }
+
+
