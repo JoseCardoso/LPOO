@@ -1,12 +1,15 @@
 package maze.game;
 import java.util.Random;
 
-public class Saida {
-	private int x , y;
-	private MazeGame game;
+public class Saida extends MazeObject{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Saida(MazeGame mazeGame) {
-		game = mazeGame;
+		super(mazeGame);
 	}
 
 	public void pos()
@@ -29,23 +32,6 @@ public class Saida {
 				&& game.getSpace(x, y + 1) != ' ' && game.getSpace(x + 1, y) != ' ');
 	}
 
-	public void pos(int x, int y)//posição definida
-	{
-		this.x = x;
-		this.y = y;
-	}
 	
-	public int[] getCood() {
-		int cood[] = new int[2];
-		cood[0] = x;
-		cood[1] = y;
-		return cood;
-	}
 
-	public void setCood(int x, int y) {
-		
-		this.x = x;
-		this.y = y;
-		
-	}
 }

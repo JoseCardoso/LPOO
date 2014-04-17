@@ -5,6 +5,11 @@ public class Espada extends MazeObject {
 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Espada(MazeGame mazeGame) {
 		super(mazeGame);
 	}
@@ -22,7 +27,7 @@ public class Espada extends MazeObject {
 		//MazeCli.game.setSpace(x, y, 'E');
 	}
 
-	public void setCood(int x , int y)
+	public void setCoord(int x , int y)
 	{
 		this.x = x;
 		this.y = y;

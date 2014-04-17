@@ -147,8 +147,8 @@ public class MazeGame {
 		bigEat();
 		bigEatEagle();
 		hero.pickUpEagle();
-		if (hero.getCoord()[0] == saida.getCood()[0]
-				&& hero.getCoord()[1] == saida.getCood()[1])
+		if (hero.getCoord()[0] == saida.getCoord()[0]
+				&& hero.getCoord()[1] == saida.getCoord()[1])
 			exit = true;
 		else
 			exit = false;

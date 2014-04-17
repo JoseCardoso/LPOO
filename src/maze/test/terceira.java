@@ -46,7 +46,7 @@ public class terceira {
 		lab = maze.getLab();
 		hero.pos(1, 1);
 		aguia = maze.getAguia();
-		espada.setCood(1, 5);
+		espada.setCoord(1, 5);
 		hero.pos(1, 1);
 		aguia.pos();
 		assertEquals(1,aguia.getCoord()[1]);
@@ -71,7 +71,7 @@ public class terceira {
 		hero.pos(1, 1);
 		int x = maze.getEspada().getCoord()[0];
 		int y = maze.getEspada().getCoord()[1];
-		maze.getEspada().setCood(1, 5);
+		maze.getEspada().setCoord(1, 5);
 		aguia.pos();
 		assertEquals(1,aguia.getCoord()[1]);
 		assertEquals(1,aguia.getCoord()[0]);
@@ -97,7 +97,7 @@ public class terceira {
 		int x = maze.getEspada().getCoord()[0];
 		int y = maze.getEspada().getCoord()[1];
 		maze.setSpace(x, y, ' ');
-		maze.getEspada().setCood(1, 4);
+		maze.getEspada().setCoord(1, 4);
 		aguia.pos();
 		lab.updateLab();
 		hero.move("e");
@@ -125,7 +125,7 @@ public class terceira {
 		int x = maze.getEspada().getCoord()[0];
 		int y = maze.getEspada().getCoord()[1];
 		maze.setSpace(x, y, ' ');
-		maze.getEspada().setCood(1, 4);
+		maze.getEspada().setCoord(1, 4);
 		aguia.pos();
 		lab.updateLab();
 		hero.move("e");

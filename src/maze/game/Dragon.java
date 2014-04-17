@@ -2,6 +2,10 @@ package maze.game;
 import java.util.Random;
 
 public class Dragon  extends MazeObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Heroi heroi;
 	Aguia aguia;
 	private boolean sleep = false;
