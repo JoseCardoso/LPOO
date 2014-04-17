@@ -214,16 +214,6 @@ public class MazeGame {
 		return hero.getCoord();
 	}
 
-	/*public void Save(File f) {
-		try { 
-		 os = new ObjectOutputStream( 
-		 new FileOutputStream("file.dat")); 
-		 os.writeObject(myObj); 
-		} 
-		catch (Exception e) { /*...*/ /*} 
-		finally { if (os != null) os.close(); }
-	}*/
-
 }
 
 

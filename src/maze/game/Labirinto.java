@@ -40,6 +40,11 @@ public class Labirinto {
 		return maze;
 	}
 
+	
+	public char[][] getEmptyMaze() {
+		return emptyMaze;
+	}
+
 
 	public char[][] getStandardMaze() {
 		char[][] temp = { 

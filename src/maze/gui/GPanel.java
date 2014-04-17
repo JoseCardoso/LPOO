@@ -17,7 +17,7 @@ import maze.game.MazeGame;
 
 public class GPanel extends JPanel   {
 	private static final long serialVersionUID = 1L;
-	private MazeGame game = new MazeGame();
+	 MazeGame game = new MazeGame();
 	private char[][] maze = new char[game.getN()][game.getN()];
 	//private GFrame window;
 	private Graphics2D g2d;
