@@ -29,7 +29,7 @@ public class Segundo {
 		maze.generate(false);
 		lab = maze.getLab();
 		hero = maze.getHero();
-		hero.pos(0, 0);
+		hero.setCoord(0, 0);
 		dragons = maze.getDragonList();
 		Dragon d = dragons.listIterator(0).next();
 		
@@ -63,7 +63,7 @@ public class Segundo {
 		maze.generate(false);
 		lab = maze.getLab();
 		hero = maze.getHero();
-		hero.pos(0, 0);
+		hero.setCoord(0, 0);
 		dragons = maze.getDragonList();
 		Dragon d = dragons.listIterator(0).next();
 		
@@ -88,7 +88,7 @@ public class Segundo {
 		maze.generate(false);
 		lab = maze.getLab();
 		hero = maze.getHero();
-		hero.pos(0, 0);
+		hero.setCoord(0, 0);
 		dragons = maze.getDragonList();
 		Dragon d1 = dragons.listIterator(0).next();
 		Dragon d2 = dragons.listIterator(1).next();
