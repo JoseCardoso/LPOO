@@ -6,14 +6,18 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.File;
+import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.io.FileWriter;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 
-import javax.swing.JDialog;
+
+
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -123,40 +127,36 @@ public class GFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				JFileChooser fc = new JFileChooser();  
-				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("dat","txt");
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
+
+				fc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("dat","dat");
 				fc.setFileFilter(filter);  
-				
-				int returnVal = fc.showSaveDialog(null);
-				
-				
+
+				int returnVal = fc.showSaveDialog(new JFrame("Save"));
+
 				if (returnVal == JFileChooser.APPROVE_OPTION) {  
 
 					try{  
-						boolean isFile = false;  
-						
+
+
 						File outFile = fc.getSelectedFile();  
-						ObjectOutputStream fw;
-						if(!outFile.getName().endsWith(filter.toString()))
-						{	
-							fw = new ObjectOutputStream(new FileOutputStream(outFile.getName() + filter.toString()));
-							
-						}
-						else
-							fw = new ObjectOutputStream(new FileOutputStream(outFile.getName()));
-						fw.writeObject(gamePanel.game.getHero());
-						fw.writeObject(gamePanel.game.getAguia());
-						fw.writeObject(gamePanel.game.getEspada());
-						fw.writeObject(gamePanel.game.getDragonList());
-						fw.writeObject(gamePanel.game.getSaida());
-						fw.writeObject(gamePanel.game.getLab().getEmptyMaze());
-						
+						String tFileName = outFile.getName();	
+
+						if(!tFileName.endsWith(".dat"))
+							outFile= new File(outFile + ".dat");
+
+						FileOutputStream saveFile = new FileOutputStream(outFile);
+						ObjectOutputStream fw = new ObjectOutputStream(saveFile);
+
+						fw.writeObject(gamePanel.game);
+						fw.close();
 					}  
 					catch(IOException ex){
 						ex.printStackTrace();
 					}  
 				}   
-
+				gamePanel.requestFocusInWindow();
 			}  
 
 
@@ -165,51 +165,100 @@ public class GFrame {
 
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				JFileChooser fc = new JFileChooser();  
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
 
+				fc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("dat","dat");
+				fc.setFileFilter(filter);  
+
+				int returnVal = fc.showOpenDialog(new JFrame("Load"));
+
+
+				if (returnVal == JFileChooser.APPROVE_OPTION) {  
+
+					try{  
+
+
+						File inFile = fc.getSelectedFile();  
+						FileInputStream loadFile = new FileInputStream(inFile);
+						ObjectInputStream reader = new ObjectInputStream(loadFile);
+						Object obj = reader.readObject();
+						  
+						reader.close();
+						if(obj instanceof MazeGame){
+							frmFairyTailSclass.setSize(642, 598);
+
+							Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+							frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
+									/ 2 - frmFairyTailSclass.getSize().height / 2);
+
+							// starting new game with new options
+
+
+							buttonsPanel.setVisible(false);
+							buttonsPanel2.setVisible(false);
+							buttonsPanel3.setVisible(true);
+
+							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
+							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.NORTH);
+							gamePanel.startGame((MazeGame) obj);
+							
+							
+						  }
+						
+
+					}  
+					catch(Exception ex){
+						ex.printStackTrace();
+					}  
+				}   
 
 			}
 		});
-}
+	}
 
-/**
- * Adds buttons to game windows layout.
- */
+	/**
+	 * Adds buttons to game windows layout.
+	 */
 
-private void addButtons() {
-
-
-
-
-	btnSave = new JButton("Save");
-	buttonsPanel.setLayout(new GridLayout(1, 3));
-	buttonsPanel.add(btnNewGame);
-	buttonsPanel.add(btnExit);
+	private void addButtons() {
 
 
 
-	buttonsPanel2.setLayout(new GridLayout(1, 0, 0, 0));
-	buttonsPanel2.add(btnOptions);
-	frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
+
+		btnSave = new JButton("Save");
+		buttonsPanel.setLayout(new GridLayout(1, 3));
+		buttonsPanel.add(btnNewGame);
+		buttonsPanel.add(btnExit);
 
 
-	buttonsPanel2.add(btnLoad);
 
-	buttonsPanel3.add(btnSave);
-	buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
-	frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
-}
-
-public void start() {
+		buttonsPanel2.setLayout(new GridLayout(1, 0, 0, 0));
+		buttonsPanel2.add(btnOptions);
+		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
 
 
-	frmFairyTailSclass.setSize(new Dimension(500, 500));
+		buttonsPanel2.add(btnLoad);
 
-	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	frmFairyTailSclass.setLocation(
-			dim.width / 2 - frmFairyTailSclass.getSize().width / 2,
-			dim.height / 2 - frmFairyTailSclass.getSize().height / 2);
+		buttonsPanel3.add(btnSave);
+		buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
+		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
+	}
 
-	frmFairyTailSclass.setVisible(true);
-}
+	public void start() {
+
+
+		frmFairyTailSclass.setSize(new Dimension(500, 500));
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmFairyTailSclass.setLocation(
+				dim.width / 2 - frmFairyTailSclass.getSize().width / 2,
+				dim.height / 2 - frmFairyTailSclass.getSize().height / 2);
+
+		frmFairyTailSclass.setVisible(true);
+	}
 
 }

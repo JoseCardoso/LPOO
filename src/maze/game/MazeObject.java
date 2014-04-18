@@ -1,5 +1,6 @@
 package maze.game;
 
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
@@ -35,13 +36,10 @@ public abstract class MazeObject implements Serializable{
 		this.y = y;	
 	}
 
-	void writeObject(ObjectOutputStream os)
+	void writeObject(ObjectOutputStream os) throws IOException
 	{
-		try { 
-			os.writeObject(this); 
-		} 
-		catch (Exception e) {  } 
-		finally {
-		}
+		os.defaultWriteObject();  
+		os.flush();  
+		os.close();  
 	}
 }

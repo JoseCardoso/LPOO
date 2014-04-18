@@ -1,16 +1,22 @@
 package maze.game;
 
+import java.io.Serializable;
 import java.util.*;
 
 //MazeBuilder
-public class Labirinto {
+public class Labirinto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public int N;
 	private int NumeroD;
 	private char[][] emptyMaze;
 	private char[][] maze;
 	private char[][] visitedCell;
 	private boolean dragon = true;
-	private Stack<int[]> st;
+	transient private Stack<int[]> st;
 	private Espada espada;
 	private Heroi hero;
 	private Saida saida;
@@ -84,7 +90,7 @@ public class Labirinto {
 				maze[coodD[1]][coodD[0]] = 'd';
 			else
 				maze[coodD[1]][coodD[0]] = 'D';
-			if (!hero.getSword() && !aguia.getSword()) {
+			if (!hero.getSword() && (!aguia.getSword()|| !aguia.isAlive() )) {
 				if (coodD[0] == coodE[0] && coodD[1] == coodE[1]) {
 					dragonHasSword = true;
 					maze[coodD[1]][coodD[0]] = 'F';
@@ -114,14 +120,17 @@ public class Labirinto {
 		for(int i = 0; i < N;i++)
 			for(int j = 0; j <N ; j++)
 				maze[i][j] = emptyMaze[i][j];
-		if (coordH[0] != coordA[0] || coordH[1] != coordA[1])
+		if ((coordH[0] != coordA[0] || coordH[1] != coordA[1]) && aguia.isAlive())
 			maze[coordA[1]][coordA[0]] = 'a';
 		
 		if (dragon) {
 			drawDragon(coordE);
 		}
 		if (hero.getSword())
+		{
 			maze[coordH[1]][coordH[0]] = 'A';
+			
+		}
 		else
 			maze[hero.getCoord()[1]][hero.getCoord()[0]] = 'H';
 

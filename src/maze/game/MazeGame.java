@@ -2,9 +2,10 @@ package maze.game;
 
 import java.io.File;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MazeGame {
+public class MazeGame implements Serializable {
 	private int N, dificuldade, NumeroD;
 	private boolean LiveDragon = true, LiveHero = true, exit = false;
 	private Espada espada = new Espada(this);
@@ -112,8 +113,8 @@ public class MazeGame {
 			lab.createLab();
 		else
 			lab.createLab(lab.getStandardMaze());
-		espada.pos();
 		hero.pos();
+		espada.pos();
 		aguia.pos();
 		hero.setAguia(aguia);
 		saida.pos();

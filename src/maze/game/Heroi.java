@@ -1,5 +1,7 @@
 package maze.game;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 
 public class Heroi extends MazeObject {
@@ -115,4 +117,5 @@ public class Heroi extends MazeObject {
 	public void setSword(boolean Sword) {
 		this.Sword = Sword;
 	}
+	
 }
