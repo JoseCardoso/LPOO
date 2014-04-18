@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,11 +27,6 @@ public class GPanel extends JPanel   {
 	private BufferedImage dragonIMG;
 	private BufferedImage heroIMG;
 	private BufferedImage swordIMG;
-	private int upKey = KeyEvent.VK_UP;
-	private int leftKey = KeyEvent.VK_LEFT;
-	private int rightKey = KeyEvent.VK_RIGHT;
-	private int downKey = KeyEvent.VK_DOWN;
-	private int sendEagleKey = KeyEvent.VK_SPACE;
 	private GFrame gF;
 
 	public GPanel(GFrame gF) throws IOException {
@@ -49,7 +43,7 @@ public class GPanel extends JPanel   {
 	{
 
 		
-		game.autoGen(gF.nM, gF.nD, gF.nDf, true);
+		game.autoGen(gF.nM, gF.nD, gF.nDf, gF.mRandom);
 		setVisible(true);
 		game.update("");
 		repaint();
@@ -87,15 +81,15 @@ public class GPanel extends JPanel   {
 			String dir = "";
 			int key = e.getKeyCode();
 
-			if (key == upKey)
+			if (key == gF.upKey)
 				dir = "W";
-			if (key == leftKey)
+			if (key == gF.leftKey)
 				dir = "A";
-			if (key == downKey)
+			if (key == gF.downKey)
 				dir = "S";
-			if (key == rightKey)
+			if (key == gF.rightKey)
 				dir = "D";
-			if (key == sendEagleKey)
+			if (key == gF.sendEagleKey)
 				dir = "E";
 
 
@@ -108,7 +102,7 @@ public class GPanel extends JPanel   {
 					JOptionPane.showMessageDialog(getRootPane(), msg);
 					gF.frmFairyTailSclass.dispose();
 					try {
-						gF = new GFrame();
+						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.savedUpKey, gF.savedRightKey, gF.savedLeftKey, gF.savedDownKey, gF.savedSendEagleKey);
 						gF.start();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -122,7 +116,7 @@ public class GPanel extends JPanel   {
 					JOptionPane.showMessageDialog(getRootPane(), msg);
 					gF.frmFairyTailSclass.dispose();
 					try {
-						gF = new GFrame();
+						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.savedUpKey, gF.savedRightKey, gF.savedLeftKey, gF.savedDownKey, gF.savedSendEagleKey);
 						gF.start();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -162,7 +156,7 @@ public class GPanel extends JPanel   {
 				int dx1 = j * (this.getWidth() / maze.length) +1 ;
 			    int dx2 = this.getWidth() / maze.length;
 
-			    int dy1 = i * (this.getHeight()/ maze.length) +1;
+			    int dy1 = i * (this.getHeight()/ maze.length);
 			    int dy2 =this.getHeight() / maze.length;
 
 			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, Color.WHITE, null);
@@ -176,35 +170,5 @@ public class GPanel extends JPanel   {
 		repaint();
 	}
 
-	public int getUpKey() {
-		return upKey;
-	}
-
-	public void setUpKey(int upKey) {
-		this.upKey = upKey;
-	}
-
-	public int getLeftKey() {
-		return leftKey;
-	}
-
-	public void setLeftKey(int leftKey) {
-		this.leftKey = leftKey;
-	}
-
-	public int getRightKey() {
-		return rightKey;
-	}
-
-	public void setRightKey(int rightKey) {
-		this.rightKey = rightKey;
-	}
-
-	public int getDownKey() {
-		return downKey;
-	}
-
-	public void setDownKey(int downKey) {
-		this.downKey = downKey;
-	}
+	
 }

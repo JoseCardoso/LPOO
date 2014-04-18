@@ -4,70 +4,93 @@ import maze.game.MazeGame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.File;
 import java.io.ObjectInputStream;
-import java.io.OutputStreamWriter;
-import java.io.FileWriter;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
-
-
-
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GFrame {
 	private static final long serialVersionUID = 1L;
 	JFrame frmFairyTailSclass = new JFrame();
-	private JButton btnNewGame;
-	private JButton btnExit;
-	private JPanel buttonsPanel;
 	GPanel gamePanel;
 	optionsFrame Op;
+	private JPanel buttonsPanel;
 	private JPanel buttonsPanel2;
+	private JPanel buttonsPanel3;
+	private JButton btnNewGame;
+	private JButton btnExit;
 	private JButton btnOptions;
 	private JButton btnLoad;
-	int nD = 1, nM = 7 , nDf = 1;
-	private JPanel buttonsPanel3;
 	private JButton btnSave;
+	private JButton btnOptionsInGame;
+	int nD = 1, nM = 7 , nDf = 1;
+	boolean mRandom = false;
+	boolean inGameChange = false;
+	int upKey = KeyEvent.VK_UP;
+	int leftKey = KeyEvent.VK_LEFT;
+	int rightKey = KeyEvent.VK_RIGHT;
+	int downKey = KeyEvent.VK_DOWN;
+	int sendEagleKey = KeyEvent.VK_SPACE;
+	int savedUpKey;
+	int savedLeftKey;
+	int savedRightKey;
+	int savedDownKey;
+	int savedSendEagleKey;
 
 	/**
 	 * Create the frame.
 	 */
-	public GFrame() throws IOException {
+	public GFrame(int nD , int nDf, int nM, boolean mRandom ,int upKey,int rightKey,int leftKey,int downKey,int sendEagleKey) throws IOException {
+		
+		this.nD = nD;
+		this.nM = nM;
+		this.nDf = nDf;
+		this.mRandom = mRandom;
+		this.downKey = downKey;
+		this.leftKey = leftKey;
+		this.rightKey = rightKey;
+		this.upKey = upKey;
+		this.sendEagleKey = sendEagleKey;
+		
+		savedUpKey = upKey;
+		savedDownKey = downKey;
+		savedLeftKey = leftKey;
+		savedRightKey = rightKey;
+		savedSendEagleKey = sendEagleKey;
+		
 		frmFairyTailSclass.setTitle("Fairy Tail S-Class Quest");
 		frmFairyTailSclass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+		gamePanel = new GPanel(this);
+		Op = new optionsFrame(this);
+		
 		buttonsPanel = new JPanel();
 		buttonsPanel2 = new JPanel();
 		buttonsPanel3 = new JPanel();
 
-		btnLoad = new JButton("Load Game");
-
-		gamePanel = new GPanel(this);
+		
 		btnNewGame = new JButton("New Game");
-		btnExit = new JButton("Exit");
-
 		btnOptions = new JButton("Options");
-		Op = new optionsFrame(this);
-
-
-
+		btnExit = new JButton("Exit");
+		btnLoad = new JButton("Load Game");
+		btnSave = new JButton("Save");
+		btnOptionsInGame = new JButton("Options");
+		
 		addButtons();
 		setUpButtons(); 
 
@@ -96,7 +119,7 @@ public class GFrame {
 					buttonsPanel3.setVisible(true);
 
 					frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
-					frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.NORTH);
+					frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 					gamePanel.startGame();
 				}
 			}
@@ -116,11 +139,20 @@ public class GFrame {
 
 		btnOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				inGameChange=false;
 				Op.show();
 
 			}
 		});
+		
+		btnOptionsInGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inGameChange=true;
+				Op.show();
+				gamePanel.requestFocusInWindow();
+			}
+		});
+
 
 
 		btnSave.addActionListener(new ActionListener() {
@@ -197,13 +229,12 @@ public class GFrame {
 
 							// starting new game with new options
 
-
 							buttonsPanel.setVisible(false);
 							buttonsPanel2.setVisible(false);
 							buttonsPanel3.setVisible(true);
 
 							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
-							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.NORTH);
+							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 							gamePanel.startGame((MazeGame) obj);
 							
 							
@@ -227,25 +258,23 @@ public class GFrame {
 	private void addButtons() {
 
 
-
-
-		btnSave = new JButton("Save");
 		buttonsPanel.setLayout(new GridLayout(1, 3));
 		buttonsPanel.add(btnNewGame);
-		buttonsPanel.add(btnExit);
-
+		buttonsPanel.add(btnLoad);
 
 
 		buttonsPanel2.setLayout(new GridLayout(1, 0, 0, 0));
 		buttonsPanel2.add(btnOptions);
-		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
-
-
-		buttonsPanel2.add(btnLoad);
+		buttonsPanel2.add(btnExit);
 
 		buttonsPanel3.add(btnSave);
+		buttonsPanel3.add(btnOptionsInGame);
 		buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
+		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
+		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
+		
+		
 	}
 
 	public void start() {
