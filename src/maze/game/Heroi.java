@@ -1,7 +1,6 @@
 package maze.game;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.Random;
 
 public class Heroi extends MazeObject {
@@ -10,37 +9,15 @@ public class Heroi extends MazeObject {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean Sword = false;
-	private boolean comAguia = true;
 	private Aguia aguia;
-
+	private boolean comAguia = true;
+	
 	public Heroi(MazeGame mazeGame) {
 		super(mazeGame);
 		aguia = game.getAguia();
 	}
 
-	public Aguia getAguia() {
-		return aguia;
-	}
-
-	public boolean isComAguia() {
-		return comAguia;
-	}
-
-	public void setComAguia(boolean comAguia) {
-		this.comAguia = comAguia;
-	}
-
-	public void setAguia(Aguia aguia) {
-		this.aguia = aguia;
-	}
-
-	public void pos(int x, int y)// posição definida
-	{
-		this.x = x;
-		this.y = y;
-	}
-
-	public void pos() // posição aleatória
+	public void pos() //gera uma posição aleatória
 	{
 		Random r = new Random();
 		int N = game.getN();
@@ -68,6 +45,26 @@ public class Heroi extends MazeObject {
 		}
 	}
 
+	public void trueMove(int dy, int dx) {
+		char Valid;
+		Valid = game.getSpace(x + dx, y + dy);
+		if (Valid == ' ' || 
+				(x+dx == game.getSaida().getCoord()[0] &&
+						y+dy == game.getSaida().getCoord()[1] )
+						||(
+						x+dx == game.getEspada().getCoord()[0] &&
+						y+dy == game.getEspada().getCoord()[1] )) 
+		{
+			y += dy;
+			x += dx;
+		}
+		if (x == game.getEspada().getCoord()[0] &&
+				y == game.getEspada().getCoord()[1])//testa caso o heroi esteja em cima da espada e nao a tenha apanhado
+		{
+			Sword = true;
+		}
+	}
+
 	public boolean pickUpEagle() {
 
 		if (((Math.abs(aguia.getCoord()[0] - x) <= 1 && Math
@@ -86,32 +83,21 @@ public class Heroi extends MazeObject {
 
 	}
 
-	public void trueMove(int dy, int dx) {
-		char Valid;
-		Valid = game.getSpace(x + dx, y + dy);
-		if (Valid == ' ' || 
-				(x+dx == game.getSaida().getCoord()[0] &&
-						y+dy == game.getSaida().getCoord()[1] )) 
-		{
-			y += dy;
-			x += dx;
-		}
-		if (dx == game.getEspada().getCoord()[0] &&
-				dy == game.getEspada().getCoord()[1])//testa caso o heroi esteja em cima da espada e nao a tenha apanhado
-		{
-			Sword = true;
-		}
-		if (x+dx == game.getEspada().getCoord()[0] &&
-				y+dy == game.getEspada().getCoord()[1]) 
-		{
-			Sword = true;
-			y += dy;
-			x += dx;
-		}
+
+	public boolean isComAguia() {
+		return comAguia;
 	}
 
 	public boolean getSword() {
 		return Sword;
+	}
+
+	public void setAguia(Aguia aguia) {
+		this.aguia = aguia;
+	}
+
+	public void setComAguia(boolean comAguia) {
+		this.comAguia = comAguia;
 	}
 
 	public void setSword(boolean Sword) {

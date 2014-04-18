@@ -1,6 +1,4 @@
 package maze.game;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Random;
 
 public class Dragon  extends MazeObject {
@@ -14,17 +12,18 @@ public class Dragon  extends MazeObject {
 
 	transient private IRandomWrapper random = new RandomWrapper(); // default implementation
 
-	public void setRandomWrapper(IRandomWrapper random) {
-		this.random = random;
-	}
-	
-
-	Dragon(MazeGame mazeGame)
+	public Dragon(MazeGame mazeGame)
 	{
 		super(mazeGame);
 		heroi = game.getHero();
 		aguia = game.getAguia();
 	}
+
+
+	public void setRandomWrapper(IRandomWrapper random) {
+		this.random = random;
+	}
+	
 
 	public void pos() 
 	{
@@ -92,11 +91,6 @@ public class Dragon  extends MazeObject {
 		}
 	}
 
-	public boolean getSleep()
-	{
-		return sleep;
-	}
-
 	public void move(int dx, int dy)
 	{
 		char Valid;
@@ -108,6 +102,12 @@ public class Dragon  extends MazeObject {
 			y += dy;
 			x += dx;
 		}
+	}
+
+
+	public boolean getSleep()
+	{
+		return sleep;
 	}
 	
 }

@@ -1,6 +1,5 @@
 package maze.test;
 
-import java.util.ArrayList;
 
 import maze.cli.*;
 import maze.game.*;
@@ -30,7 +29,6 @@ public class terceira {
 	Espada espada = new Espada(maze);
 	Saida saida = new Saida(maze);
 	Aguia aguia;
-	private ArrayList<Dragon> dragons =new ArrayList<Dragon>();
 	
 	
 	
@@ -44,10 +42,10 @@ public class terceira {
 		maze.generate(false);
 		hero = maze.getHero();
 		lab = maze.getLab();
-		hero.pos(1, 1);
+		hero.setCoord(1, 1);
 		aguia = maze.getAguia();
 		espada.setCoord(1, 5);
-		hero.pos(1, 1);
+		hero.setCoord(1, 1);
 		aguia.pos();
 		assertEquals(1,aguia.getCoord()[1]);
 		assertEquals(1,aguia.getCoord()[0]);
@@ -68,9 +66,7 @@ public class terceira {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		aguia = maze.getAguia();
-		hero.pos(1, 1);
-		int x = maze.getEspada().getCoord()[0];
-		int y = maze.getEspada().getCoord()[1];
+		hero.setCoord(1, 1);
 		maze.getEspada().setCoord(1, 5);
 		aguia.pos();
 		assertEquals(1,aguia.getCoord()[1]);
@@ -93,7 +89,7 @@ public class terceira {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		aguia = maze.getAguia();
-		hero.pos(1, 1);
+		hero.setCoord(1, 1);
 		int x = maze.getEspada().getCoord()[0];
 		int y = maze.getEspada().getCoord()[1];
 		maze.setSpace(x, y, ' ');
@@ -121,7 +117,7 @@ public class terceira {
 		hero = maze.getHero();
 		lab = maze.getLab();
 		aguia = maze.getAguia();
-		hero.pos(1, 1);
+		hero.setCoord(1, 1);
 		int x = maze.getEspada().getCoord()[0];
 		int y = maze.getEspada().getCoord()[1];
 		maze.setSpace(x, y, ' ');

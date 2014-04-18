@@ -13,44 +13,67 @@ public class MazeCli {
 	}
 
 	public void setGame(MazeGame game) {
+
 		this.game = game;
 	}
+
 	public static void main(String[] args)
 	{
 		new MazeCli().run();
 	}
+
 	public  void run() 
 	{
+		int N,  NDragons,  diff;
+		boolean choice;
 		Scanner sc = new Scanner(System.in);
 		String walk= "";
-		boolean choice = choseMaze(sc);
-
+		
+		
+		choice = choseMaze(sc);
 		if (choice)
-			getNumeroLab(sc);
+			N = getNumeroLab(sc);
 		else
-			game.setN(10);
+			N = 10;
+		NDragons = getNumeroDragoes(sc);
+		diff = setDifficulty(sc);
 
-		getNumeroDragoes(sc);
-		setDifficulty(sc);
-		game.generate(choice);
+
+		game.autoGen( N,  NDragons,  diff,  choice);
 		
 		while(game.update(walk))
 		{
 			printLab();
 			walk = sc.nextLine(); 
 		}
+		
 		sc.close();
+		
 		if(!game.heroIsAlive())
 			System.out.println("\n\n\nDerrota...");
 		else
 			System.out.println("\n\n\nVitória!");
 	}
 
-	public void getNumeroLab(Scanner sc) {
-		System.out.println("Insira o tamanho 'N' do puzzle (Deve ser ímpar). (NxN)");
+	public void printLab()
+	{
+		char[][] maze = game.getLab().updateLab();
+		int N = game.getN();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				System.out.print(maze[i][j] + " ");
+			}
+			System.out.println();
+		}
+	
+	}
+
+	public int getNumeroLab(Scanner sc) {
 		boolean rep;
 		int N = 0;
 
+
+		System.out.println("Insira o tamanho 'N' do puzzle (Deve ser ímpar). (NxN)");
 		do {
 			rep = false;
 			try {
@@ -70,22 +93,8 @@ public class MazeCli {
 
 
 		} while (rep);
-		game.setN(N);
+		return N;
 	}
-
-	public void printLab()
-	{
-		char[][] maze = game.getLab().updateLab();
-		int N = game.getN();
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				System.out.print(maze[i][j] + " ");
-			}
-			System.out.println();
-		}
-
-	}
-
 
 	public boolean choseMaze(Scanner sc)
 	{
@@ -120,7 +129,7 @@ public class MazeCli {
 		return true;
 	}
 
-	public void getNumeroDragoes(Scanner sc) {
+	public int getNumeroDragoes(Scanner sc) {
 		System.out.println("Insira o numero de dragoes: \n");
 		boolean rep;
 		int N = 0;
@@ -146,10 +155,10 @@ public class MazeCli {
 		} while (rep);
 
 
-		game.setNdragon(N);
+		return N;
 	}
 
-	public void setDifficulty(Scanner sc){
+	public int setDifficulty(Scanner sc){
 
 		System.out.println("Insira a dificuldade de jogo:\n1-Dragoes parados\n2-Dragoes com movimento aleatorio\n3-Dragoes com movimento aleatorio intercalado com dormir");
 		boolean rep;
@@ -176,7 +185,7 @@ public class MazeCli {
 		} while (rep);
 
 
-		game.setDiff(N);
+		return N;
 
 	}
 

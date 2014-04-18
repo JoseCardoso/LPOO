@@ -1,9 +1,5 @@
 package maze.game;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-
 public class Aguia extends MazeObject{
 
 	/**
@@ -55,7 +51,12 @@ public class Aguia extends MazeObject{
 		int dy = yObjective - y;
 		boolean timeToChange = false;
 		if(x == xDeparture && xDeparture == xObjective && y == yDeparture && y == yObjective)
+		{
 			arrived = true;
+			flying = false;
+		}
+		else
+			flying = true;
 		if(heroi.isComAguia())
 		{
 			x = heroi.getCoord()[0];
