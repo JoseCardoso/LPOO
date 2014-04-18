@@ -1,4 +1,6 @@
 package maze.game;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 
 public class Dragon  extends MazeObject {
@@ -6,11 +8,11 @@ public class Dragon  extends MazeObject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Heroi heroi;
-	Aguia aguia;
+	private Heroi heroi;
+	private Aguia aguia;
 	private boolean sleep = false;
 
-	private IRandomWrapper random = new RandomWrapper(); // default implementation
+	transient private IRandomWrapper random = new RandomWrapper(); // default implementation
 
 	public void setRandomWrapper(IRandomWrapper random) {
 		this.random = random;
@@ -107,4 +109,5 @@ public class Dragon  extends MazeObject {
 			x += dx;
 		}
 	}
+	
 }

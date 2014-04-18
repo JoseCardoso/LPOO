@@ -1,5 +1,6 @@
 package maze.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -17,7 +18,7 @@ import maze.game.MazeGame;
 
 public class GPanel extends JPanel   {
 	private static final long serialVersionUID = 1L;
-	private MazeGame game = new MazeGame();
+	 MazeGame game = new MazeGame();
 	private char[][] maze = new char[game.getN()][game.getN()];
 	//private GFrame window;
 	private Graphics2D g2d;
@@ -49,6 +50,19 @@ public class GPanel extends JPanel   {
 
 		
 		game.autoGen(gF.nM, gF.nD, gF.nDf, true);
+		setVisible(true);
+		game.update("");
+		repaint();
+		requestFocus();
+
+
+	}
+	
+	public void startGame(MazeGame game)
+	{
+
+		
+		this.game = game;
 		setVisible(true);
 		game.update("");
 		repaint();
@@ -145,14 +159,13 @@ public class GPanel extends JPanel   {
 				else if (maze[i][j] == 'E')
 					tile = swordIMG;
 
-				int dx1 = j * tile.getWidth();
-				int dx2 = dx1 + tile.getWidth();
+				int dx1 = j * (this.getWidth() / maze.length) +1 ;
+			    int dx2 = this.getWidth() / maze.length;
 
-				int dy1 = i * tile.getHeight();
-				int dy2 = dy1 + tile.getHeight();
+			    int dy1 = i * (this.getHeight()/ maze.length) +1;
+			    int dy2 =this.getHeight() / maze.length;
 
-				g2d.drawImage(tile, dx1, dy1, dx2, dy2, 0, 0, tile.getWidth(),
-						tile.getHeight(), null);
+			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, Color.WHITE, null);
 			}
 		}
 

@@ -1,5 +1,8 @@
 package maze.game;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 
 public class Aguia extends MazeObject{
 
@@ -141,5 +144,6 @@ public class Aguia extends MazeObject{
 		}
 
 	}
+	
 
 }
