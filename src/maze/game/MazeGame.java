@@ -19,10 +19,22 @@ public class MazeGame implements Serializable {
 	private Labirinto lab = new Labirinto(this);
 
 
-	public MazeGame() {
-	
+	public void fullGenerate(Espada espada,Heroi hero, Saida saida,ArrayList<Dragon> DragonList, char[][] emptyMaze, int size, int diff,char[][] maze)
+	{
+		this.espada = espada;
+		this.hero = hero;
+		aguia = new Aguia(this);
+		aguia.pos();
+		this.saida = saida;
+		this.DragonList  = new ArrayList<Dragon>(DragonList);
+		lab = new Labirinto(this);
+		lab.createLab(emptyMaze,maze);
+		N = size;
+		NumeroD = DragonList.size();
+		dificuldade = diff;
+		lab.updateLab();
 	}
-
+	
 	public void autoGen(int N, int NDragons, int diff, boolean choice) {
 		if (!choice)
 			this.N = 10;

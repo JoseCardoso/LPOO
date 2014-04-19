@@ -1,4 +1,5 @@
 package maze.gui;
+import maze.game.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -21,7 +23,8 @@ public class PainelCriaLabirinto extends JPanel   {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	char[][] maze;
+	private char[][] maze;
+	private char[][] emptyMaze;
 	private LabirintoPersonalizado lP;
 	private Graphics2D g2d;
 	private BufferedImage wallIMG;
@@ -46,6 +49,7 @@ public class PainelCriaLabirinto extends JPanel   {
 		this.size = size;
 		this.lP = lP;
 		maze = new char[size][size];
+		emptyMaze = new char[size][size];
 		availableExit = true;
 		availableHero = true;
 		availableSword = true;
@@ -135,7 +139,7 @@ public class PainelCriaLabirinto extends JPanel   {
 			int dy = y/(getHeight() / size) ;
 
 
-			maze[dy][dx] = getChar((String)lP.objects.getSelectedItem(),maze[dy][dx],dx,dy);
+			maze[dy][dx] = getChar((String)lP.getObjects().getSelectedItem(),maze[dy][dx],dx,dy);
 			repaint();
 		}
 
@@ -143,7 +147,33 @@ public class PainelCriaLabirinto extends JPanel   {
 
 	}
 
-
+	MazeGame createComponents(int diff)
+	{
+		MazeGame game = new MazeGame();
+		Espada espada = new Espada(game);
+		Heroi hero = new Heroi(game);
+		Saida saida = new Saida(game);
+		ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
+		
+		for(int x = 0; x < size; x++)
+			for(int y = 0; y < size; y++)
+			{
+				if(maze[y][x] == 'H')
+					hero.setCoord(x,y);
+				else if(maze[y][x] == 'E')
+					espada.setCoord(x, y);
+				else if(maze[y][x] == 'S')
+					saida.setCoord(x, y);
+				else if(maze[y][x] == 'D')
+				{
+					Dragon dragon = new Dragon(game);
+					dragon.setCoord(x, y);
+					DragonList.add(dragon);
+				}					
+			}
+		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze, size, diff,maze);
+		return game;
+	}
 
 	private char exitRequirements(char previous,int dx, int dy)
 	{
@@ -223,9 +253,15 @@ public class PainelCriaLabirinto extends JPanel   {
 		else
 		{
 			if(previous == ' ')
+			{	
+				emptyMaze[dx][dy] = 'X';
 				return 'X';
+			}
 			else
+			{
+				emptyMaze[dx][dy] = ' ';
 				return ' ';
+			}
 		}					
 	}
 
@@ -273,9 +309,15 @@ public class PainelCriaLabirinto extends JPanel   {
 				!( (dx == 0 || dx == size-1)
 						||
 						(dy == 0 || dy == size-1) ))
+		{
+			emptyMaze[dx][dy] = ' ';
 			return ' ';
+		}
 		else
+		{
+			emptyMaze[dx][dy] = ' ';
 			return 'X';
+		}
 	}
 
 	private char getChar(String tile,char previous,int dx, int dy)
