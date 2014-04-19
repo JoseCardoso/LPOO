@@ -37,6 +37,7 @@ public class GFrame {
 	private JButton btnLoad;
 	private JButton btnSave;
 	private JButton btnOptionsInGame;
+	private JButton btnCreateMaze;
 	int nD = 1, nM = 7 , nDf = 1;
 	boolean mRandom = false;
 	boolean inGameChange =false;
@@ -50,7 +51,6 @@ public class GFrame {
 	int savedRightKey;
 	int savedDownKey;
 	int savedSendEagleKey;
-
 	/**
 	 * Create the frame.
 	 */
@@ -86,6 +86,7 @@ public class GFrame {
 		
 		btnNewGame = new JButton("New Game");
 		btnOptions = new JButton("Options");
+		btnCreateMaze = new JButton("Create Maze");
 		btnExit = new JButton("Exit");
 		btnLoad = new JButton("Load Game");
 		btnSave = new JButton("Save");
@@ -186,7 +187,7 @@ public class GFrame {
 						fw.close();
 					}  
 					catch(IOException ex){
-						ex.printStackTrace();
+						JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error Saving!");
 					}  
 				}   
 				gamePanel.requestFocusInWindow();
@@ -254,6 +255,15 @@ public class GFrame {
 
 			}
 		});
+		
+		
+		btnCreateMaze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				LabirintoPersonalizado lP = new LabirintoPersonalizado();
+				
+			}
+		});
 	}
 
 	
@@ -268,7 +278,7 @@ public class GFrame {
 		buttonsPanel.setLayout(new GridLayout(1, 3));
 		buttonsPanel.add(btnNewGame);
 		buttonsPanel.add(btnLoad);
-
+		buttonsPanel.add(btnCreateMaze);
 
 		buttonsPanel2.setLayout(new GridLayout(1, 0, 0, 0));
 		buttonsPanel2.add(btnOptions);
@@ -279,6 +289,8 @@ public class GFrame {
 		buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
+		
+		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
 		
 		

@@ -75,8 +75,8 @@ public class optionsFrame{
 		btnQuit = new JButton("Quit");
 
 		DiffSlider = new JSlider();
-		MazeSizeSpinner = new JSpinner(new SpinnerNumberModel(new Integer(7) , new Integer(7),(Comparable)null , new Integer(2)));
-		DragonSpinner = new JSpinner(new SpinnerNumberModel(new Integer(1) , new Integer(1),(Comparable)null , new Integer(1)));
+		MazeSizeSpinner = new JSpinner(new SpinnerNumberModel(new Integer(7) , new Integer(7),(Comparable<?>)null , new Integer(2)));
+		DragonSpinner = new JSpinner(new SpinnerNumberModel(new Integer(1) , new Integer(1),(Comparable<?>)null , new Integer(1)));
 
 		DragonLabel = new JLabel("Number of Dragons:");
 		DiffLabel = new JLabel("Difficulty");
