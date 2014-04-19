@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import java.awt.event.ActionEvent;
 
@@ -25,14 +26,15 @@ import javax.swing.JSpinner;
 
 import javax.swing.JLabel;
 import javax.swing.border.CompoundBorder;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 
 
 
 public class optionsFrame{
 
-	private static final long serialVersionUID = 1L;
 	private GFrame gF;
 	private JFrame Options = new JFrame();
 	private JPanel Return;
@@ -67,7 +69,7 @@ public class optionsFrame{
 	{
 		this.gF = gF;
 		Options.setTitle("Options");
-		Options.setDefaultCloseOperation(Options.DISPOSE_ON_CLOSE);
+		Options.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		Options.setResizable( false );
 		Return = new JPanel();
 		Config = new JPanel();
@@ -244,7 +246,7 @@ public class optionsFrame{
 		leftKeyBox.setSelectedIndex(28);
 		rightKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
 		rightKeyBox.setSelectedIndex(27);
-		sendEagleKeyBox.setModel(new DefaultComboBoxModel(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
+		sendEagleKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
 		sendEagleKeyBox.setSelectedIndex(30);
 
 

@@ -24,7 +24,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GFrame {
-	private static final long serialVersionUID = 1L;
 	JFrame frmFairyTailSclass = new JFrame();
 	GPanel gamePanel;
 	optionsFrame Op;
@@ -261,7 +260,7 @@ public class GFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				LabirintoPersonalizado lP = new LabirintoPersonalizado();
-				
+				lP.show();
 			}
 		});
 	}
