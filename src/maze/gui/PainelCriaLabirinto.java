@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -20,7 +21,7 @@ public class PainelCriaLabirinto extends JPanel   {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private char[][] maze;
+	char[][] maze;
 	private LabirintoPersonalizado lP;
 	private Graphics2D g2d;
 	private BufferedImage wallIMG;
@@ -34,6 +35,10 @@ public class PainelCriaLabirinto extends JPanel   {
 	private BufferedImage sleepDragonIMG;
 	private BufferedImage DragonSwordIMG;
 	private int size;
+	private boolean availableExit;
+	private boolean availableHero;
+	private boolean availableSword;
+
 
 
 	public PainelCriaLabirinto(int size, LabirintoPersonalizado lP) throws IOException {
@@ -41,10 +46,12 @@ public class PainelCriaLabirinto extends JPanel   {
 		this.size = size;
 		this.lP = lP;
 		maze = new char[size][size];
+		availableExit = true;
+		availableHero = true;
+		availableSword = true;
 		for(int i = 0; i < size;i++)
 			for(int j = 0; j < size;j++)
 				maze[i][j] = 'X';
-
 		addMouseListener(new MouseListener());
 		setFocusable(true);
 		requestFocus();
@@ -117,8 +124,8 @@ public class PainelCriaLabirinto extends JPanel   {
 
 
 	public class MouseListener extends MouseAdapter {
-		
-		
+
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
@@ -127,7 +134,8 @@ public class PainelCriaLabirinto extends JPanel   {
 			int dx = x/(getWidth() / size);
 			int dy = y/(getHeight() / size) ;
 
-			maze[dy][dx] = getChar((String)lP.objects.getSelectedItem());
+
+			maze[dy][dx] = getChar((String)lP.objects.getSelectedItem(),maze[dy][dx],dx,dy);
 			repaint();
 		}
 
@@ -135,23 +143,164 @@ public class PainelCriaLabirinto extends JPanel   {
 
 	}
 
-	private char getChar(String tile)
-	{
-		char ret = ' ';
-		if(tile.equals("Dragon"))
-			ret = 'D';
-		else if(tile.equals("Hero"))
-			ret = 'H';
-		else if(tile.equals("Sword"))
-			ret = 'E';
-		else if(tile.equals("Exit"))
-			ret = 'S';
-		else if(tile.equals("Path"))
-			ret = ' ';
-		else if(tile.equals("Wall"))
-			ret = 'X';
 
-		return ret;
+
+	private char exitRequirements(char previous,int dx, int dy)
+	{
+		if(!availableExit)
+		{
+			JOptionPane.showMessageDialog(null, "You can Only have 1 exit!");	
+			return previous;
+		}
+		else
+		{
+			if(previous == 'X')
+			{
+				if( (dx == 0 || dx == size-1)
+						||
+						(dy == 0 || dy == size-1) )
+				{
+					if(dy != dx) 
+					{
+						availableExit = false;
+						return  'S';
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Your exit can't be on a corner!");
+						return previous;
+					}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Your exit must be on a border!");
+					return previous;
+				}					
+			}
+			else if(previous == 'S')
+				return  'X';
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Your exit must be on a wall!");
+				return previous;
+			}
+		}
+
+	}
+
+	private char heroRequirements(char previous)
+	{
+		if(availableHero)
+			if(previous != 'X' && previous != 'S')
+			{
+				availableHero = false;
+				return 'H';
+			}
+			else if(previous == 'H')
+				return ' ';
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Your hero must be on path!");
+				return previous;
+			}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "You can only have 1 hero!");
+			return previous;
+		}
+	}
+
+	private char pathRequirements( char previous, int dx, int dy)
+	{
+		if( (dx == 0 || dx == size-1)
+				||
+				(dy == 0 || dy == size-1) )
+		{
+
+			JOptionPane.showMessageDialog(null, "Your path cannot be on a border!");
+			return previous;
+		}
+		else
+		{
+			if(previous == ' ')
+				return 'X';
+			else
+				return ' ';
+		}					
+	}
+
+	private char dragonRequirements(char previous)
+	{
+		if(previous != 'X' && previous != 'S')
+		{
+			return 'D';
+		}
+		else if(previous == 'D')
+			return ' ';
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Your dragon must be on path!");
+			return previous;
+		}
+	}
+
+	private char swordRequirements(char previous)
+	{
+		if(availableSword)
+			if(previous != 'X' && previous != 'S')
+			{
+				availableSword = false;
+				return 'E';
+			}
+			else if (previous == 'E')
+				return ' ';
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Your sword must be on path!");
+				return previous;
+			}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "You can only have 1 sowrd!");
+			return previous;
+		}
+	}
+
+	private char wallRequirements(char previous,int dx, int dy)
+	{
+
+		if(previous == 'X' && 
+				!( (dx == 0 || dx == size-1)
+						||
+						(dy == 0 || dy == size-1) ))
+			return ' ';
+		else
+			return 'X';
+	}
+
+	private char getChar(String tile,char previous,int dx, int dy)
+	{
+		if(previous == 'S')
+			availableExit = true;
+		if(previous == 'H')
+			availableHero = true;
+		if(previous == 'E')
+			availableSword = false;
+
+		if(tile.equals("Dragon"))
+			return dragonRequirements(previous);
+		else if(tile.equals("Hero"))
+			return  heroRequirements(previous);
+		else if(tile.equals("Sword"))
+			return swordRequirements(previous);
+		else if(tile.equals("Exit"))
+		{
+			return exitRequirements(previous,dx,dy);
+		}
+		else if(tile.equals("Path"))
+			return pathRequirements(previous, dx, dy);
+		else
+			return wallRequirements(previous, dx, dy);
 	}
 
 

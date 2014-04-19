@@ -63,7 +63,7 @@ public class LabirintoPersonalizado {
 	void show()
 	{
 
-		frmLabirintoPersonalizado.setSize(361,520);
+		frmLabirintoPersonalizado.setSize(520,520);
 		frmLabirintoPersonalizado.setLocation(dim.width / 2 - frmLabirintoPersonalizado.getSize().width / 2, dim.height / 2
 				- frmLabirintoPersonalizado.getSize().height / 2);
 		frmLabirintoPersonalizado.setVisible(true);
