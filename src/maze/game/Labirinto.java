@@ -32,6 +32,13 @@ public class Labirinto implements Serializable {
 		aguia = game.getAguia();
 	}
 
+	public void createLab(char[][] emptyMaze, char[][] maze) {
+		// TODO Auto-generated method stub
+		this.emptyMaze = emptyMaze;
+		this.maze = maze;
+	}
+	
+
 	public void createLab(char[][] maze) // laboratório pre-definido
 	{
 		this.emptyMaze = maze;

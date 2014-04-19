@@ -19,7 +19,7 @@ public class MazeGame implements Serializable {
 	private Labirinto lab = new Labirinto(this);
 
 
-	public void fullGenerate(Espada espada,Heroi hero, Saida saida,ArrayList<Dragon> DragonList, char[][] emptyMaze, int size, int diff,char[][] maze)
+	public void fullGenerate(Espada espada,Heroi hero, Saida saida,ArrayList<Dragon> DragonList, char[][] emptyMaze, char[][] maze)
 	{
 		this.espada = espada;
 		this.hero = hero;
@@ -29,9 +29,7 @@ public class MazeGame implements Serializable {
 		this.DragonList  = new ArrayList<Dragon>(DragonList);
 		lab = new Labirinto(this);
 		lab.createLab(emptyMaze,maze);
-		N = size;
 		NumeroD = DragonList.size();
-		dificuldade = diff;
 		lab.updateLab();
 	}
 	

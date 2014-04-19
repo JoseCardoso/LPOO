@@ -50,9 +50,7 @@ public class GPanel extends JPanel   {
 
 
 	public void startGame()
-	{
-
-		
+	{		
 		game.autoGen(gF.nM, gF.nD, gF.nDf, gF.mRandom);
 		setVisible(true);
 		game.update("");

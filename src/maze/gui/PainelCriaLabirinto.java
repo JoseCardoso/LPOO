@@ -132,7 +132,6 @@ public class PainelCriaLabirinto extends JPanel   {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
 			int x=e.getX();
 			int y=e.getY();
 			int dx = x/(getWidth() / size);
@@ -142,11 +141,9 @@ public class PainelCriaLabirinto extends JPanel   {
 			maze[dy][dx] = getChar((String)lP.getObjects().getSelectedItem(),maze[dy][dx],dx,dy);
 			repaint();
 		}
-
-
-
 	}
 
+	
 	MazeGame createComponents(int diff)
 	{
 		MazeGame game = new MazeGame();
@@ -171,7 +168,8 @@ public class PainelCriaLabirinto extends JPanel   {
 					DragonList.add(dragon);
 				}					
 			}
-		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze, size, diff,maze);
+		game.autoGen(size, DragonList.size(), diff, false);
+		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze,maze);
 		return game;
 	}
 
