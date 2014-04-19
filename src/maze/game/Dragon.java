@@ -39,7 +39,7 @@ public class Dragon  extends MazeObject {
 			x = r.nextInt(N-2)+1;
 			y = r.nextInt(N-2)+1;	
 		}
-		while(game.getSpace(x,y) != ' ' || eat() );
+		while(game.getSpace(x,y) != ' ' || eat());
 	}
 
 	public boolean eat()

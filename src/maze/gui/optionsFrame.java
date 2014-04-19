@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
@@ -228,6 +229,7 @@ public class optionsFrame{
 		DiffSlider.setMaximum(3);
 
 		MazeSizeSpinner.setBounds(174, 186, 125, 30);
+		((DefaultEditor) MazeSizeSpinner.getEditor()).getTextField().setEditable(false);
 		DragonSpinner.setBounds(174, 43, 125, 30);
 
 		MazeType.setFont(new Font("Tahoma", Font.PLAIN, 12));

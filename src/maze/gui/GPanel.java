@@ -174,13 +174,13 @@ public class GPanel extends JPanel   {
 				else if (maze[i][j] == 'A')
 					tile = heroSwordIMG;
 
-				int dx1 = j * (this.getWidth() / maze.length) +1 ;
+				int dx1 = j * (this.getWidth() / maze.length) ;
 			    int dx2 = this.getWidth() / maze.length;
 
 			    int dy1 = i * (this.getHeight()/ maze.length);
 			    int dy2 =this.getHeight() / maze.length;
 
-			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, Color.WHITE, null);
+			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, Color.BLACK, null);
 			}
 		}
 
