@@ -25,8 +25,13 @@ public class GPanel extends JPanel   {
 	private BufferedImage pathIMG;
 	private BufferedImage exitIMG;
 	private BufferedImage dragonIMG;
+	private BufferedImage eagleIMG;
 	private BufferedImage heroIMG;
 	private BufferedImage swordIMG;
+	private BufferedImage heroSwordIMG;
+	private BufferedImage sleepDragonIMG;
+	private BufferedImage DragonSwordIMG;
+	
 	private GFrame gF;
 	
 	public GPanel(GFrame gF) throws IOException {
@@ -74,6 +79,11 @@ public class GPanel extends JPanel   {
 		heroIMG = ImageIO.read(new File("res/hero.png"));
 		swordIMG = ImageIO.read(new File("res/sword.png"));
 		dragonIMG = ImageIO.read(new File("res/dragon.png"));
+		DragonSwordIMG = ImageIO.read(new File("res/dragonSword.png"));
+		heroSwordIMG = ImageIO.read(new File("res/HeroSword.png"));
+		sleepDragonIMG = ImageIO.read(new File("res/SleepDragon.png"));
+		eagleIMG = ImageIO.read(new File("res/eagle.png"));
+
 	}
 
 	public class MyKeyboardAdapter extends KeyAdapter {
@@ -155,6 +165,14 @@ public class GPanel extends JPanel   {
 					tile = dragonIMG;
 				else if (maze[i][j] == 'E')
 					tile = swordIMG;
+				else if (maze[i][j] == 'a')
+					tile = eagleIMG;
+				else if (maze[i][j] == 'd')
+					tile = sleepDragonIMG;
+				else if (maze[i][j] == 'F')
+					tile = DragonSwordIMG;
+				else if (maze[i][j] == 'A')
+					tile = heroSwordIMG;
 
 				int dx1 = j * (this.getWidth() / maze.length) +1 ;
 			    int dx2 = this.getWidth() / maze.length;
