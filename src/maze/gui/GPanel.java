@@ -28,7 +28,7 @@ public class GPanel extends JPanel   {
 	private BufferedImage heroIMG;
 	private BufferedImage swordIMG;
 	private GFrame gF;
-
+	
 	public GPanel(GFrame gF) throws IOException {
 		this.gF = gF;
 		addKeyListener(new MyKeyboardAdapter());
@@ -64,6 +64,9 @@ public class GPanel extends JPanel   {
 
 
 	}
+	
+	
+	
 	public void loadImage() throws IOException {
 		wallIMG = ImageIO.read(new File("res/wall.png"));
 		pathIMG = ImageIO.read(new File("res/path.png"));

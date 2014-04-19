@@ -94,10 +94,17 @@ public class MazeGame implements Serializable {
 	}
 
 	public void bigEatEagle() {
-		for (int i = 0; i < NumeroD; i++) {
-			DragonList.listIterator(i).next();
+		for (int i = 0; i < NumeroD; i++)
 			DragonList.listIterator(i).next().eatEagle();
-		}
+	}
+	
+	/**
+	 * creates random Wrapper for each dragon
+	 */
+	public void createRandomWrapper() 
+	{
+		for (int i = 0; i < NumeroD; i++)
+			DragonList.listIterator(i).next().createRandomWrapper();
 	}
 
 	public String toString() {

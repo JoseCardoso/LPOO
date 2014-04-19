@@ -219,10 +219,12 @@ public class GFrame {
 						FileInputStream loadFile = new FileInputStream(inFile);
 						ObjectInputStream reader = new ObjectInputStream(loadFile);
 						Object obj = reader.readObject();
-						  
+						
 						reader.close();
 						if(obj instanceof MazeGame){
 							frmFairyTailSclass.setSize(642, 598);
+						
+					
 
 							Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 							frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
@@ -236,6 +238,8 @@ public class GFrame {
 
 							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
 							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
+						
+							((MazeGame) obj).createRandomWrapper();
 							gamePanel.startGame((MazeGame) obj);
 							
 							
@@ -252,10 +256,12 @@ public class GFrame {
 		});
 	}
 
+	
 	/**
 	 * Adds buttons to game windows layout.
 	 */
 
+	
 	private void addButtons() {
 
 

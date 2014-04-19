@@ -24,6 +24,11 @@ public class Dragon  extends MazeObject {
 		this.random = random;
 	}
 	
+	public void createRandomWrapper()
+	{
+		random = new RandomWrapper();
+	}
+	
 
 	public void pos() 
 	{

@@ -173,6 +173,7 @@ public class optionsFrame{
 			gF.savedLeftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
 			gF.savedRightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
 			gF.savedSendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
+				
 		}
 
 	}
