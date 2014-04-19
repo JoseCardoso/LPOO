@@ -248,7 +248,7 @@ public class GFrame {
 
 					}  
 					catch(Exception ex){
-						ex.printStackTrace();
+						JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error Loading!");
 					}  
 				}   
 

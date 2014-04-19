@@ -35,7 +35,7 @@ public class MazeCli {
 			N = getNumeroLab(sc);
 		else
 			N = 10;
-		NDragons = getNumeroDragoes(sc);
+		NDragons = getNumeroDragoes(sc, N);
 		diff = setDifficulty(sc);
 
 
@@ -129,7 +129,7 @@ public class MazeCli {
 		return true;
 	}
 
-	public int getNumeroDragoes(Scanner sc) {
+	public int getNumeroDragoes(Scanner sc , int tamanho) {
 		System.out.println("Insira o numero de dragoes: \n");
 		boolean rep;
 		int N = 0;
@@ -139,7 +139,7 @@ public class MazeCli {
 			try {
 				String detect = sc.nextLine();
 				N = Integer.parseInt(detect);
-				if ( N <=0 || N > game.getN()/2)
+				if ( N <=0 || N > tamanho/2)
 				{
 					rep=true;
 					System.out.println("Número inválido. insira o número de novo");

@@ -242,7 +242,7 @@ public class Labirinto implements Serializable {
 
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
-			return 'I';
+			return 'I'; //caso nao seja uma coordenada válida
 		return emptyMaze[y][x];
 	}
 
