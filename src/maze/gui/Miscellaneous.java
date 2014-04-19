@@ -32,6 +32,11 @@ public class Miscellaneous {
 		case KeyEvent.VK_X: return "X";
 		case KeyEvent.VK_Y: return "Y";
 		case KeyEvent.VK_Z: return "Z";
+		case KeyEvent.VK_UP: return "UP";
+		case KeyEvent.VK_DOWN: return "DOWN";
+		case KeyEvent.VK_LEFT: return "LEFT";
+		case KeyEvent.VK_RIGHT: return "RIGHT";
+		case KeyEvent.VK_SPACE: return "SPACE";
 		}
 
 		return "";
@@ -74,6 +79,11 @@ public class Miscellaneous {
 		case "X": return KeyEvent.VK_X;
 		case "Y": return KeyEvent.VK_Y;
 		case "Z": return KeyEvent.VK_Z;
+		case "UP":return KeyEvent.VK_UP;
+		case "DOWN":return KeyEvent.VK_DOWN;
+		case "LEFT":return KeyEvent.VK_LEFT;
+		case "RIGHT":return KeyEvent.VK_RIGHT;
+		case "SPACE":return KeyEvent.VK_SPACE;
 		}
 
 		return 0;

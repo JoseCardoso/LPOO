@@ -81,15 +81,15 @@ public class GPanel extends JPanel   {
 			String dir = "";
 			int key = e.getKeyCode();
 
-			if (key == gF.upKey)
+			if (key == gF.savedUpKey)
 				dir = "W";
-			if (key == gF.leftKey)
+			if (key == gF.savedLeftKey)
 				dir = "A";
-			if (key == gF.downKey)
+			if (key == gF.savedDownKey)
 				dir = "S";
-			if (key == gF.rightKey)
+			if (key == gF.savedRightKey)
 				dir = "D";
-			if (key == gF.sendEagleKey)
+			if (key == gF.savedSendEagleKey)
 				dir = "E";
 
 
@@ -102,7 +102,7 @@ public class GPanel extends JPanel   {
 					JOptionPane.showMessageDialog(getRootPane(), msg);
 					gF.frmFairyTailSclass.dispose();
 					try {
-						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.savedUpKey, gF.savedRightKey, gF.savedLeftKey, gF.savedDownKey, gF.savedSendEagleKey);
+						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.upKey, gF.rightKey, gF.leftKey, gF.downKey, gF.sendEagleKey);
 						gF.start();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -116,7 +116,7 @@ public class GPanel extends JPanel   {
 					JOptionPane.showMessageDialog(getRootPane(), msg);
 					gF.frmFairyTailSclass.dispose();
 					try {
-						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.savedUpKey, gF.savedRightKey, gF.savedLeftKey, gF.savedDownKey, gF.savedSendEagleKey);
+						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.upKey, gF.rightKey, gF.leftKey, gF.downKey, gF.sendEagleKey);
 						gF.start();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block

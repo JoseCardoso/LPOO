@@ -140,23 +140,8 @@ public class optionsFrame{
 				else
 					gF.mRandom = false;
 
-				if (!gF.inGameChange){
-					gF.upKey = Miscellaneous.getKeyFromString((String) upKeyBox.getSelectedItem());
-					gF.downKey = Miscellaneous.getKeyFromString((String) downKeyBox.getSelectedItem());
-					gF.leftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
-					gF.rightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
-					gF.sendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
-				}
-				else
-				{
-					gF.savedUpKey = Miscellaneous.getKeyFromString((String) upKeyBox.getSelectedItem());
-					gF.savedDownKey = Miscellaneous.getKeyFromString((String) downKeyBox.getSelectedItem());
-					gF.savedLeftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
-					gF.savedRightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
-					gF.savedSendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
+				configGameKeys(gF.inGameChange);
 
-					gF.inGameChange =false;
-				}
 				Options.setVisible(false); //you can't see me!
 
 				gF.gamePanel.requestFocusInWindow();
@@ -170,6 +155,25 @@ public class optionsFrame{
 				Options.setVisible(false); //you can't see me!
 			}
 		});
+
+	}
+
+	public void configGameKeys(boolean inGameChange)
+	{
+		gF.upKey = Miscellaneous.getKeyFromString((String) upKeyBox.getSelectedItem());
+		gF.downKey = Miscellaneous.getKeyFromString((String) downKeyBox.getSelectedItem());
+		gF.leftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
+		gF.rightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
+		gF.sendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
+		
+		if(!inGameChange)
+		{
+			gF.savedUpKey = Miscellaneous.getKeyFromString((String) upKeyBox.getSelectedItem());
+			gF.savedDownKey = Miscellaneous.getKeyFromString((String) downKeyBox.getSelectedItem());
+			gF.savedLeftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
+			gF.savedRightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
+			gF.savedSendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
+		}
 
 	}
 

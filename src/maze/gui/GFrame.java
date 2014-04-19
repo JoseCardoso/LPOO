@@ -39,7 +39,7 @@ public class GFrame {
 	private JButton btnOptionsInGame;
 	int nD = 1, nM = 7 , nDf = 1;
 	boolean mRandom = false;
-	boolean inGameChange = false;
+	boolean inGameChange =false;
 	int upKey = KeyEvent.VK_UP;
 	int leftKey = KeyEvent.VK_LEFT;
 	int rightKey = KeyEvent.VK_RIGHT;
@@ -141,6 +141,7 @@ public class GFrame {
 			public void actionPerformed(ActionEvent e) {
 				inGameChange=false;
 				Op.show();
+				gamePanel.requestFocusInWindow();
 
 			}
 		});
