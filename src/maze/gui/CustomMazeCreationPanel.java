@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
-public class PainelCriaLabirinto extends JPanel   {
+public class CustomMazeCreationPanel extends JPanel   {
 
 
 	/**
@@ -22,7 +22,7 @@ public class PainelCriaLabirinto extends JPanel   {
 	private static final long serialVersionUID = 1L;
 	private char[][] maze;
 	private char[][] emptyMaze;
-	private LabirintoPersonalizado lP;
+	private CustomMaze lP;
 	private Graphics2D g2d;
 	private BufferedImage wallIMG;
 	private BufferedImage pathIMG;
@@ -38,10 +38,11 @@ public class PainelCriaLabirinto extends JPanel   {
 	private boolean availableExit;
 	private boolean availableHero;
 	private boolean availableSword;
+	
 
 
 
-	public PainelCriaLabirinto(int size, LabirintoPersonalizado lP) throws IOException {
+	public CustomMazeCreationPanel(int size, CustomMaze lP) throws IOException {
 
 		this.size = size;
 		this.lP = lP;
@@ -71,6 +72,7 @@ public class PainelCriaLabirinto extends JPanel   {
 		heroSwordIMG = ImageIO.read(new File("res/HeroSword.png"));
 		sleepDragonIMG = ImageIO.read(new File("res/SleepDragon.png"));
 		eagleIMG = ImageIO.read(new File("res/eagle.png"));
+	
 
 	}
 	@Override

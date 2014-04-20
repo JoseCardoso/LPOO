@@ -16,11 +16,11 @@ import maze.game.MazeGame;
 
 public class GPanel extends JPanel   {
 
-	 /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	MazeGame game = new MazeGame();
 	private char[][] maze = new char[game.getN()][game.getN()];
 	private char[][] emptyMaze = new char[game.getN()][game.getN()];
@@ -35,11 +35,12 @@ public class GPanel extends JPanel   {
 	private BufferedImage heroSwordIMG;
 	private BufferedImage sleepDragonIMG;
 	private BufferedImage DragonSwordIMG;
-	
+
 	private GFrame gF;
-	
+
 	public GPanel(GFrame gF) throws IOException {
 		this.gF = gF;
+		
 		addKeyListener(new MyKeyboardAdapter());
 		setFocusable(true);
 		requestFocus();
@@ -51,6 +52,7 @@ public class GPanel extends JPanel   {
 	public void startGame()
 	{		
 		game.autoGen(gF.nM, gF.nD, gF.nDf, gF.mRandom);
+		gF.frmFairyTailSclass.setResizable(true);
 		setVisible(true);
 		game.update("");
 		repaint();
@@ -58,25 +60,27 @@ public class GPanel extends JPanel   {
 
 
 	}
-	
+
 	public void startGame(MazeGame game)
 	{
 
-		
+
 		this.game = game;
 		setVisible(true);
+		gF.frmFairyTailSclass.setResizable(true);
 		game.update("");
 		repaint();
 		requestFocus();
 
 
 	}
-	
-	
-	
+
+
+
 	public void startGame(char[][] obj) {
 		// TODO Auto-generated method stub
 		game.create(obj);
+		gF.frmFairyTailSclass.setResizable(true);
 	}
 
 
@@ -124,6 +128,7 @@ public class GPanel extends JPanel   {
 					gF.frmFairyTailSclass.dispose();
 					try {
 						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.upKey, gF.rightKey, gF.leftKey, gF.downKey, gF.sendEagleKey);
+						
 						gF.start();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -138,6 +143,7 @@ public class GPanel extends JPanel   {
 					gF.frmFairyTailSclass.dispose();
 					try {
 						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.upKey, gF.rightKey, gF.leftKey, gF.downKey, gF.sendEagleKey);
+						
 						gF.start();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -161,25 +167,27 @@ public class GPanel extends JPanel   {
 		maze = game.getLab().updateLab();
 		emptyMaze = game.getLab().getEmptyMaze();
 		BufferedImage tile = wallIMG;
-		
+
+
+
 		for (int i = 0; i < emptyMaze.length; i++) {
 			for (int j = 0; j < emptyMaze.length; j++) {
 				if (emptyMaze[i][j] == 'X')
 					tile = wallIMG;
 				else
 					tile = pathIMG;
-				
-				
+
+
 				int dx1 = j * (this.getWidth() / maze.length) ;
-			    int dx2 = this.getWidth() / maze.length;
+				int dx2 = this.getWidth() / maze.length;
 
-			    int dy1 = i * (this.getHeight()/ maze.length);
-			    int dy2 =this.getHeight() / maze.length;
+				int dy1 = i * (this.getHeight()/ maze.length);
+				int dy2 =this.getHeight() / maze.length;
 
-			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
+				g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
 			}
 		}
-		
+
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze.length; j++) {
 				tile = pathIMG;
@@ -199,31 +207,35 @@ public class GPanel extends JPanel   {
 					tile = DragonSwordIMG;
 				else if (maze[i][j] == 'A')
 					tile = heroSwordIMG;
-				
+
 				if (tile != pathIMG)
 				{
-					
+
 					int dx1 = j * (this.getWidth() / maze.length) ;
-				    int dx2 = this.getWidth() / maze.length;
+					int dx2 = this.getWidth() / maze.length;
 
-				    int dy1 = i * (this.getHeight()/ maze.length);
-				    int dy2 =this.getHeight() / maze.length;
+					int dy1 = i * (this.getHeight()/ maze.length);
+					int dy2 =this.getHeight() / maze.length;
 
-				    g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
-					
-					
+					g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
+
+
 				}
-				
+
 			}
-			
+
 		}
-		
-		}
+	}
+
+
 
 	public void printLab() {
 		maze = game.getLab().getMaze();
 		repaint();
 	}
 
-	
+
+
+
+
 }

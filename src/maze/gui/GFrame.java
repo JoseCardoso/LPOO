@@ -12,9 +12,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 
+
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
@@ -38,6 +41,8 @@ public class GFrame {
 	private JButton btnSave;
 	private JButton btnOptionsInGame;
 	private JButton btnCreateMaze;
+	private JButton btnLoadCustom;
+	private JLabel background;
 	int nD = 1, nM = 7 , nDf = 1;
 	boolean mRandom = false;
 	boolean inGameChange =false;
@@ -51,8 +56,6 @@ public class GFrame {
 	int savedRightKey;
 	int savedDownKey;
 	int savedSendEagleKey;
-	private JButton btnNewButton;
-	private JPanel background;
 	/**
 	 * Create the frame.
 	 */
@@ -77,6 +80,9 @@ public class GFrame {
 		frmFairyTailSclass.setTitle("Fairy Tail S-Class Quest");
 		frmFairyTailSclass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		background=new JLabel(new ImageIcon("res/backgroundActualDragon.png"));
+		frmFairyTailSclass.getContentPane().add(background, BorderLayout.CENTER);
+		background.setLayout(null);
 		
 
 		gamePanel = new GPanel(this);
@@ -94,6 +100,7 @@ public class GFrame {
 		btnLoad = new JButton("Load Game");
 		btnSave = new JButton("Save");
 		btnOptionsInGame = new JButton("Options");
+		btnLoadCustom = new JButton("Load Custom Maze");
 		
 		addButtons();
 		setUpButtons(); 
@@ -121,9 +128,11 @@ public class GFrame {
 					buttonsPanel.setVisible(false);
 					buttonsPanel2.setVisible(false);
 					buttonsPanel3.setVisible(true);
+					background.setVisible(false);
 
 					frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
 					frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
+				
 					gamePanel.startGame();
 				}
 			}
@@ -239,11 +248,13 @@ public class GFrame {
 							buttonsPanel.setVisible(false);
 							buttonsPanel2.setVisible(false);
 							buttonsPanel3.setVisible(true);
+							background.setVisible(false);
 
 							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
 							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 						
 							((MazeGame) obj).createRandomWrapper();
+							
 							gamePanel.startGame((MazeGame) obj);
 							
 							
@@ -260,7 +271,7 @@ public class GFrame {
 		});
 		
 		
-		btnNewButton.addActionListener(new ActionListener() {
+		btnLoadCustom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
@@ -288,7 +299,6 @@ public class GFrame {
 						if(obj instanceof char[][]){
 							frmFairyTailSclass.setSize(642, 598);
 						
-					
 
 							Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 							frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
@@ -299,13 +309,14 @@ public class GFrame {
 							buttonsPanel.setVisible(false);
 							buttonsPanel2.setVisible(false);
 							buttonsPanel3.setVisible(true);
+							background.setVisible(false);
 
 							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
 							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 						
 							
-							gamePanel.startGame((char[][]) obj);
 							
+							gamePanel.startGame((char[][]) obj);
 							
 						  }
 						
@@ -323,7 +334,7 @@ public class GFrame {
 		btnCreateMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				LabirintoPersonalizado lP = new LabirintoPersonalizado();
+				CustomMaze lP = new CustomMaze();
 				lP.show();
 			}
 		});
@@ -353,23 +364,22 @@ public class GFrame {
 		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
 		
-		btnNewButton = new JButton("Load Custom Maze");
-		buttonsPanel.add(btnNewButton);
+		btnLoadCustom = new JButton("Load Custom Maze");
+		buttonsPanel.add(btnLoadCustom);
 		
 		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
-		
-		background = new JPanel();
-		frmFairyTailSclass.getContentPane().add(background, BorderLayout.CENTER);
-		
-		
+				
 		
 	}
+	
+	
 
 	public void start() {
 
 
-		frmFairyTailSclass.setSize(new Dimension(500, 500));
+		frmFairyTailSclass.setSize(new Dimension(1024, 660));
+		frmFairyTailSclass.setResizable(false);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frmFairyTailSclass.setLocation(

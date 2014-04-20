@@ -31,9 +31,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
-public class LabirintoPersonalizado {
+public class CustomMaze {
 
-	private JFrame frmLabirintoPersonalizado;
+	private JFrame frmCustomMaze;
 	private JPanel panel1;
 	private JPanel panel2;
 	private JButton btnOptions;
@@ -42,25 +42,26 @@ public class LabirintoPersonalizado {
 	private JComboBox<String> objects;
 	private JButton btnSave;
 	private JSlider DiffSlider;
-	public LabirintoPersonalizado()
+	
+	public CustomMaze()
 	{
 		size = 7;
 		dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-		frmLabirintoPersonalizado = new JFrame();
-		frmLabirintoPersonalizado.setTitle("Labirinto Personalizado");
+		frmCustomMaze = new JFrame();
+		frmCustomMaze.setTitle("Labirinto Personalizado");
 
 		panel1 = new JPanel();
-		frmLabirintoPersonalizado.getContentPane().add(panel1, BorderLayout.NORTH);
+		frmCustomMaze.getContentPane().add(panel1, BorderLayout.NORTH);
 
 		try {
-			panel2 = new PainelCriaLabirinto(size,this);
+			panel2 = new CustomMazeCreationPanel(size,this);
 			panel2.requestFocusInWindow();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		frmLabirintoPersonalizado.getContentPane().add(panel2, BorderLayout.CENTER);
+		frmCustomMaze.getContentPane().add(panel2, BorderLayout.CENTER);
 
 
 
@@ -75,10 +76,10 @@ public class LabirintoPersonalizado {
 	void show()
 	{
 
-		frmLabirintoPersonalizado.setSize(520,520);
-		frmLabirintoPersonalizado.setLocation(dim.width / 2 - frmLabirintoPersonalizado.getSize().width / 2, dim.height / 2
-				- frmLabirintoPersonalizado.getSize().height / 2);
-		frmLabirintoPersonalizado.setVisible(true);
+		frmCustomMaze.setSize(520,520);
+		frmCustomMaze.setLocation(dim.width / 2 - frmCustomMaze.getSize().width / 2, dim.height / 2
+				- frmCustomMaze.getSize().height / 2);
+		frmCustomMaze.setVisible(true);
 
 	}
 
@@ -122,7 +123,7 @@ public class LabirintoPersonalizado {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {  
 
 					try{  
-
+						
 
 						File outFile = fc.getSelectedFile();  
 						String tFileName = outFile.getName();	
@@ -133,8 +134,8 @@ public class LabirintoPersonalizado {
 						FileOutputStream saveFile = new FileOutputStream(outFile);
 						ObjectOutputStream fw = new ObjectOutputStream(saveFile);
 
-						//fw.writeObject(game);
-						fw.writeObject(((PainelCriaLabirinto) panel2).getMaze());
+						
+						fw.writeObject(((CustomMazeCreationPanel) panel2).getMaze());
 						fw.close();
 					}  
 					catch(IOException ex){
