@@ -170,47 +170,9 @@ public class CustomMaze {
 
 
 	private void optionsFrame()
-	{/*
-		JFrame opF = new JFrame("Op\u00E7\u00F5es");
-		JPanel opP = new JPanel();
-		final JSpinner mSize = new JSpinner(new SpinnerNumberModel(new Integer(7) , new Integer(7),(Comparable<?>)null , new Integer(1)));
-		DiffSlider = new JSlider();
-		JLabel	DiffLabel = new JLabel("Difficulty");
-		JLabel diffDescriptionLabel = new JLabel("Stopped          Moving      Moving/Sleeping");
-
-		diffDescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		diffDescriptionLabel.setBounds(101, 139, 244, 14);
-
-		DiffLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		DiffLabel.setBounds(22, 105, 69, 30);
-
-		mSize.setBounds(174, 43, 125, 30);
-
-		DiffSlider.setBorder(new CompoundBorder());
-		DiffSlider.setBounds(122, 105, 177, 30);
-
-		DiffSlider.setToolTipText("");
-		DiffSlider.setPaintTicks(true);
-		DiffSlider.setMajorTickSpacing(1);
-		DiffSlider.setMinimum(1);
-		DiffSlider.setMaximum(3)
-		opP.setLayout(new GridLayout(3,0,0,0));
-		opP.add(DiffSlider);
-		opP.add(mSize);
-		opF.getContentPane().add(opP,BorderLayout.NORTH);			
-
-
-		opF.setSize(361,520);
-		opF.setLocation(dim.width / 2 - opF.getSize().width / 2, dim.height / 2
-				- opF.getSize().height / 2);
-		opF.setVisible(true);
-	 */
-
+	{
 		optionsFrame frame = new optionsFrame(this);
 		frame.show();
-		
-		
-		//((CustomMazeCreationPanel) panel2).setSize(size);
 	}
 
 	public void updateMaze()
@@ -224,7 +186,6 @@ public class CustomMaze {
 			frmCustomMaze.getContentPane().add(panel2, BorderLayout.CENTER);
 			show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error!");
 		}
 		
