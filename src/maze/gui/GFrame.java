@@ -50,6 +50,7 @@ public class GFrame {
 	int savedRightKey;
 	int savedDownKey;
 	int savedSendEagleKey;
+	private JButton btnNewButton;
 	/**
 	 * Create the frame.
 	 */
@@ -256,6 +257,66 @@ public class GFrame {
 		});
 		
 		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				JFileChooser fc = new JFileChooser();  
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
+
+				fc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("dat","dat");
+				fc.setFileFilter(filter);  
+
+				int returnVal = fc.showOpenDialog(new JFrame("Load"));
+
+
+				if (returnVal == JFileChooser.APPROVE_OPTION) {  
+
+					try{  
+
+
+						File inFile = fc.getSelectedFile();  
+						FileInputStream loadFile = new FileInputStream(inFile);
+						ObjectInputStream reader = new ObjectInputStream(loadFile);
+						Object obj = reader.readObject();
+						
+						reader.close();
+						if(obj instanceof char[][]){
+							frmFairyTailSclass.setSize(642, 598);
+						
+					
+
+							Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+							frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
+									/ 2 - frmFairyTailSclass.getSize().height / 2);
+
+							// starting new game with new options
+
+							buttonsPanel.setVisible(false);
+							buttonsPanel2.setVisible(false);
+							buttonsPanel3.setVisible(true);
+
+							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
+							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
+						
+							
+							gamePanel.startGame((char[][]) obj);
+							
+							
+						  }
+						
+
+					}  
+					catch(Exception ex){
+						JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error Loading!");
+					}  
+				}   
+
+			}
+		});
+		
+		
 		btnCreateMaze.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -274,7 +335,7 @@ public class GFrame {
 	private void addButtons() {
 
 
-		buttonsPanel.setLayout(new GridLayout(1, 3));
+		buttonsPanel.setLayout(new GridLayout(0, 4));
 		buttonsPanel.add(btnNewGame);
 		buttonsPanel.add(btnLoad);
 		buttonsPanel.add(btnCreateMaze);
@@ -288,6 +349,9 @@ public class GFrame {
 		buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
+		
+		btnNewButton = new JButton("Load Custom Maze");
+		buttonsPanel.add(btnNewButton);
 		
 		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);

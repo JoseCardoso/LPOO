@@ -34,6 +34,7 @@ public class Labirinto implements Serializable {
 
 	public void createLab(char[][] emptyMaze, char[][] maze) {
 		// TODO Auto-generated method stub
+			
 		this.emptyMaze = emptyMaze;
 		this.maze = maze;
 	}

@@ -33,6 +33,50 @@ public class MazeGame implements Serializable {
 		lab.updateLab();
 	}
 	
+	public void create(char[][] maze) {
+	
+		N = maze.length;
+		char[][] emptyMaze = new char[N][N];
+		for(int x = 0; x < N; x++)
+			for(int y = 0; y < N; y++)
+			{
+				if(maze[y][x] == 'H')
+				{
+					hero.setCoord(x,y);
+					emptyMaze[y][x] = ' ';
+				}
+				else if(maze[y][x] == 'E')
+				{
+					espada.setCoord(x, y);
+					emptyMaze[y][x] = ' ';
+				}
+				else if(maze[y][x] == 'S')
+				{
+					saida.setCoord(x, y);
+					emptyMaze[y][x] = 'X';
+				}
+				else if(maze[y][x] == 'D')
+				{
+					NumeroD++;
+					Dragon dragon = new Dragon(this);
+					dragon.setCoord(x, y);
+					DragonList.add(dragon);
+					emptyMaze[y][x] = ' ';
+				}					
+				else
+					emptyMaze[y][x] = maze[y][x];
+			}
+		
+		dificuldade = 3;
+		aguia.pos();
+		hero.setAguia(aguia);
+		lab.createLab(emptyMaze, maze);
+		lab.setN(N);
+		lab.setAguia(aguia);
+		lab.updateLab();
+		
+	}
+
 	public void autoGen(int N, int NDragons, int diff, boolean choice) {
 		if (!choice)
 			this.N = 10;

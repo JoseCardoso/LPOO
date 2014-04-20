@@ -122,11 +122,6 @@ public class PainelCriaLabirinto extends JPanel   {
 		repaint();
 	}
 
-	public void setSize(int size) {
-		this.size = size;
-	}
-
-
 	public class MouseListener extends MouseAdapter {
 
 
@@ -143,15 +138,15 @@ public class PainelCriaLabirinto extends JPanel   {
 		}
 	}
 
-	
-	MazeGame createComponents(int diff)
+
+	/*MazeGame createComponents(int diff)
 	{
 		MazeGame game = new MazeGame();
 		Espada espada = new Espada(game);
 		Heroi hero = new Heroi(game);
 		Saida saida = new Saida(game);
 		ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
-		
+
 		for(int x = 0; x < size; x++)
 			for(int y = 0; y < size; y++)
 			{
@@ -171,7 +166,8 @@ public class PainelCriaLabirinto extends JPanel   {
 		game.autoGen(size, DragonList.size(), diff, false);
 		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze,maze);
 		return game;
-	}
+	}*/
+
 
 	private char exitRequirements(char previous,int dx, int dy)
 	{
@@ -218,14 +214,14 @@ public class PainelCriaLabirinto extends JPanel   {
 
 	private char heroRequirements(char previous)
 	{
+		if(previous == 'H')
+			return ' ';
 		if(availableHero)
 			if(previous != 'X' && previous != 'S')
 			{
 				availableHero = false;
 				return 'H';
 			}
-			else if(previous == 'H')
-				return ' ';
 			else
 			{
 				JOptionPane.showMessageDialog(null, "Your hero must be on path!");
@@ -265,12 +261,12 @@ public class PainelCriaLabirinto extends JPanel   {
 
 	private char dragonRequirements(char previous)
 	{
+		if(previous == 'D')
+			return ' ';
 		if(previous != 'X' && previous != 'S')
 		{
 			return 'D';
 		}
-		else if(previous == 'D')
-			return ' ';
 		else
 		{
 			JOptionPane.showMessageDialog(null, "Your dragon must be on path!");
@@ -280,14 +276,14 @@ public class PainelCriaLabirinto extends JPanel   {
 
 	private char swordRequirements(char previous)
 	{
+		if (previous == 'E')
+			return ' ';
 		if(availableSword)
 			if(previous != 'X' && previous != 'S')
 			{
 				availableSword = false;
 				return 'E';
 			}
-			else if (previous == 'E')
-				return ' ';
 			else
 			{
 				JOptionPane.showMessageDialog(null, "Your sword must be on path!");
@@ -341,6 +337,48 @@ public class PainelCriaLabirinto extends JPanel   {
 			return pathRequirements(previous, dx, dy);
 		else
 			return wallRequirements(previous, dx, dy);
+	}
+
+	/*MazeGame createComponents(int diff)
+	{
+		MazeGame game = new MazeGame();
+		Espada espada = new Espada(game);
+		Heroi hero = new Heroi(game);
+		Saida saida = new Saida(game);
+		ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
+	
+		for(int x = 0; x < size; x++)
+			for(int y = 0; y < size; y++)
+			{
+				if(maze[y][x] == 'H')
+					hero.setCoord(x,y);
+				else if(maze[y][x] == 'E')
+					espada.setCoord(x, y);
+				else if(maze[y][x] == 'S')
+					saida.setCoord(x, y);
+				else if(maze[y][x] == 'D')
+				{
+					Dragon dragon = new Dragon(game);
+					dragon.setCoord(x, y);
+					DragonList.add(dragon);
+				}					
+			}
+		game.autoGen(size, DragonList.size(), diff, false);
+		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze,maze);
+		return game;
+	}*/
+	
+	
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public char[][] getMaze() {
+		return maze;
+	}
+
+	public char[][] getEmptyMaze() {
+		return emptyMaze;
 	}
 
 

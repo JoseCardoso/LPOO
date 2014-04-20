@@ -75,6 +75,12 @@ public class GPanel extends JPanel   {
 	
 	
 	
+	public void startGame(char[][] obj) {
+		// TODO Auto-generated method stub
+		game.create(obj);
+	}
+
+
 	public void loadImage() throws IOException {
 		wallIMG = ImageIO.read(new File("res/wall.png"));
 		pathIMG = ImageIO.read(new File("res/path.png"));

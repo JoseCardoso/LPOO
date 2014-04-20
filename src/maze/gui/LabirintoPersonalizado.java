@@ -108,7 +108,7 @@ public class LabirintoPersonalizado {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				MazeGame game = ((PainelCriaLabirinto) panel2).createComponents((Integer) DiffSlider.getValue());
+				//MazeGame game = ((PainelCriaLabirinto) panel2).createComponents((Integer) DiffSlider.getValue());
 				
 				JFileChooser fc = new JFileChooser();  
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
@@ -133,7 +133,8 @@ public class LabirintoPersonalizado {
 						FileOutputStream saveFile = new FileOutputStream(outFile);
 						ObjectOutputStream fw = new ObjectOutputStream(saveFile);
 
-						fw.writeObject(game);
+						//fw.writeObject(game);
+						fw.writeObject(((PainelCriaLabirinto) panel2).getMaze());
 						fw.close();
 					}  
 					catch(IOException ex){
