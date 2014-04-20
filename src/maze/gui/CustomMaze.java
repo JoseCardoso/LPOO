@@ -38,11 +38,12 @@ public class CustomMaze {
 	private JPanel panel2;
 	private JButton btnOptions;
 	private int size;
+	private int diff;
 	private Dimension dim;
 	private JComboBox<String> objects;
 	private JButton btnSave;
 	private JSlider DiffSlider;
-	
+
 	public CustomMaze()
 	{
 		size = 7;
@@ -62,8 +63,6 @@ public class CustomMaze {
 			e.printStackTrace();
 		}
 		frmCustomMaze.getContentPane().add(panel2, BorderLayout.CENTER);
-
-
 
 		btnOptions = new JButton("Op\u00E7\u00F5es");
 
@@ -120,7 +119,7 @@ public class CustomMaze {
 					{
 						diff = 3;
 					}
-					
+
 					JFileChooser fc = new JFileChooser();  
 					fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
 
@@ -133,7 +132,7 @@ public class CustomMaze {
 					if (returnVal == JFileChooser.APPROVE_OPTION) {  
 
 						try{  
-							
+
 
 							File outFile = fc.getSelectedFile();  
 							String tFileName = outFile.getName();	
@@ -144,7 +143,7 @@ public class CustomMaze {
 							FileOutputStream saveFile = new FileOutputStream(outFile);
 							ObjectOutputStream fw = new ObjectOutputStream(saveFile);
 
-							
+
 							Object saveM[] = new Object[2];
 							saveM[0] = diff;
 							saveM[1] = ((CustomMazeCreationPanel) panel2).getMaze();
@@ -160,9 +159,9 @@ public class CustomMaze {
 				{
 					JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Your maze isn't ready!");
 				}
-				
-				
-				
+
+
+
 
 			}
 
@@ -176,10 +175,10 @@ public class CustomMaze {
 
 
 	private void optionsFrame()
-	{
+	{/*
 		JFrame opF = new JFrame("Op\u00E7\u00F5es");
 		JPanel opP = new JPanel();
-		JSpinner siz = new JSpinner(new SpinnerNumberModel(new Integer(7) , new Integer(7),(Comparable<?>)null , new Integer(1)));
+		final JSpinner mSize = new JSpinner(new SpinnerNumberModel(new Integer(7) , new Integer(7),(Comparable<?>)null , new Integer(1)));
 		DiffSlider = new JSlider();
 		JLabel	DiffLabel = new JLabel("Difficulty");
 		JLabel diffDescriptionLabel = new JLabel("Stopped          Moving      Moving/Sleeping");
@@ -190,7 +189,7 @@ public class CustomMaze {
 		DiffLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		DiffLabel.setBounds(22, 105, 69, 30);
 
-		siz.setBounds(174, 43, 125, 30);
+		mSize.setBounds(174, 43, 125, 30);
 
 		DiffSlider.setBorder(new CompoundBorder());
 		DiffSlider.setBounds(122, 105, 177, 30);
@@ -199,11 +198,10 @@ public class CustomMaze {
 		DiffSlider.setPaintTicks(true);
 		DiffSlider.setMajorTickSpacing(1);
 		DiffSlider.setMinimum(1);
-		DiffSlider.setMaximum(3);
-
+		DiffSlider.setMaximum(3)
 		opP.setLayout(new GridLayout(3,0,0,0));
 		opP.add(DiffSlider);
-		opP.add(siz);
+		opP.add(mSize);
 		opF.getContentPane().add(opP,BorderLayout.NORTH);			
 
 
@@ -211,12 +209,37 @@ public class CustomMaze {
 		opF.setLocation(dim.width / 2 - opF.getSize().width / 2, dim.height / 2
 				- opF.getSize().height / 2);
 		opF.setVisible(true);
+	 */
 
+		optionsFrame frame = new optionsFrame(this);
+		frame.show();
+		((CustomMazeCreationPanel) panel2).setSize(size);
 	}
+
 
 
 	public JComboBox<String> getObjects() {
 		return objects;
+	}
+
+
+	public int getSize() {
+		return size;
+	}
+
+
+	public int getDiff() {
+		return diff;
+	}
+
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+
+	public void setDiff(int diff) {
+		this.diff = diff;
 	}
 
 }

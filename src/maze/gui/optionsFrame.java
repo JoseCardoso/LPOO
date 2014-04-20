@@ -51,6 +51,7 @@ public class optionsFrame{
 	private JLabel lbRightKey;
 	private JLabel lbUpKey;
 	private JLabel KeysLabel;
+	private boolean custom = false;
 	JSlider DiffSlider;
 	JSpinner MazeSizeSpinner;
 	JSpinner DragonSpinner;
@@ -60,9 +61,49 @@ public class optionsFrame{
 	JComboBox<String> leftKeyBox;
 	JComboBox<String> rightKeyBox;
 	JComboBox<String> sendEagleKeyBox;
-
 	private JPanel Config;
 	boolean mRandom = false;
+	private CustomMaze  cM;
+
+
+	public optionsFrame(CustomMaze  cM)
+	{
+		this.cM = cM;
+		Options.setTitle("Options");
+		Options.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		Options.setResizable( false );
+		Return = new JPanel();
+		Config = new JPanel();
+		btnSave = new JButton("Save");
+		btnQuit = new JButton("Quit");
+
+		custom = true;
+		DiffSlider = new JSlider();
+		MazeSizeSpinner = new JSpinner(new SpinnerNumberModel(cM.getSize() , new Integer(7),(Comparable<?>)null , new Integer(1)));
+		DragonSpinner = new JSpinner(new SpinnerNumberModel(new Integer(1) , new Integer(1),(Comparable<?>)null , new Integer(1)));
+
+
+		DiffLabel = new JLabel("Difficulty");
+		MazeSizeLabel = new JLabel("Maze Size (NxN):");
+
+
+		diffDescriptionLabel = new JLabel("Stopped          Moving      Moving/Sleeping");
+
+
+		Options.getContentPane().add(Return,BorderLayout.SOUTH);
+		Return.setLayout(new GridLayout(1,0,0,0));
+
+
+		Options.getContentPane().add(Config, BorderLayout.CENTER);
+		Config.setLayout(null);
+
+
+		addComponents();
+		setComponents();
+		setButtons();
+		setLabels();
+
+	}
 
 
 	public optionsFrame(final GFrame gF)
@@ -134,20 +175,27 @@ public class optionsFrame{
 	{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(!custom)
+				{
+					gF.nD=(Integer)DragonSpinner.getValue();
+					gF.nM= (Integer)MazeSizeSpinner.getValue();
+					gF.nDf= DiffSlider.getValue();
+					if (MazeType.getSelectedItem() == "Yes")
+						gF.mRandom = true;
+					else
+						gF.mRandom = false;
 
-				gF.nD=(Integer)DragonSpinner.getValue();
-				gF.nM= (Integer)MazeSizeSpinner.getValue();
-				gF.nDf= DiffSlider.getValue();
-				if (MazeType.getSelectedItem() == "Yes")
-					gF.mRandom = true;
+					configGameKeys(gF.inGameChange);
+
+					Options.setVisible(false); //you can't see me!
+
+					gF.gamePanel.requestFocusInWindow();
+				}
 				else
-					gF.mRandom = false;
-
-				configGameKeys(gF.inGameChange);
-
-				Options.setVisible(false); //you can't see me!
-
-				gF.gamePanel.requestFocusInWindow();
+				{
+					cM.setDiff(DiffSlider.getValue());
+					cM.setSize((Integer)MazeSizeSpinner.getValue());
+				}
 			}
 		});
 
@@ -168,7 +216,7 @@ public class optionsFrame{
 		gF.leftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
 		gF.rightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
 		gF.sendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
-		
+
 		if(!inGameChange)
 		{
 			gF.savedUpKey = Miscellaneous.getKeyFromString((String) upKeyBox.getSelectedItem());
@@ -176,16 +224,13 @@ public class optionsFrame{
 			gF.savedLeftKey = Miscellaneous.getKeyFromString((String) leftKeyBox.getSelectedItem());
 			gF.savedRightKey = Miscellaneous.getKeyFromString((String) rightKeyBox.getSelectedItem());
 			gF.savedSendEagleKey = Miscellaneous.getKeyFromString((String) sendEagleKeyBox.getSelectedItem());
-				
+
 		}
 
 	}
 
 	public void setLabels()
 	{
-		DragonLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		DragonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		DragonLabel.setBounds(21, 46, 112, 22);
 
 		DiffLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		DiffLabel.setBounds(22, 105, 69, 30);
@@ -193,25 +238,33 @@ public class optionsFrame{
 		MazeSizeLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		MazeSizeLabel.setBounds(21, 189, 99, 22);
 
-		MazeTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		MazeTypeLabel.setBounds(21, 237, 112, 22);
-
-
-
-		KeysLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		KeysLabel.setBounds(21, 285, 99, 14);
-
-		lbSendEagleKey.setBounds(122, 418, 57, 14);
-		lbRightKey.setBounds(122, 368, 46, 14);
-		lbUpKey.setBounds(122, 322, 46, 14);
-		lbDownKey.setBounds(123, 345, 57, 14);
-		lbLeftKey.setBounds(122, 394, 46, 14);
-
 
 		diffDescriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		diffDescriptionLabel.setBounds(101, 139, 244, 14);
+		if(!custom)
+		{
+
+			DragonLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			DragonLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			DragonLabel.setBounds(21, 46, 112, 22);
+
+			MazeTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			MazeTypeLabel.setBounds(21, 237, 112, 22);
 
 
+
+			KeysLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			KeysLabel.setBounds(21, 285, 99, 14);
+
+			lbSendEagleKey.setBounds(122, 418, 57, 14);
+			lbRightKey.setBounds(122, 368, 46, 14);
+			lbUpKey.setBounds(122, 322, 46, 14);
+			lbDownKey.setBounds(123, 345, 57, 14);
+			lbLeftKey.setBounds(122, 394, 46, 14);
+
+
+
+		}
 
 
 
@@ -231,24 +284,27 @@ public class optionsFrame{
 		DiffSlider.setMaximum(3);
 
 		MazeSizeSpinner.setBounds(174, 186, 125, 30);
-		((DefaultEditor) MazeSizeSpinner.getEditor()).getTextField().setEditable(false);
-		DragonSpinner.setBounds(174, 43, 125, 30);
 
-		MazeType.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		MazeType.setMaximumRowCount(2);
-		MazeType.setBounds(253, 239, 46, 20);
-		MazeType.setModel(new DefaultComboBoxModel<String>(new String[] {"Yes", "No"}));
-		upKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
-		upKeyBox.setSelectedIndex(26);
-		downKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
-		downKeyBox.setSelectedIndex(29);
-		leftKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
-		leftKeyBox.setSelectedIndex(28);
-		rightKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
-		rightKeyBox.setSelectedIndex(27);
-		sendEagleKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
-		sendEagleKeyBox.setSelectedIndex(30);
+		if(!custom)
+		{
+			((DefaultEditor) MazeSizeSpinner.getEditor()).getTextField().setEditable(false);
+			DragonSpinner.setBounds(174, 43, 125, 30);
 
+			MazeType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			MazeType.setMaximumRowCount(2);
+			MazeType.setBounds(253, 239, 46, 20);
+			MazeType.setModel(new DefaultComboBoxModel<String>(new String[] {"Yes", "No"}));
+			upKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
+			upKeyBox.setSelectedIndex(26);
+			downKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
+			downKeyBox.setSelectedIndex(29);
+			leftKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
+			leftKeyBox.setSelectedIndex(28);
+			rightKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
+			rightKeyBox.setSelectedIndex(27);
+			sendEagleKeyBox.setModel(new DefaultComboBoxModel<String>(new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "UP", "RIGHT", "LEFT", "DOWN", "SPACE"}));
+			sendEagleKeyBox.setSelectedIndex(30);
+		}
 
 	}
 
@@ -257,35 +313,42 @@ public class optionsFrame{
 		Return.add(btnSave);
 		Return.add(btnQuit);
 
-		Config.add(DragonLabel);
 		Config.add(DiffLabel);
 		Config.add(MazeSizeLabel);
-		Config.add(MazeType);
-		Config.add(MazeTypeLabel);
-		Config.add(DragonSpinner);
 		Config.add(MazeSizeSpinner);
 		Config.add(DiffSlider);
-		Config.add(upKeyBox);
-		Config.add(downKeyBox);
-		Config.add(leftKeyBox);
-		Config.add(rightKeyBox);
-		Config.add(sendEagleKeyBox);
-		Config.add(diffDescriptionLabel);
-		Config.add(KeysLabel);
-		Config.add(lbSendEagleKey);
-		Config.add(lbRightKey);
-		Config.add(lbUpKey);
-		Config.add(lbDownKey);
-		Config.add(lbLeftKey);
 
+		if(!custom)
+		{
+			Config.add(DragonLabel);
+			Config.add(MazeType);
+			Config.add(MazeTypeLabel);
+			Config.add(DragonSpinner);
+			Config.add(upKeyBox);
+			Config.add(downKeyBox);
+			Config.add(leftKeyBox);
+			Config.add(rightKeyBox);
+			Config.add(sendEagleKeyBox);
+			Config.add(diffDescriptionLabel);
+			Config.add(KeysLabel);
+			Config.add(lbSendEagleKey);
+			Config.add(lbRightKey);
+			Config.add(lbUpKey);
+			Config.add(lbDownKey);
+			Config.add(lbLeftKey);
+		}
 
 
 	}
 
 
 
+
 	public void show() {
-		Options.setSize(361,520);
+		if(!custom)
+			Options.setSize(361,520);
+		else
+			Options.setSize(361,361);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		Options.setLocation(dim.width / 2 - Options.getSize().width / 2, dim.height / 2

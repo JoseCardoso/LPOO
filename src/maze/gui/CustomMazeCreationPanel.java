@@ -320,6 +320,20 @@ public class CustomMazeCreationPanel extends JPanel   {
 	
 	public void setSize(int size) {
 		this.size = size;
+		maze = new char[size][size];
+		emptyMaze = new char[size][size];
+		availableExit = true;
+		availableHero = true;
+		availableSword = true;
+		nDragons = 0;
+		for(int i = 0; i < size;i++)
+			for(int j = 0; j < size;j++)
+				maze[i][j] = 'X';
+		repaint();
+	}
+
+	public int getMazeSize() {
+		return size;
 	}
 
 	public char[][] getMaze() {
