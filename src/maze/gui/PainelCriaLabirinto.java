@@ -1,7 +1,5 @@
 package maze.gui;
-import maze.game.*;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -9,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -82,6 +79,7 @@ public class PainelCriaLabirinto extends JPanel   {
 
 		g2d = (Graphics2D) g;
 
+		BufferedImage backtile = pathIMG;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				BufferedImage tile = wallIMG;
@@ -104,18 +102,22 @@ public class PainelCriaLabirinto extends JPanel   {
 				else if (maze[i][j] == 'A')
 					tile = heroSwordIMG;
 
+				
 				int dx1 = j * (this.getWidth() / size) ;
 				int dx2 = this.getWidth() / size;
 
 				int dy1 = i * (this.getHeight()/ size);
 				int dy2 =this.getHeight() / size;
-
-				g2d.drawImage(tile, dx1,dy1,dx2,dy2, Color.BLACK, null);
+			
+				if (tile != pathIMG && tile != wallIMG)
+					g2d.drawImage(backtile, dx1,dy1,dx2,dy2, null);
+				g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
+				
+					
 			}
 		}
 
 	}
-
 
 	public void printLab() {
 

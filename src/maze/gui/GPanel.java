@@ -1,6 +1,5 @@
 package maze.gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -24,7 +23,7 @@ public class GPanel extends JPanel   {
 	
 	MazeGame game = new MazeGame();
 	private char[][] maze = new char[game.getN()][game.getN()];
-	//private GFrame window;
+	private char[][] emptyMaze = new char[game.getN()][game.getN()];
 	private Graphics2D g2d;
 	private BufferedImage wallIMG;
 	private BufferedImage pathIMG;
@@ -160,13 +159,31 @@ public class GPanel extends JPanel   {
 
 		g2d = (Graphics2D) g;
 		maze = game.getLab().updateLab();
+		emptyMaze = game.getLab().getEmptyMaze();
+		BufferedImage tile = wallIMG;
+		
+		for (int i = 0; i < emptyMaze.length; i++) {
+			for (int j = 0; j < emptyMaze.length; j++) {
+				if (emptyMaze[i][j] == 'X')
+					tile = wallIMG;
+				else
+					tile = pathIMG;
+				
+				
+				int dx1 = j * (this.getWidth() / maze.length) ;
+			    int dx2 = this.getWidth() / maze.length;
 
+			    int dy1 = i * (this.getHeight()/ maze.length);
+			    int dy2 =this.getHeight() / maze.length;
+
+			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
+			}
+		}
+		
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze.length; j++) {
-				BufferedImage tile = wallIMG;
-				if (maze[i][j] == ' ')
-					tile = pathIMG;
-				else if (maze[i][j] == 'S')
+				tile = pathIMG;
+				if (maze[i][j] == 'S')
 					tile = exitIMG;
 				else if (maze[i][j] == 'H')
 					tile = heroIMG;
@@ -182,18 +199,26 @@ public class GPanel extends JPanel   {
 					tile = DragonSwordIMG;
 				else if (maze[i][j] == 'A')
 					tile = heroSwordIMG;
+				
+				if (tile != pathIMG)
+				{
+					
+					int dx1 = j * (this.getWidth() / maze.length) ;
+				    int dx2 = this.getWidth() / maze.length;
 
-				int dx1 = j * (this.getWidth() / maze.length) ;
-			    int dx2 = this.getWidth() / maze.length;
+				    int dy1 = i * (this.getHeight()/ maze.length);
+				    int dy2 =this.getHeight() / maze.length;
 
-			    int dy1 = i * (this.getHeight()/ maze.length);
-			    int dy2 =this.getHeight() / maze.length;
-
-			    g2d.drawImage(tile, dx1,dy1,dx2,dy2, Color.BLACK, null);
+				    g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
+					
+					
+				}
+				
 			}
+			
 		}
-
-	}
+		
+		}
 
 	public void printLab() {
 		maze = game.getLab().getMaze();

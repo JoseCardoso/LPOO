@@ -29,7 +29,7 @@ import javax.swing.JComboBox;
 import javax.swing.border.CompoundBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import maze.game.MazeGame;
+
 
 public class LabirintoPersonalizado {
 

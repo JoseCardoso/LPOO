@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -51,6 +52,7 @@ public class GFrame {
 	int savedDownKey;
 	int savedSendEagleKey;
 	private JButton btnNewButton;
+	private JPanel background;
 	/**
 	 * Create the frame.
 	 */
@@ -74,7 +76,8 @@ public class GFrame {
 		
 		frmFairyTailSclass.setTitle("Fairy Tail S-Class Quest");
 		frmFairyTailSclass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		
 
 		gamePanel = new GPanel(this);
 		Op = new optionsFrame(this);
@@ -355,6 +358,10 @@ public class GFrame {
 		
 		
 		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
+		
+		background = new JPanel();
+		frmFairyTailSclass.getContentPane().add(background, BorderLayout.CENTER);
+		
 		
 		
 	}
