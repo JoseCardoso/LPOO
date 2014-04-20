@@ -3,16 +3,12 @@ package maze.gui;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +22,6 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 
 import javax.swing.JComboBox;
-import javax.swing.border.CompoundBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -213,10 +208,27 @@ public class CustomMaze {
 
 		optionsFrame frame = new optionsFrame(this);
 		frame.show();
-		((CustomMazeCreationPanel) panel2).setSize(size);
+		
+		
+		//((CustomMazeCreationPanel) panel2).setSize(size);
 	}
 
-
+	public void updateMaze()
+	{
+		JFrame previousFrame = frmCustomMaze;
+		frmCustomMaze = new JFrame();
+		previousFrame.dispose();
+		frmCustomMaze.getContentPane().add(panel1, BorderLayout.NORTH);
+		try {
+			panel2 = new CustomMazeCreationPanel(size, this);
+			frmCustomMaze.getContentPane().add(panel2, BorderLayout.CENTER);
+			show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error!");
+		}
+		
+	}
 
 	public JComboBox<String> getObjects() {
 		return objects;

@@ -204,6 +204,8 @@ public class optionsFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				Options.dispose();
 				Options.setVisible(false); //you can't see me!
+				if(custom)
+					cM.updateMaze();
 			}
 		});
 
@@ -282,6 +284,7 @@ public class optionsFrame{
 		DiffSlider.setMajorTickSpacing(1);
 		DiffSlider.setMinimum(1);
 		DiffSlider.setMaximum(3);
+		DiffSlider.setValue(1);
 
 		MazeSizeSpinner.setBounds(174, 186, 125, 30);
 
@@ -317,7 +320,8 @@ public class optionsFrame{
 		Config.add(MazeSizeLabel);
 		Config.add(MazeSizeSpinner);
 		Config.add(DiffSlider);
-
+		Config.add(diffDescriptionLabel);
+		
 		if(!custom)
 		{
 			Config.add(DragonLabel);
@@ -329,7 +333,6 @@ public class optionsFrame{
 			Config.add(leftKeyBox);
 			Config.add(rightKeyBox);
 			Config.add(sendEagleKeyBox);
-			Config.add(diffDescriptionLabel);
 			Config.add(KeysLabel);
 			Config.add(lbSendEagleKey);
 			Config.add(lbRightKey);
