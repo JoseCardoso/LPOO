@@ -33,7 +33,7 @@ public class MazeGame implements Serializable {
 		lab.updateLab();
 	}
 	
-	public void create(char[][] maze) {
+	public void create(char[][] maze, int diff) {
 	
 		N = maze.length;
 		char[][] emptyMaze = new char[N][N];
@@ -67,7 +67,7 @@ public class MazeGame implements Serializable {
 					emptyMaze[y][x] = maze[y][x];
 			}
 		
-		dificuldade = 3;
+		dificuldade = diff;
 		aguia.pos();
 		hero.setAguia(aguia);
 		lab.createLab(emptyMaze, maze);

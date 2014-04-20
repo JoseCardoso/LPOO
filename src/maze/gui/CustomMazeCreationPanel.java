@@ -35,6 +35,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 	private BufferedImage sleepDragonIMG;
 	private BufferedImage DragonSwordIMG;
 	private int size;
+	private int nDragons;
 	private boolean availableExit;
 	private boolean availableHero;
 	private boolean availableSword;
@@ -46,6 +47,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 		this.size = size;
 		this.lP = lP;
+		nDragons = 0;
 		maze = new char[size][size];
 		emptyMaze = new char[size][size];
 		availableExit = true;
@@ -142,37 +144,6 @@ public class CustomMazeCreationPanel extends JPanel   {
 		}
 	}
 
-
-	/*MazeGame createComponents(int diff)
-	{
-		MazeGame game = new MazeGame();
-		Espada espada = new Espada(game);
-		Heroi hero = new Heroi(game);
-		Saida saida = new Saida(game);
-		ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
-
-		for(int x = 0; x < size; x++)
-			for(int y = 0; y < size; y++)
-			{
-				if(maze[y][x] == 'H')
-					hero.setCoord(x,y);
-				else if(maze[y][x] == 'E')
-					espada.setCoord(x, y);
-				else if(maze[y][x] == 'S')
-					saida.setCoord(x, y);
-				else if(maze[y][x] == 'D')
-				{
-					Dragon dragon = new Dragon(game);
-					dragon.setCoord(x, y);
-					DragonList.add(dragon);
-				}					
-			}
-		game.autoGen(size, DragonList.size(), diff, false);
-		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze,maze);
-		return game;
-	}*/
-
-
 	private char exitRequirements(char previous,int dx, int dy)
 	{
 		if(!availableExit)
@@ -266,9 +237,13 @@ public class CustomMazeCreationPanel extends JPanel   {
 	private char dragonRequirements(char previous)
 	{
 		if(previous == 'D')
+		{
+			nDragons--;
 			return ' ';
+		}
 		if(previous != 'X' && previous != 'S')
 		{
+			nDragons++;
 			return 'D';
 		}
 		else
@@ -342,36 +317,6 @@ public class CustomMazeCreationPanel extends JPanel   {
 		else
 			return wallRequirements(previous, dx, dy);
 	}
-
-	/*MazeGame createComponents(int diff)
-	{
-		MazeGame game = new MazeGame();
-		Espada espada = new Espada(game);
-		Heroi hero = new Heroi(game);
-		Saida saida = new Saida(game);
-		ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
-	
-		for(int x = 0; x < size; x++)
-			for(int y = 0; y < size; y++)
-			{
-				if(maze[y][x] == 'H')
-					hero.setCoord(x,y);
-				else if(maze[y][x] == 'E')
-					espada.setCoord(x, y);
-				else if(maze[y][x] == 'S')
-					saida.setCoord(x, y);
-				else if(maze[y][x] == 'D')
-				{
-					Dragon dragon = new Dragon(game);
-					dragon.setCoord(x, y);
-					DragonList.add(dragon);
-				}					
-			}
-		game.autoGen(size, DragonList.size(), diff, false);
-		game.fullGenerate(espada, hero, saida, DragonList, emptyMaze,maze);
-		return game;
-	}*/
-	
 	
 	public void setSize(int size) {
 		this.size = size;
@@ -383,6 +328,11 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 	public char[][] getEmptyMaze() {
 		return emptyMaze;
+	}
+
+	public boolean readyToSave() {
+		// TODO Auto-generated method stub
+		return (!availableExit && !availableHero && !availableSword && (nDragons > 0));
 	}
 
 

@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 
 
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -296,7 +298,7 @@ public class GFrame {
 						Object obj = reader.readObject();
 						
 						reader.close();
-						if(obj instanceof char[][]){
+						if(obj instanceof Object[]){
 							frmFairyTailSclass.setSize(642, 598);
 						
 
@@ -314,9 +316,10 @@ public class GFrame {
 							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
 							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 						
-							
-							
-							gamePanel.startGame((char[][]) obj);
+							Object[] obj2 = (Object[]) obj;
+							int diff = (Integer) obj2[0];
+							char[][] m = (char[][]) obj2[1];
+							gamePanel.startGame(m,diff);
 							
 						  }
 						

@@ -77,9 +77,9 @@ public class GPanel extends JPanel   {
 
 
 
-	public void startGame(char[][] obj) {
+	public void startGame(char[][] obj,int diff) {
 		// TODO Auto-generated method stub
-		game.create(obj);
+		game.create(obj,diff);
 		gF.frmFairyTailSclass.setResizable(true);
 	}
 

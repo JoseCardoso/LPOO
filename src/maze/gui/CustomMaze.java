@@ -109,39 +109,59 @@ public class CustomMaze {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//MazeGame game = ((PainelCriaLabirinto) panel2).createComponents((Integer) DiffSlider.getValue());
+				if(((CustomMazeCreationPanel) panel2).readyToSave())
+				{
+					int diff;
+					try
+					{
+						diff = (Integer) DiffSlider.getValue();
+					}
+					catch(Exception ex)
+					{
+						diff = 3;
+					}
+					
+					JFileChooser fc = new JFileChooser();  
+					fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
+
+					fc.setAcceptAllFileFilterUsed(false);
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("dat","dat");
+					fc.setFileFilter(filter);  
+
+					int returnVal = fc.showSaveDialog(new JFrame("Save"));
+
+					if (returnVal == JFileChooser.APPROVE_OPTION) {  
+
+						try{  
+							
+
+							File outFile = fc.getSelectedFile();  
+							String tFileName = outFile.getName();	
+
+							if(!tFileName.endsWith(".dat"))
+								outFile= new File(outFile + ".dat");
+
+							FileOutputStream saveFile = new FileOutputStream(outFile);
+							ObjectOutputStream fw = new ObjectOutputStream(saveFile);
+
+							
+							Object saveM[] = new Object[2];
+							saveM[0] = diff;
+							saveM[1] = ((CustomMazeCreationPanel) panel2).getMaze();
+							fw.writeObject(saveM);
+							fw.close();
+						}  
+						catch(IOException ex){
+							JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error Saving!");
+						}  
+					}   
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Your maze isn't ready!");
+				}
 				
-				JFileChooser fc = new JFileChooser();  
-				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);  
-
-				fc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("dat","dat");
-				fc.setFileFilter(filter);  
-
-				int returnVal = fc.showSaveDialog(new JFrame("Save"));
-
-				if (returnVal == JFileChooser.APPROVE_OPTION) {  
-
-					try{  
-						
-
-						File outFile = fc.getSelectedFile();  
-						String tFileName = outFile.getName();	
-
-						if(!tFileName.endsWith(".dat"))
-							outFile= new File(outFile + ".dat");
-
-						FileOutputStream saveFile = new FileOutputStream(outFile);
-						ObjectOutputStream fw = new ObjectOutputStream(saveFile);
-
-						
-						fw.writeObject(((CustomMazeCreationPanel) panel2).getMaze());
-						fw.close();
-					}  
-					catch(IOException ex){
-						JOptionPane.showMessageDialog(new JFrame().getRootPane(), "Error Saving!");
-					}  
-				}   
+				
 				
 
 			}
