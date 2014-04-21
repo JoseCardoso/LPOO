@@ -2,8 +2,18 @@ package maze.gui;
 
 import java.awt.event.KeyEvent;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Miscellaneous.
+ */
 public class Miscellaneous {
 
+	/**
+	 * Gets the string of key.
+	 *
+	 * @param key the key
+	 * @return the string of key
+	 */
 	public static String getStringOfKey(int key) {
 		switch (key) {
 		case KeyEvent.VK_A: return "A";

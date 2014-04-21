@@ -67,7 +67,7 @@ public class CustomMaze {
 	}
 
 
-	void show()
+	public void show()
 	{
 
 		frmCustomMaze.setSize(520,520);

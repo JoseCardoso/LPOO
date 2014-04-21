@@ -30,11 +30,11 @@ public class EagleTest {
 
 	MazeCli cli = new MazeCli();
 	MazeGame maze = new MazeGame();
-	Labirinto lab = new Labirinto(maze);
-	Heroi hero = new Heroi(maze);
-	Espada espada = new Espada(maze);
-	Saida saida = new Saida(maze);
-	Aguia aguia;
+	Labyrinth lab = new Labyrinth(maze);
+	Hero hero = new Hero(maze);
+	Sword espada = new Sword(maze);
+	Exit saida = new Exit(maze);
+	Eagle aguia;
 	
 	
 	
@@ -63,7 +63,7 @@ public class EagleTest {
 		assertEquals(1,aguia.getCoord()[0]);
 		lab.updateLab();
 		hero.move("e");
-		assertEquals(false,hero.isComAguia());	
+		assertEquals(false,hero.isWithEagle());	
 		lab.updateLab();
 	}
 	

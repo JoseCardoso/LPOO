@@ -3,35 +3,49 @@ package maze.game;
 import java.io.Serializable;
 import java.util.*;
 
+// TODO: Auto-generated Javadoc
 //MazeBuilder
-public class Labirinto implements Serializable {
-	/**
-	 * 
-	 */
+/**
+ * The Class Labyrinth.
+ * 
+ * This class is responsable for generating the mazes
+ */
+public class Labyrinth implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-
 	public int N;
 	private int NumeroD;
 	private char[][] emptyMaze;
 	private char[][] maze;
 	private char[][] visitedCell;
 	transient private Stack<int[]> st;
-	private Espada espada;
-	private Heroi hero;
-	private Saida saida;
-	private Aguia aguia;
+	private Sword sword;
+	private Hero hero;
+	private Exit exit;
+	private Eagle eagle;
 	private MazeGame game;
 	private ArrayList<Dragon> DragonList;
 
-	public Labirinto(MazeGame mazeGame) {
+	/**
+	 * Instantiates a new labyrinth.
+	 *
+	 * @param mazeGame the maze game
+	 */
+	public Labyrinth(MazeGame mazeGame) {
 		game = mazeGame;
-		espada = game.getEspada();
+		sword = game.getEspada();
 		DragonList = game.getDragonList();
 		hero = game.getHero();
-		saida = game.getSaida();
-		aguia = game.getAguia();
+		exit = game.getSaida();
+		eagle = game.getAguia();
 	}
 
+	/**
+	 * Creates the labyrinth based on a specific maze
+	 *
+	 * @param emptyMaze the empty maze with only walls and path
+	 * @param maze the maze with objects, pat
+	 */
 	public void createLab(char[][] emptyMaze, char[][] maze) {
 		// TODO Auto-generated method stub
 			
@@ -40,12 +54,20 @@ public class Labirinto implements Serializable {
 	}
 	
 
+	/**
+	 * Creates the lab.
+	 *
+	 * @param maze the maze
+	 */
 	public void createLab(char[][] maze) // laboratório pre-definido
 	{
 		this.emptyMaze = maze;
 		this.maze = new char[N][N];
 	}
 
+	/**
+	 * Creates the lab.
+	 */
 	public void createLab() {
 		st = new Stack<int[]>();
 		Random r = new Random();
@@ -121,6 +143,12 @@ public class Labirinto implements Serializable {
 		}
 	}
 
+	/**
+	 * Adds the to stack.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void addToStack(int x, int y) {
 		int[] temp = new int[2];
 		temp[0] = x;
@@ -128,10 +156,26 @@ public class Labirinto implements Serializable {
 		st.push(temp);
 	}
 
+	/**
+	 * Fill maze.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param dx the dx
+	 * @param dy the dy
+	 */
 	public void fillMaze(int x, int y, int dx, int dy) {
 		emptyMaze[y + dy][x + dx] = ' ';
 	}
 
+	/**
+	 * Checks for move.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param size the size
+	 * @return true, if successful
+	 */
 	public boolean hasMove(int x, int y, int size) {
 	
 		if (y - 1 >= 0)
@@ -152,6 +196,14 @@ public class Labirinto implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Gets the valid maze.
+	 *
+	 * @param dx the dx
+	 * @param dy the dy
+	 * @param size the size
+	 * @return the valid maze
+	 */
 	public boolean getValidMaze(int dx, int dy, int size) {
 		int x = st.peek()[0];
 		int y = st.peek()[1];
@@ -163,25 +215,30 @@ public class Labirinto implements Serializable {
 			return false;
 	}
 
+	/**
+	 * Update lab.
+	 *
+	 * @return the char[][]
+	 */
 	public char[][] updateLab() {
 		
 		int coordH[] = hero.getCoord();
-		int coordE[] = espada.getCoord();
-		int coordS[] = saida.getCoord();
-		int coordA[] = aguia.getCoord();
+		int coordE[] = sword.getCoord();
+		int coordS[] = exit.getCoord();
+		int coordA[] = eagle.getCoord();
 		emptyMaze[coordS[1]][coordS[0]] = 'S';
 		
 		for(int i = 0; i < N;i++)
 			for(int j = 0; j <N ; j++)
 				maze[i][j] = emptyMaze[i][j];
 		
-		if ((coordH[0] != coordA[0] || coordH[1] != coordA[1]) && aguia.isAlive())
+		if ((coordH[0] != coordA[0] || coordH[1] != coordA[1]) && eagle.isAlive())
 			maze[coordA[1]][coordA[0]] = 'a';
 		
 		
 		drawDragon(coordE);
 		
-		if (hero.getSword())
+		if (hero.hasSword())
 		{
 			maze[coordE[1]][coordE[0]] = ' ';
 			maze[coordH[1]][coordH[0]] = 'A';
@@ -194,17 +251,22 @@ public class Labirinto implements Serializable {
 	
 	}
 
+	/**
+	 * Draw dragon.
+	 *
+	 * @param coodE the cood e
+	 */
 	public void drawDragon(int[] coodE) {
 		NumeroD = game.getNdragon();
 		boolean dragonHasSword = false; // verifica se um dragao está na mesma
 		// posição que a espada
 		for (int i = 0; i < NumeroD; i++) {
 			int coodD[] = DragonList.listIterator(i).next().getCoord();
-			if (DragonList.listIterator(i).next().getSleep())
+			if (DragonList.listIterator(i).next().isSleeping())
 				maze[coodD[1]][coodD[0]] = 'd';
 			else
 				maze[coodD[1]][coodD[0]] = 'D';
-			if (!hero.getSword() && (!aguia.getSword()|| !aguia.isAlive() )) {
+			if (!hero.hasSword() && (!eagle.isWithSword()|| !eagle.isAlive() )) {
 				if (coodD[0] == coodE[0] && coodD[1] == coodE[1]) {
 					dragonHasSword = true;
 					maze[coodD[1]][coodD[0]] = 'F';
@@ -223,14 +285,29 @@ public class Labirinto implements Serializable {
 	
 	}
 
+	/**
+	 * Gets the maze.
+	 *
+	 * @return the maze
+	 */
 	public char[][] getMaze() {
 		return maze;
 	}
 
+	/**
+	 * Gets the empty maze.
+	 *
+	 * @return the empty maze
+	 */
 	public char[][] getEmptyMaze() {
 		return emptyMaze;
 	}
 
+	/**
+	 * Gets the standard maze.
+	 *
+	 * @return the standard maze
+	 */
 	public char[][] getStandardMaze() {
 		char[][] temp = { 
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -248,24 +325,53 @@ public class Labirinto implements Serializable {
 	
 	}
 
+	/**
+	 * Gets the space.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the space
+	 */
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
 			return 'I'; //caso nao seja uma coordenada válida
 		return emptyMaze[y][x];
 	}
 
-	public Saida getSaida() {
-		return saida;
+	/**
+	 * Gets the exit.
+	 *
+	 * @return the exit
+	 */
+	public Exit getExit() {
+		return exit;
 	}
 
-	public void setAguia(Aguia aguia) {
-		this.aguia = aguia;
+	/**
+	 * Sets the eagle.
+	 *
+	 * @param eagle the new eagle
+	 */
+	public void setEagle(Eagle eagle) {
+		this.eagle = eagle;
 	}
 
+	/**
+	 * Sets the n.
+	 *
+	 * @param n the new n
+	 */
 	public void setN(int n) {
 		N = n;
 	}
 
+	/**
+	 * Sets the space.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param C the c
+	 */
 	public void setSpace(int x, int y, char C) {
 		
 		maze[y][x] = C;

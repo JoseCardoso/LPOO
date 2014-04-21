@@ -18,10 +18,10 @@ public class DragonTest {
 	
 	MazeCli cli = new MazeCli();
 	MazeGame maze = new MazeGame();
-	Labirinto lab = new Labirinto(maze);
-	Heroi hero = new Heroi(maze);
-	Espada espada = new Espada(maze);
-	Saida saida = new Saida(maze);
+	Labyrinth lab = new Labyrinth(maze);
+	Hero hero = new Hero(maze);
+	Sword espada = new Sword(maze);
+	Exit saida = new Exit(maze);
 	private ArrayList<Dragon> dragons =new ArrayList<Dragon>();
 
 
@@ -88,9 +88,9 @@ public class DragonTest {
 		d.setCoord(1, 1);
 		d.setRandomWrapper(teste1);
 		d.moveRandom();//dormir
-		assertEquals(true,d.getSleep());
+		assertEquals(true,d.isSleeping());
 		d.moveRandom();	//acordar
-		assertEquals(false,d.getSleep());
+		assertEquals(false,d.isSleeping());
 
 	}
 	
@@ -119,9 +119,9 @@ public class DragonTest {
 		d1.setCoord(9, 9);
 		d1.setRandomWrapper(teste1);
 		d1.moveRandom();//dormir
-		assertEquals(true,d1.getSleep());
+		assertEquals(true,d1.isSleeping());
 		d1.moveRandom();	//acordar
-		assertEquals(false,d1.getSleep());
+		assertEquals(false,d1.isSleeping());
 		
 		MockedRandomWrapper teste2 = new MockedRandomWrapper(2);
 		d2.setCoord(1, 1);

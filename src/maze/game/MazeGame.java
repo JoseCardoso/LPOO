@@ -11,23 +11,23 @@ public class MazeGame implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int N, dificuldade, NumeroD;
 	private boolean LiveDragon = true, LiveHero = true, exit = false;
-	private Espada espada = new Espada(this);
-	private Heroi hero = new Heroi(this);
-	private Aguia aguia = new Aguia(this);
-	private Saida saida = new Saida(this);
+	private Sword espada = new Sword(this);
+	private Hero hero = new Hero(this);
+	private Eagle aguia = new Eagle(this);
+	private Exit saida = new Exit(this);
 	private ArrayList<Dragon> DragonList = new ArrayList<Dragon>();
-	private Labirinto lab = new Labirinto(this);
+	private Labyrinth lab = new Labyrinth(this);
 
 
-	public void fullGenerate(Espada espada,Heroi hero, Saida saida,ArrayList<Dragon> DragonList, char[][] emptyMaze, char[][] maze)
+	public void fullGenerate(Sword espada,Hero hero, Exit saida,ArrayList<Dragon> DragonList, char[][] emptyMaze, char[][] maze)
 	{
 		this.espada = espada;
 		this.hero = hero;
-		aguia = new Aguia(this);
+		aguia = new Eagle(this);
 		aguia.pos();
 		this.saida = saida;
 		this.DragonList  = new ArrayList<Dragon>(DragonList);
-		lab = new Labirinto(this);
+		lab = new Labyrinth(this);
 		lab.createLab(emptyMaze,maze);
 		NumeroD = DragonList.size();
 		lab.updateLab();
@@ -69,10 +69,10 @@ public class MazeGame implements Serializable {
 		
 		dificuldade = diff;
 		aguia.pos();
-		hero.setAguia(aguia);
+		hero.setEagle(aguia);
 		lab.createLab(emptyMaze, maze);
 		lab.setN(N);
-		lab.setAguia(aguia);
+		lab.setEagle(aguia);
 		lab.updateLab();
 		
 	}
@@ -99,9 +99,9 @@ public class MazeGame implements Serializable {
 		hero.pos();
 		espada.pos();
 		aguia.pos();
-		hero.setAguia(aguia);
+		hero.setEagle(aguia);
 		saida.pos();
-		lab.setAguia(aguia);
+		lab.setEagle(aguia);
 		for (int i = 0; i < NumeroD; i++)// contruie a lista, menos ou igual
 		{
 			Dragon temp = new Dragon(this);
@@ -135,11 +135,11 @@ public class MazeGame implements Serializable {
 	public void bigEat() {
 		for (int i = 0; i < NumeroD; i++) {
 			DragonList.listIterator(i).next();
-			if (DragonList.listIterator(i).next().eat()) {
-				if (hero.getSword()) {
+			if (DragonList.listIterator(i).next().killHero()) {
+				if (hero.hasSword()) {
 					DragonList.remove(i);
 					NumeroD--;
-				} else if (!DragonList.listIterator(i).next().getSleep())
+				} else if (!DragonList.listIterator(i).next().isSleeping())
 					LiveHero = false;
 			}
 		}
@@ -149,7 +149,7 @@ public class MazeGame implements Serializable {
 
 	public void bigEatEagle() {
 		for (int i = 0; i < NumeroD; i++)
-			DragonList.listIterator(i).next().eatEagle();
+			DragonList.listIterator(i).next().killEagle();
 	}
 	
 	/**
@@ -179,15 +179,15 @@ public class MazeGame implements Serializable {
 		return dificuldade;
 	}
 
-	public Aguia getAguia() {
+	public Eagle getAguia() {
 		return aguia;
 	}
 
-	public Labirinto getLab() {
+	public Labyrinth getLab() {
 		return lab;
 	}
 
-	public Espada getEspada() {
+	public Sword getEspada() {
 		return espada;
 	}
 
@@ -195,7 +195,7 @@ public class MazeGame implements Serializable {
 		return DragonList;
 	}
 
-	public Heroi getHero() {
+	public Hero getHero() {
 		return hero;
 	}
 
@@ -223,7 +223,7 @@ public class MazeGame implements Serializable {
 		return hero.getCoord();
 	}
 
-	public Saida getSaida() {
+	public Exit getSaida() {
 		return saida;
 	}
 
@@ -239,7 +239,7 @@ public class MazeGame implements Serializable {
 		lab.setSpace(x, y,C);
 	}
 
-	public void setEspada(Espada espada) {
+	public void setEspada(Sword espada) {
 		this.espada = espada;
 	}
 
@@ -259,15 +259,15 @@ public class MazeGame implements Serializable {
 		NumeroD = num;
 	}
 
-	public void setHero(Heroi hero) {
+	public void setHero(Hero hero) {
 		this.hero = hero;
 	}
 
-	public void setAguia(Aguia aguia) {
+	public void setAguia(Eagle aguia) {
 		this.aguia = aguia;
 	}
 
-	public void setLab(Labirinto lab) {
+	public void setLab(Labyrinth lab) {
 		this.lab = lab;
 	}
 
@@ -275,7 +275,7 @@ public class MazeGame implements Serializable {
 		this.dificuldade = diff;
 	}
 
-	public void setSaida(Saida saida) {
+	public void setSaida(Exit saida) {
 		this.saida = saida;
 	}
 

@@ -1,17 +1,29 @@
 package maze.game;
 import java.util.Random;
 
-public class Saida extends MazeObject{
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Exit.
+ * 
+ * A maze object representing the exit
+ */
+public class Exit extends MazeObject{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
-	public Saida(MazeGame mazeGame) {
+	/**
+	 * Instantiates a new saida.
+	 *
+	 * @param mazeGame the maze game
+	 */
+	public Exit(MazeGame mazeGame) {
 		super(mazeGame);
 	}
 
+	/**
+	 * @see maze.game.MazeObject#pos()
+	 */
 	public void pos()
 	{
 		Random r = new Random();
@@ -31,7 +43,5 @@ public class Saida extends MazeObject{
 		} while (game.getSpace(x + 1, y) != ' ' && game.getSpace(x - 1, y) != ' '
 				&& game.getSpace(x, y + 1) != ' ' && game.getSpace(x + 1, y) != ' ');
 	}
-
-	
 
 }

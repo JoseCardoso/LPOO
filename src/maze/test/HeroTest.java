@@ -22,10 +22,10 @@ public class HeroTest {
 
 	MazeCli cli = new MazeCli();
 	MazeGame maze = new MazeGame();
-	Labirinto lab = new Labirinto(maze);
-	Heroi hero = new Heroi(maze);
-	Espada espada = new Espada(maze);
-	Saida saida = new Saida(maze);
+	Labyrinth lab = new Labyrinth(maze);
+	Hero hero = new Hero(maze);
+	Sword espada = new Sword(maze);
+	Exit saida = new Exit(maze);
 	ArrayList<Dragon> dragons =new ArrayList<Dragon>();
 	
 	/**
@@ -102,7 +102,7 @@ public class HeroTest {
 		hero.setCoord(2, 1);
 		lab.updateLab();
 		hero.move("d");
-		assertEquals(true,hero.getSword());		
+		assertEquals(true,hero.hasSword());		
 	}
 	
 	
@@ -214,7 +214,7 @@ public class HeroTest {
 		lab.updateLab();
 		
 		assertEquals(true,maze.update("a"));
-		assertEquals(false,hero.getSword());
+		assertEquals(false,hero.hasSword());
 	}
 	
 	
