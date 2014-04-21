@@ -39,7 +39,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 	private boolean availableExit;
 	private boolean availableHero;
 	private boolean availableSword;
-	
+
 
 
 
@@ -74,7 +74,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 		heroSwordIMG = ImageIO.read(new File("res/HeroSword.png"));
 		sleepDragonIMG = ImageIO.read(new File("res/SleepDragon.png"));
 		eagleIMG = ImageIO.read(new File("res/eagle.png"));
-	
+
 
 	}
 	@Override
@@ -106,18 +106,18 @@ public class CustomMazeCreationPanel extends JPanel   {
 				else if (maze[i][j] == 'A')
 					tile = heroSwordIMG;
 
-				
+
 				int dx1 = j * (this.getWidth() / size) ;
 				int dx2 = this.getWidth() / size;
 
 				int dy1 = i * (this.getHeight()/ size);
 				int dy2 =this.getHeight() / size;
-			
+
 				if (tile != pathIMG && tile != wallIMG)
 					g2d.drawImage(backtile, dx1,dy1,dx2,dy2, null);
 				g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
-				
-					
+
+
 			}
 		}
 
@@ -197,6 +197,11 @@ public class CustomMazeCreationPanel extends JPanel   {
 				availableHero = false;
 				return 'H';
 			}
+			else if(previous == 'D')
+			{
+				nDragons--;
+				return 'H';
+			}
 			else
 			{
 				JOptionPane.showMessageDialog(null, "Your hero must be on path!");
@@ -225,6 +230,11 @@ public class CustomMazeCreationPanel extends JPanel   {
 			{	
 				emptyMaze[dx][dy] = 'X';
 				return 'X';
+			}
+			else if(previous == 'D')
+			{
+				nDragons--;
+				return ' ';
 			}
 			else
 			{
@@ -261,7 +271,12 @@ public class CustomMazeCreationPanel extends JPanel   {
 			return ' ';
 		}
 		if(availableSword)
-			if(previous != 'X' && previous != 'S')
+			if(previous == 'D')
+			{
+				nDragons--;
+				return 'E';
+			}
+			else if(previous != 'X' && previous != 'S')
 			{
 				availableSword = false;
 				return 'E';
@@ -280,8 +295,12 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 	private char wallRequirements(char previous,int dx, int dy)
 	{
-
-		if(previous == 'X' && 
+		if(previous == 'D')
+		{
+			nDragons--;
+			return 'X';
+		}
+		else if(previous == 'X' && 
 				!( (dx == 0 || dx == size-1)
 						||
 						(dy == 0 || dy == size-1) ))
@@ -320,7 +339,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 		else
 			return wallRequirements(previous, dx, dy);
 	}
-	
+
 	public void setSize(int size) {
 		this.size = size;
 		maze = new char[size][size];
