@@ -217,8 +217,14 @@ public class GPanel extends JPanel   {
 					int dy1 = i * (this.getHeight()/ maze.length);
 					int dy2 =this.getHeight() / maze.length;
 
+					
+					if (game.getSaida().getCoord()[0] == game.getHero().getCoord()[0] &&game.getSaida().getCoord()[0] == game.getHero().getCoord()[0])
+						g2d.drawImage(exitIMG, dx1,dy1,dx2,dy2, null);
+					
 					g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
-
+					
+					
+						
 
 				}
 

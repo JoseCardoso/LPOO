@@ -82,7 +82,7 @@ public class GFrame {
 		frmFairyTailSclass.setTitle("Fairy Tail S-Class Quest");
 		frmFairyTailSclass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		background=new JLabel(new ImageIcon("res/backgroundActualDragon.png"));
+		background=new JLabel(new ImageIcon("res/background.png"));
 		frmFairyTailSclass.getContentPane().add(background, BorderLayout.CENTER);
 		background.setLayout(null);
 		
@@ -381,7 +381,7 @@ public class GFrame {
 	public void start() {
 
 
-		frmFairyTailSclass.setSize(new Dimension(1024, 660));
+		frmFairyTailSclass.setSize(new Dimension(1023, 680));
 		frmFairyTailSclass.setResizable(false);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
