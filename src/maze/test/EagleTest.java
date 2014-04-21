@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
 /*			{'X','X','X','X','X','X','X','X','X','X'},           isto é para ver o labirinto estático
 			{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'}, 
 			{'X',' ','X','X',' ','X',' ','X',' ','X'}, 
@@ -20,7 +21,12 @@ import org.junit.Test;
 */
 
 
-public class terceira {
+/**
+ * The Class EagleTest.
+ * 
+ * This class checks if the behavior of the eagle is correct
+ */
+public class EagleTest {
 
 	MazeCli cli = new MazeCli();
 	MazeGame maze = new MazeGame();
@@ -32,6 +38,12 @@ public class terceira {
 	
 	
 	
+	/**
+	 * Test launch eagle.
+	 * 
+	 * 
+	 * Test passes is eagle leaves hero to go get the sword
+	 */
 	@Test
 	public void testLaunchEagle()
 	{
@@ -55,6 +67,11 @@ public class terceira {
 		lab.updateLab();
 	}
 	
+	/**
+	 * Test move eagle.
+	 * 
+	 * Test passes if eagle moves towards the sword
+	 */
 	@Test
 	public void testMoveEagle()
 	{
@@ -79,6 +96,11 @@ public class terceira {
 		assertEquals(2,aguia.getCoord()[1]);
 	}
 	
+	/**
+	 * Test find sword.
+	 * 
+	 * Test passes if eagle finds sword and picks it
+	 */
 	@Test
 	public void testFindSword(){
 		maze = cli.getGame();
@@ -107,6 +129,11 @@ public class terceira {
 		assertEquals(true,aguia.foundSword());
 	}
 	
+	/**
+	 * Test pick eagle.
+	 * 
+	 * Test passes if eagle returns to the hero and gives him the sword
+	 */
 	@Test
 	public void testPickEagle(){
 		maze = cli.getGame();
@@ -138,6 +165,11 @@ public class terceira {
 		lab.updateLab();
 		aguia.move();
 		lab.updateLab();
+		aguia.move();
+		lab.updateLab();
+		aguia.move();
+		lab.updateLab();
+
 		assertEquals(true, hero.pickUpEagle());
 		
 

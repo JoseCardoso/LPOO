@@ -8,7 +8,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class Segundo {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DragonTest.
+ * 
+ * This class checks if the behavior of the dragons are correct
+ */
+public class DragonTest {
 	
 	MazeCli cli = new MazeCli();
 	MazeGame maze = new MazeGame();
@@ -19,6 +25,11 @@ public class Segundo {
 	private ArrayList<Dragon> dragons =new ArrayList<Dragon>();
 
 
+	/**
+	 * Test move free.
+	 * 
+	 * Test passes if dragon can move
+	 */
 	@Test
 	public void testMoveFree()
 	{
@@ -53,6 +64,11 @@ public class Segundo {
 	}
 	
 	
+	/**
+	 * Test sleep.
+	 * 
+	 * Test passes if dragon goes to sleep
+	 */
 	@Test
 	public void testSleep()
 	{
@@ -78,6 +94,11 @@ public class Segundo {
 
 	}
 	
+	/**
+	 * Multiple dragons.
+	 * 
+	 * Test passes if various dragons can move and sleep
+	 */
 	@Test
 	public void MultipleDragons()
 	{
