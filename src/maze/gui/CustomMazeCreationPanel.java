@@ -132,7 +132,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mousePressed(MouseEvent e) {
 			int x=e.getX();
 			int y=e.getY();
 			int dx = x/(getWidth() / size);
@@ -256,7 +256,10 @@ public class CustomMazeCreationPanel extends JPanel   {
 	private char swordRequirements(char previous)
 	{
 		if (previous == 'E')
+		{
+			availableSword = true;
 			return ' ';
+		}
 		if(availableSword)
 			if(previous != 'X' && previous != 'S')
 			{
