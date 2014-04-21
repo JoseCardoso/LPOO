@@ -23,7 +23,7 @@ public class Eagle extends MazeObject{
 	public Eagle(MazeGame mazeGame) {
 		super(mazeGame);
 		hero = game.getHero();
-		sword = game.getEspada();
+		sword = game.getSword();
 	}
 
 	/**

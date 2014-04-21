@@ -24,7 +24,7 @@ public class Dragon  extends MazeObject {
 	{
 		super(mazeGame);
 		hero = game.getHero();
-		eagle = game.getAguia();
+		eagle = game.getEagle();
 	}
 
 

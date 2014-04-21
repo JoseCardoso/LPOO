@@ -29,9 +29,19 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GFrame.
+ */
 public class GFrame {
-	JFrame frmFairyTailSclass = new JFrame();
+	
+	/** The frm Dbz Battle. */
+	JFrame frmDbzBattle = new JFrame();
+	
+	/** The game panel. */
 	GPanel gamePanel;
+	
+	/** The Op Frame. */
 	optionsFrame Op;
 	private JPanel buttonsPanel;
 	private JPanel buttonsPanel2;
@@ -45,21 +55,69 @@ public class GFrame {
 	private JButton btnCreateMaze;
 	private JButton btnLoadCustom;
 	private JLabel background;
-	int nD = 1, nM = 7 , nDf = 1;
+	
+	/** The number of dragons. */
+	int nD = 1;
+	
+
+	/** The maze size. */
+	int nM = 7;
+	
+
+	/** The difficulty. */
+	int nDf = 1;
+	
+	/** The m random. */
 	boolean mRandom = false;
+	
+	/** The flag to see if changes are made ingame. */
 	boolean inGameChange =false;
+	
+	/** The up key. */
 	int upKey = KeyEvent.VK_UP;
+	
+	/** The left key. */
 	int leftKey = KeyEvent.VK_LEFT;
+	
+	/** The right key. */
 	int rightKey = KeyEvent.VK_RIGHT;
+	
+	/** The down key. */
 	int downKey = KeyEvent.VK_DOWN;
+	
+	/** The send eagle key. */
 	int sendEagleKey = KeyEvent.VK_SPACE;
+	
+	/** The saved up key. */
 	int savedUpKey;
+	
+	/** The saved left key. */
 	int savedLeftKey;
+	
+	/** The saved right key. */
 	int savedRightKey;
+	
+	/** The saved down key. */
 	int savedDownKey;
+	
+	/** The saved send eagle key. */
 	int savedSendEagleKey;
+	
 	/**
-	 * Create the frame.
+	 * Creates the base frame for all GUI.
+	 * 
+	 * 
+	 *
+	 * @param nD the number of dragons
+	 * @param nDf the difficulty
+	 * @param nM the maze size
+	 * @param mRandom the m random
+	 * @param upKey the up key
+	 * @param rightKey the right key
+	 * @param leftKey the left key
+	 * @param downKey the down key
+	 * @param sendEagleKey the send eagle key
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public GFrame(int nD , int nDf, int nM, boolean mRandom ,int upKey,int rightKey,int leftKey,int downKey,int sendEagleKey) throws IOException {
 		
@@ -79,11 +137,11 @@ public class GFrame {
 		savedRightKey = rightKey;
 		savedSendEagleKey = sendEagleKey;
 		
-		frmFairyTailSclass.setTitle("Fairy Tail S-Class Quest");
-		frmFairyTailSclass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDbzBattle.setTitle("Dragon Ball Z Epic Battle");
+		frmDbzBattle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		background=new JLabel(new ImageIcon("res/background.png"));
-		frmFairyTailSclass.getContentPane().add(background, BorderLayout.CENTER);
+		frmDbzBattle.getContentPane().add(background, BorderLayout.CENTER);
 		background.setLayout(null);
 		
 
@@ -118,11 +176,11 @@ public class GFrame {
 				int res = JOptionPane.showConfirmDialog(null, msg);
 
 				if (res == JOptionPane.YES_OPTION) {
-					frmFairyTailSclass.setSize(642, 598);
+					frmDbzBattle.setSize(642, 598);
 
 					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-					frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
-							/ 2 - frmFairyTailSclass.getSize().height / 2);
+					frmDbzBattle.setLocation(dim.width / 2 - frmDbzBattle.getSize().width / 2, dim.height
+							/ 2 - frmDbzBattle.getSize().height / 2);
 
 					// starting new game with new options
 
@@ -132,8 +190,8 @@ public class GFrame {
 					buttonsPanel3.setVisible(true);
 					background.setVisible(false);
 
-					frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
-					frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
+					frmDbzBattle.getContentPane().add(gamePanel, BorderLayout.CENTER);
+					frmDbzBattle.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 				
 					gamePanel.startGame();
 				}
@@ -146,7 +204,7 @@ public class GFrame {
 				int res = JOptionPane.showConfirmDialog(null, msg);
 
 				if (res == JOptionPane.YES_OPTION) {
-					frmFairyTailSclass.dispose();
+					frmDbzBattle.dispose();
 				}
 			}
 		});
@@ -237,13 +295,13 @@ public class GFrame {
 						
 						reader.close();
 						if(obj instanceof MazeGame){
-							frmFairyTailSclass.setSize(642, 598);
+							frmDbzBattle.setSize(642, 598);
 						
 					
 
 							Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-							frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
-									/ 2 - frmFairyTailSclass.getSize().height / 2);
+							frmDbzBattle.setLocation(dim.width / 2 - frmDbzBattle.getSize().width / 2, dim.height
+									/ 2 - frmDbzBattle.getSize().height / 2);
 
 							// starting new game with new options
 
@@ -252,8 +310,8 @@ public class GFrame {
 							buttonsPanel3.setVisible(true);
 							background.setVisible(false);
 
-							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
-							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
+							frmDbzBattle.getContentPane().add(gamePanel, BorderLayout.CENTER);
+							frmDbzBattle.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 						
 							((MazeGame) obj).createRandomWrapper();
 							
@@ -299,12 +357,12 @@ public class GFrame {
 						
 						reader.close();
 						if(obj instanceof Object[]){
-							frmFairyTailSclass.setSize(642, 598);
+							frmDbzBattle.setSize(642, 598);
 						
 
 							Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-							frmFairyTailSclass.setLocation(dim.width / 2 - frmFairyTailSclass.getSize().width / 2, dim.height
-									/ 2 - frmFairyTailSclass.getSize().height / 2);
+							frmDbzBattle.setLocation(dim.width / 2 - frmDbzBattle.getSize().width / 2, dim.height
+									/ 2 - frmDbzBattle.getSize().height / 2);
 
 							// starting new game with new options
 
@@ -313,8 +371,8 @@ public class GFrame {
 							buttonsPanel3.setVisible(true);
 							background.setVisible(false);
 
-							frmFairyTailSclass.getContentPane().add(gamePanel, BorderLayout.CENTER);
-							frmFairyTailSclass.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
+							frmDbzBattle.getContentPane().add(gamePanel, BorderLayout.CENTER);
+							frmDbzBattle.getContentPane().add(buttonsPanel3, BorderLayout.SOUTH);
 						
 							Object[] obj2 = (Object[]) obj;
 							int diff = (Integer) obj2[0];
@@ -343,12 +401,7 @@ public class GFrame {
 		});
 	}
 
-	
-	/**
-	 * Adds buttons to game windows layout.
-	 */
 
-	
 	private void addButtons() {
 
 
@@ -365,31 +418,35 @@ public class GFrame {
 		buttonsPanel3.add(btnOptionsInGame);
 		buttonsPanel3.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		frmFairyTailSclass.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
+		frmDbzBattle.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
 		
 		btnLoadCustom = new JButton("Load Custom Maze");
 		buttonsPanel.add(btnLoadCustom);
 		
 		
-		frmFairyTailSclass.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
+		frmDbzBattle.getContentPane().add(buttonsPanel2, BorderLayout.SOUTH);
 				
 		
 	}
 	
 	
 
+	/**
+	 * Starts the frame
+	 * 
+	 */
 	public void start() {
 
 
-		frmFairyTailSclass.setSize(new Dimension(1023, 680));
-		frmFairyTailSclass.setResizable(false);
+		frmDbzBattle.setSize(new Dimension(1023, 680));
+		frmDbzBattle.setResizable(false);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frmFairyTailSclass.setLocation(
-				dim.width / 2 - frmFairyTailSclass.getSize().width / 2,
-				dim.height / 2 - frmFairyTailSclass.getSize().height / 2);
+		frmDbzBattle.setLocation(
+				dim.width / 2 - frmDbzBattle.getSize().width / 2,
+				dim.height / 2 - frmDbzBattle.getSize().height / 2);
 
-		frmFairyTailSclass.setVisible(true);
+		frmDbzBattle.setVisible(true);
 	}
 
 }

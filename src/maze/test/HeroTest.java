@@ -67,7 +67,7 @@ public class HeroTest {
 		maze.setNdragon(0);
 		maze.generate(false);
 		hero = maze.getHero();
-		saida = maze.getSaida();
+		saida = maze.getExit();
 		lab = maze.getLab();
 		hero.setCoord(1, 1);
 		saida.setCoord(0, 0);
@@ -94,7 +94,7 @@ public class HeroTest {
 		maze.setNdragon(1);
 		maze.generate(false);
 		hero = maze.getHero();
-		espada = maze.getEspada();
+		espada = maze.getSword();
 		lab = maze.getLab();
 		dragons = maze.getDragonList();
 		dragons.listIterator(0).next().setCoord(0, 0);//colocar o dragão em 0|0 para não conseguir matar o herói
@@ -127,7 +127,7 @@ public class HeroTest {
 		hero.setCoord(1, 1);
 		hero.move("d");
 		lab.updateLab();
-		maze.bigEat();
+		maze.searchHeroToKill();
 		assertEquals(false,maze.heroIsAlive());		
 	}
 	
@@ -145,7 +145,7 @@ public class HeroTest {
 		maze.generate(false);
 		hero = maze.getHero();
 		lab = maze.getLab();
-		espada = maze.getEspada();
+		espada = maze.getSword();
 		espada.setCoord(2, 1);
 		dragons = maze.getDragonList();
 		dragons.listIterator(0).next().setCoord(3, 1);//colocar o dragão em 0|0 para não conseguir matar o herói
@@ -153,7 +153,7 @@ public class HeroTest {
 		lab.updateLab();
 		hero.move("d");
 		lab.updateLab();
-		maze.bigEat();
+		maze.searchHeroToKill();
 		assertEquals(true,maze.heroIsAlive());		
 	}
 	
@@ -171,7 +171,7 @@ public class HeroTest {
 		maze.generate(false);
 		hero = maze.getHero();
 		lab = maze.getLab();
-		saida = maze.getSaida();
+		saida = maze.getExit();
 		int x = saida.getCoord()[0], y = saida.getCoord()[1];
 		maze.setSpace(x, y, 'X');
 		saida.setCoord(0, 1);
@@ -201,7 +201,7 @@ public class HeroTest {
 		maze.generate(false);
 		lab = maze.getLab();
 		hero = maze.getHero();
-		saida = maze.getSaida();
+		saida = maze.getExit();
 		x = hero.getCoord()[0];
 		y = hero.getCoord()[1];
 		lab.setSpace(x, y, ' ');

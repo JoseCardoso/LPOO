@@ -53,10 +53,10 @@ public class Miscellaneous {
 	}
 
 	/**
-	 * Gets the key corresponding to the letter specified.
+	 * Gets the key corresponding to the specified letter.
 	 * 
 	 * @param str
-	 *            letter to get key from
+	 *            letter got from key
 	 * @return the matching key
 	 */
 	public static int getKeyFromString(String str) {

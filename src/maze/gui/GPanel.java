@@ -14,13 +14,20 @@ import javax.swing.JPanel;
 
 import maze.game.MazeGame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GPanel.
+ * 
+ * this class is responsible to represent graphic interface
+ * 
+ * 
+ */
 public class GPanel extends JPanel   {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
+	/** The game. */
 	MazeGame game = new MazeGame();
 	private char[][] maze = new char[game.getN()][game.getN()];
 	private char[][] emptyMaze = new char[game.getN()][game.getN()];
@@ -38,6 +45,12 @@ public class GPanel extends JPanel   {
 
 	private GFrame gF;
 
+	/**
+	 * Instantiates a new g panel.
+	 *
+	 * @param gF the game frame
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public GPanel(GFrame gF) throws IOException {
 		this.gF = gF;
 		
@@ -49,10 +62,13 @@ public class GPanel extends JPanel   {
 	}
 
 
+	/**
+	 * Start game.
+	 */
 	public void startGame()
 	{		
 		game.autoGen(gF.nM, gF.nD, gF.nDf, gF.mRandom);
-		gF.frmFairyTailSclass.setResizable(true);
+		gF.frmDbzBattle.setResizable(true);
 		setVisible(true);
 		game.update("");
 		repaint();
@@ -61,13 +77,18 @@ public class GPanel extends JPanel   {
 
 	}
 
+	/**
+	 * Start game with a specific game
+	 *
+	 * @param game the game
+	 */
 	public void startGame(MazeGame game)
 	{
 
 
 		this.game = game;
 		setVisible(true);
-		gF.frmFairyTailSclass.setResizable(true);
+		gF.frmDbzBattle.setResizable(true);
 		game.update("");
 		repaint();
 		requestFocus();
@@ -77,13 +98,24 @@ public class GPanel extends JPanel   {
 
 
 
+	/**
+	 * Start game with a maze and difficulty
+	 *
+	 * @param obj the maze
+	 * @param diff the difficulty
+	 */
 	public void startGame(char[][] obj,int diff) {
 		// TODO Auto-generated method stub
 		game.create(obj,diff);
-		gF.frmFairyTailSclass.setResizable(true);
+		gF.frmDbzBattle.setResizable(true);
 	}
 
 
+	/**
+	 * Loads sprites.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void loadImage() throws IOException {
 		wallIMG = ImageIO.read(new File("res/wall.png"));
 		pathIMG = ImageIO.read(new File("res/path.png"));
@@ -98,7 +130,16 @@ public class GPanel extends JPanel   {
 
 	}
 
+	/**
+	 * The Class MyKeyboardAdapter.
+	 * 
+	 * this class is responsible to receive user inputs
+	 */
 	public class MyKeyboardAdapter extends KeyAdapter {
+		
+		/**
+		 * @see java.awt.event.KeyAdapter#keyPressed(java.awt.event.KeyEvent)
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) {
 
@@ -125,7 +166,7 @@ public class GPanel extends JPanel   {
 				{
 					String msg = "You win!";
 					JOptionPane.showMessageDialog(getRootPane(), msg);
-					gF.frmFairyTailSclass.dispose();
+					gF.frmDbzBattle.dispose();
 					try {
 						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.upKey, gF.rightKey, gF.leftKey, gF.downKey, gF.sendEagleKey);
 						
@@ -140,7 +181,7 @@ public class GPanel extends JPanel   {
 
 					String msg = "Game Over!";
 					JOptionPane.showMessageDialog(getRootPane(), msg);
-					gF.frmFairyTailSclass.dispose();
+					gF.frmDbzBattle.dispose();
 					try {
 						gF = new GFrame(gF.nD ,gF.nDf,gF.nM,gF.mRandom, gF.upKey, gF.rightKey, gF.leftKey, gF.downKey, gF.sendEagleKey);
 						
@@ -159,6 +200,9 @@ public class GPanel extends JPanel   {
 		}
 	}
 
+	/**
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -216,9 +260,11 @@ public class GPanel extends JPanel   {
 
 					int dy1 = i * (this.getHeight()/ maze.length);
 					int dy2 =this.getHeight() / maze.length;
+					
+					
 
 					
-					if (game.getSaida().getCoord()[0] == game.getHero().getCoord()[0] && game.getSaida().getCoord()[1] == game.getHero().getCoord()[1])
+					if (game.getExit().getCoord()[0] == game.getHero().getCoord()[0] && game.getExit().getCoord()[1] == game.getHero().getCoord()[1])
 						g2d.drawImage(exitIMG, dx1,dy1,dx2,dy2, null);
 					
 					g2d.drawImage(tile, dx1,dy1,dx2,dy2, null);
@@ -235,6 +281,10 @@ public class GPanel extends JPanel   {
 
 
 
+	/**
+	 * Prints the labyrinth.
+	 * 
+	 */
 	public void printLab() {
 		maze = game.getLab().getMaze();
 		repaint();

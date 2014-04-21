@@ -13,16 +13,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomMazeCreationPanel.
+ * 
+ * this class is responsible for maze customization graphical representation
+ */
 public class CustomMazeCreationPanel extends JPanel   {
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private char[][] maze;
 	private char[][] emptyMaze;
-	private CustomMaze lP;
+	private CustomMaze cM;
 	private Graphics2D g2d;
 	private BufferedImage wallIMG;
 	private BufferedImage pathIMG;
@@ -43,10 +45,17 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 
 
-	public CustomMazeCreationPanel(int size, CustomMaze lP) throws IOException {
+	/**
+	 * Instantiates a new custom maze creation panel.
+	 *
+	 * @param size the size
+	 * @param cM the custom maze
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public CustomMazeCreationPanel(int size, CustomMaze cM) throws IOException {
 
 		this.size = size;
-		this.lP = lP;
+		this.cM = cM;
 		nDragons = 0;
 		maze = new char[size][size];
 		emptyMaze = new char[size][size];
@@ -63,6 +72,11 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 	}
 
+	/**
+	 * Loads sprites.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void loadImage() throws IOException {
 		wallIMG = ImageIO.read(new File("res/wall.png"));
 		pathIMG = ImageIO.read(new File("res/path.png"));
@@ -77,6 +91,10 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 
 	}
+	
+	/**
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -123,14 +141,33 @@ public class CustomMazeCreationPanel extends JPanel   {
 
 	}
 
+	/**
+	 * Prints the lab state.
+	 */
 	public void printLab() {
 
 		repaint();
 	}
 
+	/**
+	 * The listener interface for receiving mouse events.
+	 * The class that is interested in processing a mouse
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMouseListener<code> method. When
+	 * the mouse event occurs, that object's appropriate
+	 * method is invoked.
+	 * 
+	 * this class is responsible for receiving the mouse inputs for custom maze creation
+	 *
+	 * @see MouseEvent
+	 */
 	public class MouseListener extends MouseAdapter {
 
 
+		/**
+		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mousePressed(MouseEvent e) {
 			int x=e.getX();
@@ -139,7 +176,7 @@ public class CustomMazeCreationPanel extends JPanel   {
 			int dy = y/(getHeight() / size) ;
 
 
-			maze[dy][dx] = getChar((String)lP.getObjects().getSelectedItem(),maze[dy][dx],dx,dy);
+			maze[dy][dx] = getChar((String)cM.getObjects().getSelectedItem(),maze[dy][dx],dx,dy);
 			repaint();
 		}
 	}
@@ -340,6 +377,11 @@ public class CustomMazeCreationPanel extends JPanel   {
 			return wallRequirements(previous, dx, dy);
 	}
 
+	/**
+	 * Sets the size.
+	 *
+	 * @param size the new size
+	 */
 	public void setSize(int size) {
 		this.size = size;
 		maze = new char[size][size];
@@ -354,18 +396,38 @@ public class CustomMazeCreationPanel extends JPanel   {
 		repaint();
 	}
 
+	/**
+	 * Gets the maze size.
+	 *
+	 * @return the maze size
+	 */
 	public int getMazeSize() {
 		return size;
 	}
 
+	/**
+	 * Gets the maze.
+	 *
+	 * @return the maze
+	 */
 	public char[][] getMaze() {
 		return maze;
 	}
 
+	/**
+	 * Gets the empty maze.
+	 *
+	 * @return the empty maze
+	 */
 	public char[][] getEmptyMaze() {
 		return emptyMaze;
 	}
 
+	/**
+	 * Ready to save.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean readyToSave() {
 		// TODO Auto-generated method stub
 		return (!availableExit && !availableHero && !availableSword && (nDragons > 0));

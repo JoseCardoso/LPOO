@@ -33,6 +33,13 @@ import javax.swing.JComboBox;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class optionsFrame.
+ * 
+ * this class is responsible for the options customization interface
+ *
+ */
 public class optionsFrame{
 
 	private GFrame gF;
@@ -52,20 +59,45 @@ public class optionsFrame{
 	private JLabel lbUpKey;
 	private JLabel KeysLabel;
 	private boolean custom = false;
+	
+	/** The Difficulty slider. */
 	JSlider DiffSlider;
+	
+	/** The Mazesize spinner. */
 	JSpinner MazeSizeSpinner;
+	
+	/** The Number Dragon spinner. */
 	JSpinner DragonSpinner;
+	
+	/** The Maze type. */
 	JComboBox<String> MazeType;
+	
+	/** The up key box. */
 	JComboBox<String> upKeyBox;
+	
+	/** The down key box. */
 	JComboBox<String> downKeyBox;
+	
+	/** The left key box. */
 	JComboBox<String> leftKeyBox;
+	
+	/** The right key box. */
 	JComboBox<String> rightKeyBox;
+	
+	/** The send eagle key box. */
 	JComboBox<String> sendEagleKeyBox;
 	private JPanel Config;
+	
+	/** The maze random flag. */
 	boolean mRandom = false;
 	private CustomMaze  cM;
 
 
+	/**
+	 * Instantiates a new options frame with a custom maze
+	 *
+	 * @param cM the custom maze
+	 */
 	public optionsFrame(CustomMaze  cM)
 	{
 		this.cM = cM;
@@ -106,6 +138,11 @@ public class optionsFrame{
 	}
 
 
+	/**
+	 * Instantiates a new options frame.
+	 *
+	 * @param gF the game frame
+	 */
 	public optionsFrame(final GFrame gF)
 	{
 		this.gF = gF;
@@ -171,7 +208,7 @@ public class optionsFrame{
 
 	}
 
-	public void setButtons()
+	private void setButtons()
 	{
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -211,7 +248,8 @@ public class optionsFrame{
 
 	}
 
-	public void configGameKeys(boolean inGameChange)
+	
+	private void configGameKeys(boolean inGameChange)
 	{
 		gF.upKey = Miscellaneous.getKeyFromString((String) upKeyBox.getSelectedItem());
 		gF.downKey = Miscellaneous.getKeyFromString((String) downKeyBox.getSelectedItem());
@@ -231,7 +269,7 @@ public class optionsFrame{
 
 	}
 
-	public void setLabels()
+	private void setLabels()
 	{
 
 		DiffLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -273,7 +311,7 @@ public class optionsFrame{
 
 	}
 
-	public void setComponents()
+	private void setComponents()
 	{
 
 		DiffSlider.setBorder(new CompoundBorder());
@@ -311,7 +349,7 @@ public class optionsFrame{
 
 	}
 
-	public void addComponents()
+	private void addComponents()
 	{
 		Return.add(btnSave);
 		Return.add(btnQuit);
@@ -347,6 +385,9 @@ public class optionsFrame{
 
 
 
+	/**
+	 * Shows the options frame
+	 */
 	public void show() {
 		if(!custom)
 			Options.setSize(361,520);

@@ -33,11 +33,11 @@ public class Labyrinth implements Serializable {
 	 */
 	public Labyrinth(MazeGame mazeGame) {
 		game = mazeGame;
-		sword = game.getEspada();
+		sword = game.getSword();
 		DragonList = game.getDragonList();
 		hero = game.getHero();
-		exit = game.getSaida();
-		eagle = game.getAguia();
+		exit = game.getExit();
+		eagle = game.getEagle();
 	}
 
 	/**
@@ -67,6 +67,8 @@ public class Labyrinth implements Serializable {
 
 	/**
 	 * Creates the lab.
+	 * 
+	 * This maze will be random
 	 */
 	public void createLab() {
 		st = new Stack<int[]>();
@@ -143,40 +145,20 @@ public class Labyrinth implements Serializable {
 		}
 	}
 
-	/**
-	 * Adds the to stack.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 */
-	public void addToStack(int x, int y) {
+	private void addToStack(int x, int y) {
 		int[] temp = new int[2];
 		temp[0] = x;
 		temp[1] = y;
 		st.push(temp);
 	}
 
-	/**
-	 * Fill maze.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param dx the dx
-	 * @param dy the dy
-	 */
-	public void fillMaze(int x, int y, int dx, int dy) {
+	
+	private void fillMaze(int x, int y, int dx, int dy) {
 		emptyMaze[y + dy][x + dx] = ' ';
 	}
 
-	/**
-	 * Checks for move.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param size the size
-	 * @return true, if successful
-	 */
-	public boolean hasMove(int x, int y, int size) {
+	
+	private boolean hasMove(int x, int y, int size) {
 	
 		if (y - 1 >= 0)
 			if (visitedCell[y - 1][x] == '.')
@@ -195,16 +177,8 @@ public class Labyrinth implements Serializable {
 				return true;
 		return false;
 	}
-
-	/**
-	 * Gets the valid maze.
-	 *
-	 * @param dx the dx
-	 * @param dy the dy
-	 * @param size the size
-	 * @return the valid maze
-	 */
-	public boolean getValidMaze(int dx, int dy, int size) {
+	
+	private boolean getValidMaze(int dx, int dy, int size) {
 		int x = st.peek()[0];
 		int y = st.peek()[1];
 	
@@ -219,6 +193,8 @@ public class Labyrinth implements Serializable {
 	 * Update lab.
 	 *
 	 * @return the char[][]
+	 * 
+	 * 			This function will be called everytime a move is made
 	 */
 	public char[][] updateLab() {
 		
@@ -254,33 +230,33 @@ public class Labyrinth implements Serializable {
 	/**
 	 * Draw dragon.
 	 *
-	 * @param coodE the cood e
+	 * @param coordE the coords of sword
 	 */
-	public void drawDragon(int[] coodE) {
-		NumeroD = game.getNdragon();
+	public void drawDragon(int[] coordE) {
+		NumeroD = game.getNumberD();
 		boolean dragonHasSword = false; // verifica se um dragao está na mesma
 		// posição que a espada
 		for (int i = 0; i < NumeroD; i++) {
-			int coodD[] = DragonList.listIterator(i).next().getCoord();
+			int coordD[] = DragonList.listIterator(i).next().getCoord();
 			if (DragonList.listIterator(i).next().isSleeping())
-				maze[coodD[1]][coodD[0]] = 'd';
+				maze[coordD[1]][coordD[0]] = 'd';
 			else
-				maze[coodD[1]][coodD[0]] = 'D';
+				maze[coordD[1]][coordD[0]] = 'D';
 			if (!hero.hasSword() && (!eagle.isWithSword()|| !eagle.isAlive() )) {
-				if (coodD[0] == coodE[0] && coodD[1] == coodE[1]) {
+				if (coordD[0] == coordE[0] && coordD[1] == coordE[1]) {
 					dragonHasSword = true;
-					maze[coodD[1]][coodD[0]] = 'F';
+					maze[coordD[1]][coordD[0]] = 'F';
 				} else if (!dragonHasSword)
-					maze[coodE[1]][coodE[0]] = 'E';
-			} else if (coodD[0] != coodE[0] || coodD[1] != coodE[1])// desenhar
-				// a espada
-				// em branco
-				// se o
-				// heroi ou
-				// a aguia
-				// tiverem
-				// espada
-				maze[coodE[1]][coodE[0]] = ' ';
+					maze[coordE[1]][coordE[0]] = 'E';
+			} else if (coordD[0] != coordE[0] || coordD[1] != coordE[1])// draws
+				// the sword
+				// in white
+				// if the
+				// hero or
+				// the eagle
+				// have
+				// sword
+				maze[coordE[1]][coordE[0]] = ' ';
 		}
 	
 	}
@@ -328,13 +304,13 @@ public class Labyrinth implements Serializable {
 	/**
 	 * Gets the space.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x the x coord of specific maze space
+	 * @param y the y coord of specific maze space
 	 * @return the space
 	 */
 	public char getSpace(int x, int y) {
 		if (x > N - 1 || x < 0 || y > N - 1 || y < 0)
-			return 'I'; //caso nao seja uma coordenada válida
+			return 'I'; //in case it isn't a valid space
 		return emptyMaze[y][x];
 	}
 
@@ -359,7 +335,7 @@ public class Labyrinth implements Serializable {
 	/**
 	 * Sets the n.
 	 *
-	 * @param n the new n
+	 * @param n the new size
 	 */
 	public void setN(int n) {
 		N = n;
@@ -368,9 +344,9 @@ public class Labyrinth implements Serializable {
 	/**
 	 * Sets the space.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param C the c
+	 * @param x the x coordinate of specific space
+	 * @param y the y coordinate of specific space
+	 * @param C the char to fill the specific space
 	 */
 	public void setSpace(int x, int y, char C) {
 		

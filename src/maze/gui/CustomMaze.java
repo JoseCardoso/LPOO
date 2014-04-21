@@ -26,6 +26,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomMaze.
+ * 
+ * this class is responsible for maze customization interface
+ */
 public class CustomMaze {
 
 	private JFrame frmCustomMaze;
@@ -39,6 +45,9 @@ public class CustomMaze {
 	private JButton btnSave;
 	private JSlider DiffSlider;
 
+	/**
+	 * Instantiates a new custom maze.
+	 */
 	public CustomMaze()
 	{
 		size = 7;
@@ -67,6 +76,9 @@ public class CustomMaze {
 	}
 
 
+	/**
+	 * Show.
+	 */
 	public void show()
 	{
 
@@ -175,6 +187,9 @@ public class CustomMaze {
 		frame.show();
 	}
 
+	/**
+	 * Update maze state
+	 */
 	public void updateMaze()
 	{
 		JFrame previousFrame = frmCustomMaze;
@@ -191,26 +206,51 @@ public class CustomMaze {
 		
 	}
 
+	/**
+	 * Gets the objects.
+	 *
+	 * @return the objects
+	 */
 	public JComboBox<String> getObjects() {
 		return objects;
 	}
 
 
+	/**
+	 * Gets the size.
+	 *
+	 * @return the size
+	 */
 	public int getSize() {
 		return size;
 	}
 
 
+	/**
+	 * Gets the diff.
+	 *
+	 * @return the difficulty
+	 */
 	public int getDiff() {
 		return diff;
 	}
 
 
+	/**
+	 * Sets the size.
+	 *
+	 * @param size the new size
+	 */
 	public void setSize(int size) {
 		this.size = size;
 	}
 
 
+	/**
+	 * Sets the diff.
+	 *
+	 * @param diff the new difficulty
+	 */
 	public void setDiff(int diff) {
 		this.diff = diff;
 	}

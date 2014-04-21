@@ -24,7 +24,7 @@ public class Hero extends MazeObject {
 	 */
 	public Hero(MazeGame mazeGame) {
 		super(mazeGame);
-		eagle = game.getAguia();
+		eagle = game.getEagle();
 	}
 
 	/**
@@ -67,17 +67,17 @@ public class Hero extends MazeObject {
 		char Valid;
 		Valid = game.getSpace(x + dx, y + dy);
 		if (Valid == ' ' || 
-				(x+dx == game.getSaida().getCoord()[0] &&
-						y+dy == game.getSaida().getCoord()[1] )
+				(x+dx == game.getExit().getCoord()[0] &&
+						y+dy == game.getExit().getCoord()[1] )
 						||(
-						x+dx == game.getEspada().getCoord()[0] &&
-						y+dy == game.getEspada().getCoord()[1] )) 
+						x+dx == game.getSword().getCoord()[0] &&
+						y+dy == game.getSword().getCoord()[1] )) 
 		{
 			y += dy;
 			x += dx;
 		}
-		if (x == game.getEspada().getCoord()[0] &&
-				y == game.getEspada().getCoord()[1])//testa caso o heroi esteja em cima da espada e nao a tenha apanhado
+		if (x == game.getSword().getCoord()[0] &&
+				y == game.getSword().getCoord()[1])//testa caso o heroi esteja em cima da espada e nao a tenha apanhado
 		{
 			sword = true;
 		}
